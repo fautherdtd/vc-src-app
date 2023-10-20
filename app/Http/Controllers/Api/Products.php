@@ -23,7 +23,7 @@ class Products extends Controller
             $model->where('category.slug', $request->input('slug'));
         }
 
-        if ($request->filled('slug')) {
+        if ($request->filled('sort')) {
             $model->orderBy($request->input('sort'), 'DESC');
         }
 
