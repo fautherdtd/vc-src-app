@@ -31,11 +31,14 @@ class Products extends Controller
 
     /**
      * @return ProductsResources
+     * @throws \Exception
      */
     public function popular(): ProductsResources
     {
         $model = Product::where('is_active', true)
-            ->orderBy('id', 'DESC');
-        return new ProductsResources($model->limit(4)->get());
+            ->orderBy('id', 'DESC')
+            ->offset(random_int(0, 10))
+            ->limit(4);
+        return new ProductsResources($model->get());
     }
 }
