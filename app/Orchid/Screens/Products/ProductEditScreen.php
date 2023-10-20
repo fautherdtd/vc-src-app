@@ -133,12 +133,12 @@ class ProductEditScreen extends Screen
             ]),
             Layout::columns([
                 Layout::rows([
-                    Upload::make('product.preview')
+                    Upload::make('product.attachment')
                         ->groups('preview')
                         ->maxFiles(1)
                 ])->title('Основное изображение'),
                 Layout::rows([
-                    Upload::make('product.gallery')
+                    Upload::make('product.attachment')
                         ->groups('gallery')
                 ])->title('Изображения для галереи'),
             ])
@@ -157,10 +157,7 @@ class ProductEditScreen extends Screen
             $request->get('product')
         )->save();
         $product->attachment()->syncWithoutDetaching(
-            $request->input('product.preview', [])
-        );
-        $product->attachment()->syncWithoutDetaching(
-            $request->input('product.gallery', [])
+            $request->input('product.attachment', [])
         );
         Alert::info('Продукт добавлен.');
         return redirect()->route('platform.product.list');
