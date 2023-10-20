@@ -20,7 +20,9 @@ class Products extends Controller
         $model = Product::where('is_active', true);
 
         if ($request->filled('slug')) {
-            $model->where('category.slug', $request->input('slug'));
+            $model->whereHas('category', function ($q) use($request) {
+                $q->where('slug', $request->input('slug'));
+            });
         }
 
         if ($request->filled('sort')) {
