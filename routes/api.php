@@ -26,4 +26,5 @@ Route::prefix('categories')->group(function () {
 
 Route::prefix('products')->group(function () {
     Route::get('list', [Products::class, 'index'])->name('index');
+    Route::get('popular', [Products::class, 'popular'])->name('popular');
 });

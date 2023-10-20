@@ -28,4 +28,14 @@ class Products extends Controller
 
         return new ProductsResources($model->get());
     }
+
+    /**
+     * @return ProductsResources
+     */
+    public function popular(): ProductsResources
+    {
+        $model = Product::where('is_active', true)
+            ->orderBy('id', 'DESC');
+        return new ProductsResources($model->limit(4));
+    }
 }
