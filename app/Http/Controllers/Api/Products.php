@@ -36,6 +36,6 @@ class Products extends Controller
     {
         $model = Product::where('is_active', true)
             ->orderBy('id', 'DESC');
-        return new ProductsResources($model->limit(4));
+        return new ProductsResources($model->limit(4)->get());
     }
 }
