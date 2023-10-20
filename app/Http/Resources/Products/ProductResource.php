@@ -33,7 +33,9 @@ class ProductResource extends JsonResource
      */
     protected function gallery(): array
     {
-        $gallery = [];
+        $gallery = [
+            $this->getUrl($this->attachment('preview')->first())
+        ];
         foreach ($this->attachment('gallery')->get() as $value) {
             $gallery[] = $this->getUrl($value);
         }
