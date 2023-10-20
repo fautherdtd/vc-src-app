@@ -44,13 +44,13 @@ class Products extends Controller
     }
 
     /**
-     * @param int $id
+     * @param string $slug
      * @return ProductResource
      */
-    public function item(int $id): ProductResource
+    public function item(string $slug): ProductResource
     {
         $model = Product::with('category')
-            ->where('id', $id);
+            ->where('slug', $slug);
         return new ProductResource($model->first());
     }
 }
