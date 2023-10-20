@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Helpers;
 
+use Illuminate\Support\Facades\Storage;
 use Orchid\Attachment\Models\Attachment;
 
 trait Images
@@ -12,6 +13,6 @@ trait Images
      */
     public function getUrl(Attachment $attachment): string
     {
-        return public_path() . $attachment->path . $attachment->name . '.' . $attachment->extension;
+        return Storage::disk('public')->url($attachment->path . $attachment->name . '.' . $attachment->extension);
     }
 }
