@@ -12,6 +12,6 @@ trait Images
      */
     public function getUrl(Attachment $attachment): string
     {
-        return url($attachment->path . $attachment->name . '.' . $attachment->extension);
+        return public_path() . $attachment->path . $attachment->name . '.' . $attachment->extension;
     }
 }
