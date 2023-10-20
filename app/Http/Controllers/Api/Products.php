@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Products\ProductResource;
 use App\Http\Resources\Products\ProductsResources;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -40,5 +41,16 @@ class Products extends Controller
             ->offset(random_int(0, 10))
             ->limit(4);
         return new ProductsResources($model->get());
+    }
+
+    /**
+     * @param int $id
+     * @return ProductResource
+     */
+    public function item(int $id): ProductResource
+    {
+        $model = Product::with('category')
+            ->where('id', $id);
+        return new ProductResource($model->first());
     }
 }

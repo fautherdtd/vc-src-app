@@ -12,11 +12,9 @@ class ProductShortResource extends JsonResource
 
     public function toArray(Request $request)
     {
-//        dd($this->attachment('preview')->first());
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'chars' => $this->chars,
             'price' => $this->price,
             'compound' => $this->compound,
             'image' => $this->getUrl($this->attachment('preview')->first())
