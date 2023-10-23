@@ -29,7 +29,7 @@ class Order extends Model
     public $casts = [
         'buyer' => 'array',
         'recipient' => 'array',
-        'delivery_time' => 'datetime',
+        'delivery_time' => 'timestamp',
     ];
 
     public function customer(): BelongsTo

@@ -1,0 +1,110 @@
+<template>
+    <AppLayout :title="product.data.name">
+        <div class="product-detail">
+            <div class="product-detail_carousel ">
+                <Flicking :options="{ bounce: 0, bound: true, horizontal: true }">
+                    <div class="product-detail_carousel--main"
+                         v-for="item in product.data.gallery" :key="item"
+                         :style="'background-image: url(' + item + ')'"></div>
+                </Flicking>
+            </div>
+            <div class="product-detail_info">
+                <div class="product-detail_info--title">
+                    <div class="product-detail_info--title-sub">
+                        <span>{{ product.data.category.name }}</span>
+                        <h1>{{ product.data.name }}</h1>
+                    </div>
+                    <button @click="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                            <path d="M6.4906 20.2828L16.8154 29.9818C17.1398 30.2866 17.302 30.439 17.5 30.439C17.6981 30.439 17.8603 30.2866 18.1847 29.9818L28.5095 20.2828C31.3622 17.6029 31.7087 13.193 29.3093 10.1005L28.8582 9.51903C25.9879 5.81959 20.2266 6.44002 18.2098 10.6657C17.9249 11.2626 17.0752 11.2626 16.7903 10.6657C14.7735 6.44002 9.01213 5.81959 6.14188 9.51904L5.69073 10.1005C3.29142 13.193 3.63785 17.6029 6.4906 20.2828Z" fill="#952323" fill-opacity="0.25" stroke="#222222" stroke-width="1.4"/>
+                        </svg>
+                    </button>
+                </div>
+                <fieldset class="product-detail_info--chars">
+                    <legend>Детали</legend>
+                    <p class="product-detail_info--chars-item" v-for="(value, key) in product.data.chars" :key="key">
+                        <b>{{  value['Название'] }}: </b> {{  value['Значение'] }}
+                    </p>
+                    <p class="product-detail_info--chars-item"><b>Состав: </b> {{ product.data.compound }}</p>
+                </fieldset>
+                <div class="product-detail_info--description">{{ product.data.description }}</div>
+                <div class="product-detail_info--flower-count" v-if="product.data.modify">
+                    <label for="flower-count" class="input-block">
+                        <h4>Кол-во цветов: </h4>
+                        <select name="flower-count" id="flower-count" class="select-primary">
+                            <option :value="modify['Название']" v-for="modify in product.data.modify">
+                                {{ modify['Кол-во цветов'] }} - {{ modify['Цена'] }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="product-detail_info--footer">
+                    <h1 class="product-detail_info--footer-price">
+                        {{ options.price }} ₽
+                    </h1>
+                    <div class="product-detail_info--footer-count">
+                        <div class="input-count">
+                            <button @click="options.countItem === 1 ? options.countItem = 1 : options.countItem--">-</button>
+                            <input type="number" :value="options.countItem" maxlength="99">
+                            <button @click="options.countItem++">+</button>
+                        </div>
+                    </div>
+                    <button
+                        v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
+                        @click="addToCart(product.data.id, {
+                          count: options.countItem,
+                          price: product.data.price
+                        })" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
+                            <path
+                                d="M26.25 12.9003V12.1203C26.25 11.568 25.8023 11.1203 25.25 11.1203H4.75C4.19772 11.1203 3.75 11.568 3.75 12.1203V12.9003C3.75 13.4526 4.19772 13.9003 4.75 13.9003H5.44986C5.91763 13.9003 6.3229 14.2246 6.4255 14.681L8.39899 23.4593C8.6042 24.372 9.41474 25.0206 10.3503 25.0206H19.6497C20.5853 25.0206 21.3958 24.372 21.601 23.4593L23.5745 14.681C23.6771 14.2246 24.0824 13.9003 24.5501 13.9003H25.25C25.8023 13.9003 26.25 13.4526 26.25 12.9003Z"
+                                fill="white" stroke="#000" stroke-width="1.4" />
+                            <path d="M10.625 4.86511L8.125 9.03521M19.375 4.86511L21.875 9.03521" stroke="#fff"
+                                  stroke-linecap="round" />
+                            <path d="M13.125 20.1555L11.875 15.9854M16.875 20.1555L18.125 15.9854" stroke="#fff"
+                                  stroke-linecap="round" />
+                        </svg>
+                        в корзине
+                    </button>
+                    <Link :href="route('cart.index')" v-else>
+                        <button class="btn btn-transparent">
+                            В корзине
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 14L8.23309 16.4248C8.66178 16.7463 9.26772 16.6728 9.60705 16.2581L18 6" stroke="#222222" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </Link>
+                </div>
+            </div>
+        </div>
+        <h1 class="header-title">Вам может понравиться</h1>
+        <div class="product-recommended">
+          <ProductCart
+              v-for="product in popular.data"
+              :key="product.id"
+              :product="product"/>
+        </div>
+    </AppLayout>
+</template>
+<script setup>
+import Flicking from "@egjs/vue3-flicking";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import ProductCart from "@/Components/Products/ProductCart.vue";
+import {ref, watch} from "vue";
+import {useForm, usePage, Link} from "@inertiajs/vue3";
+import addToCart from "@/Mixins/Cart.js";
+
+defineProps({
+    product: Array,
+    popular: Array
+})
+const options = useForm({
+    price: usePage().props.product.data.price,
+    countItem: ref(1)
+})
+watch(() => options.countItem, (current, prev) => {
+    current > prev ?
+        options.price += usePage().props.product.data.price : options.price -= usePage().props.product.data.price
+
+})
+</script>
