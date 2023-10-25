@@ -268,13 +268,26 @@
         </div>
         <div class="header-menu_nav">
             <Link :href="route('catalog')">
-                <a href="" class="header-menu_nav--link">Каталог</a>
+                <a href="" class="header-menu_nav--link"
+                   :class="route().current('catalog')  ? 'header-menu_nav--link-active' : ''"
+                    >Каталог</a>
             </Link>
-            <a href="" class="header-menu_nav--link">Доставка</a>
-            <Link :href="route('catalog')">
-                <a href="" class="header-menu_nav--link">Оплата</a>
+            <Link :href="route('delivery')">
+                <a href=""
+                   class="header-menu_nav--link"
+                   :class="route().current('delivery') ? 'header-menu_nav--link-active' : ''"
+                    >Доставка</a>
             </Link>
-            <a href="" class="header-menu_nav--link">О нас</a>
+            <Link :href="route('payment')">
+                <a href=""
+                   :class="route().current('payment') ? 'header-menu_nav--link-active' : ''"
+                   class="header-menu_nav--link">Оплата</a>
+            </Link>
+            <Link :href="route('about')">
+                <a href=""
+                   :class="route().current('about') ? 'header-menu_nav--link-active' : ''"
+                   class="header-menu_nav--link">О нас</a>
+            </Link>
         </div>
         <div class="header-menu_btn">
             <div class="header-menu_btn--item">

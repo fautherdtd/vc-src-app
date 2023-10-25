@@ -23,7 +23,8 @@
         color: #000;
         margin-right: 35px;
 
-        &:hover {
+        &:hover,
+        &-active{
             color: #303030;
             border-bottom: 1px solid $primaryColor;
         }
@@ -751,5 +752,41 @@ footer {
             margin-bottom: 30px;
             text-align: center;
         }
+    }
+}
+.page-title {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-bottom: 35px;
+}
+.page-container {
+    max-width: 800px;
+
+    &_list {
+        list-style-type: disc;
+        margin-left: 25px;
+        li {
+            margin: 5px 0;
+        }
+    }
+
+    &_header {
+        &-sub {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 15px 0 !important;
+
+            &:before {
+                content: "—";
+                margin-right: 10px;
+            }
+        }
+    }
+    p {
+        margin: 5px 0;
+        line-height: 18px;
     }
 }

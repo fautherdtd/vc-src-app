@@ -95,16 +95,16 @@
             </div>
             <ul class="footer-container_nav">
                 <li>
-                    <router-link to="/">Каталог</router-link>
+                    <Link :href="route('catalog')">Каталог</Link>
                 </li>
                 <li>
-                    <router-link to="/">Доставка</router-link>
+                    <Link :href="route('delivery')">Доставка</Link>
                 </li>
                 <li>
-                    <router-link to="/">Оплата</router-link>
+                    <Link :href="route('payment')">Оплата</Link>
                 </li>
                 <li>
-                    <router-link to="/">О нас</router-link>
+                    <Link :href="route('about')">О нас</Link>
                 </li>
             </ul>
             <div class="footer-container_contact">
@@ -138,3 +138,6 @@
         </div>
     </footer>
 </template>
+<script setup>
+import { Link, router } from '@inertiajs/vue3';
+</script>

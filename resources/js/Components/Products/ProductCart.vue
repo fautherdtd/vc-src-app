@@ -1,7 +1,7 @@
 <template>
     <div class="product-item">
         <div class="product-item_img" :style="'background-image: url(' + product.image + ')'" ></div>
-        <Link :href="route('product', this.product.slug)">
+        <Link :href="route('product', product.slug)">
             <div class="product-item_content">
                 <h5 class="product-item_content--title">{{  product.name  }}</h5>
                 <p class="product-item_content--compound">Состав: {{  product.compound  }}</p>

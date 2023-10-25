@@ -23,6 +23,16 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/product/{slug}', [ProductController::class, 'index'])->name('product');
 
+Route::get('/delivery', function () {
+    return Inertia::render('Delivery');
+})->name('delivery');
+Route::get('/about', function () {
+    return Inertia::render('Delivery');
+})->name('about');
+Route::get('/payment', function () {
+    return Inertia::render('Payment');
+})->name('payment');
+
 Route::prefix('cart')->name('cart.')->group(function () {
     /** Cart */
     Route::get('/', [CartController::class, 'index'])->name('index');
