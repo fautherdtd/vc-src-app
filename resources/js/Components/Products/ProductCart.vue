@@ -10,7 +10,10 @@
         <div class="product-item_footer">
             <div class="product-item_footer--price">{{  product.price  }} ₽</div>
             <div class="product-item_footer--btn">
-                <span>
+                <span @click="addToCart(product.id, {
+                    price: product.price,
+                    count: 1
+                })">
                     <svg xmlns="http://www.w3.org/2000/svg" :width="36" :height="36" fill="none">
                         <path d="M33.25 14.8333V13.6667C33.25 13.1144 32.8023 12.6667 32.25 12.6667H5.75C5.19772 12.6667 4.75 13.1144 4.75 13.6667V14.8333C4.75 15.3856 5.19772 15.8333 5.75 15.8333H7.13589C7.59476 15.8333 7.99474 16.1456 8.10603 16.5908L10.7046 26.9851C10.9272 27.8754 11.7272 28.5 12.6449 28.5H25.3551C26.2729 28.5 27.0728 27.8754 27.2954 26.9851L29.894 16.5908C30.0053 16.1456 30.4052 15.8333 30.8641 15.8333H32.25C32.8023 15.8333 33.25 15.3856 33.25 14.8333Z" stroke="#222222" stroke-width="1.4"/>
                         <path d="M13.4583 5.54166L10.2917 10.2917M24.5416 5.54166L27.7083 10.2917" stroke="#222222" stroke-linecap="round"/>
@@ -28,6 +31,7 @@
 </template>
 <script setup>
 import {router, Link} from "@inertiajs/vue3";
+import addToCart from "@/Mixins/Cart.js";
 
 defineProps({
     product: Object

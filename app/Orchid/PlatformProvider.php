@@ -58,11 +58,9 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make(__('Методы доставки'))
                 ->icon('bs.truck')
                 ->route('platform.shipping.list'),
-
-//            Menu::make('Form Elements')
-//                ->icon('bs.card-list')
-//                ->route('platform.example.fields')
-//                ->active('*/examples/form/*'),
+            Menu::make(__('FAQ'))
+                ->icon('bs.faq')
+                ->route('platform.faq.list'),
 
             // Система
             Menu::make(__('Пользователи'))

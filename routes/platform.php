@@ -15,6 +15,8 @@ use App\Orchid\Screens\Examples\ExampleGridScreen;
 use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\FAQ\FAQEditScreen;
+use App\Orchid\Screens\FAQ\FAQListScreen;
 use App\Orchid\Screens\Order\OrderEditScreen;
 use App\Orchid\Screens\Order\OrderListScreen;
 use App\Orchid\Screens\Order\OrderShowScreen;
@@ -154,4 +156,10 @@ Route::prefix('shipping')->name('platform.shipping.')->group(function () {
     Route::screen('list', ShippingListScreen::class)->name('list');
     Route::screen('create', ShippingEditScreen::class)->name('create');
     Route::screen('edit/{shipping?}', ShippingEditScreen::class)->name('edit');
+});
+
+Route::prefix('faq')->name('platform.faq.')->group(function () {
+   Route::screen('list', FAQListScreen::class)->name('list');
+   Route::screen('create', FAQEditScreen::class)->name('create');
+   Route::screen('edit/{faq?}', FAQEditScreen::class)->name('edit');
 });

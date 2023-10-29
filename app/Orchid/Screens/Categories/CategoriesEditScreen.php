@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Fields\Upload;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
@@ -33,6 +34,7 @@ class CategoriesEditScreen extends Screen
      */
     public function query(Category $category): array
     {
+        $category->load('attachment');
         return [
             'category' => $category
         ];
@@ -97,7 +99,11 @@ class CategoriesEditScreen extends Screen
                     Input::make('category.position')
                         ->type('number')
                         ->value(1)
-                        ->title('Позиция категории в списке')
+                        ->title('Позиция категории в списке'),
+
+                    Upload::make('category.attachment')
+                        ->groups('preview')
+                        ->maxFiles(1)
                 ])->title('Информация'),
 
                 Layout::rows([
@@ -123,8 +129,10 @@ class CategoriesEditScreen extends Screen
     {
         $category->fill(
             $request->get('category')
+        )->save();
+        $category->attachment()->syncWithoutDetaching(
+            $request->input('category.attachment', [])
         );
-        $category->save();
         Alert::info('Категория добавлена.');
         return redirect()->route('platform.category.list');
     }

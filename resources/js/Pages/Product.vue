@@ -104,7 +104,7 @@ const options = useForm({
 })
 watch(() => options.countItem, (current, prev) => {
     current > prev ?
-        options.price += usePage().props.product.data.price : options.price -= usePage().props.product.data.price
-
+        options.price += usePage().props.product.data.price
+        : options.price -= usePage().props.product.data.price
 })
 </script>

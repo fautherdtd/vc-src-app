@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Attachment\Attachable;
 use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Category extends Model
 {
-    use AsSource, HasSlug;
+    use AsSource, HasSlug, Attachable;
 
     protected $table = 'categories';
     protected $fillable = [

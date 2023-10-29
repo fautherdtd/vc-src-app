@@ -18,7 +18,7 @@ class ProductShortResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'compound' => $this->compound,
-            'image' => $this->getUrl($this->attachment('preview')->first())
+            'image' => $this->getUrl($this->attachment('preview')->first()),
         ];
     }
 }
