@@ -310,9 +310,11 @@
             </div>
         </div>
     </header>
+    <HeaderMobile/>
 </template>
 <script setup>
 import { Link, router } from '@inertiajs/vue3';
+import HeaderMobile from "@/Components/Common/HeaderMobile.vue";
 defineProps({
     title: String,
 });

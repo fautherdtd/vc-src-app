@@ -46,14 +46,6 @@
                 />
             </div>
         </div>
-        <div class="instagram-posts">
-            <div class="instagram-posts_header">
-                <h1>Оставайся с нами</h1>
-                <h4>@vals.cvetov</h4>
-            </div>
-            <div class="instagram-posts_content">
-            </div>
-        </div>
         <div class="faq">
             <div class="popular-items_head">
                 <div class="popular-items_head--title">
@@ -96,7 +88,20 @@ const settings = {
     wrapAround: true
 }
 const breakpoints = {
+    414: {
+        itemsToShow: 1,
+        snapAlign: 'center',
+    },
+    640: {
+        itemsToShow: 1.8,
+        snapAlign: 'center',
+    },
     700: {
+        itemsToShow: 2.5,
+        snapAlign: 'center',
+    },
+    // 1024 and up
+    960: {
         itemsToShow: 2.5,
         snapAlign: 'center',
     },

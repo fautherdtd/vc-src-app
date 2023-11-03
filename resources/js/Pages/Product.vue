@@ -1,12 +1,13 @@
 <template>
     <AppLayout :title="product.data.name">
         <div class="product-detail">
-            <div class="product-detail_carousel ">
-                <Flicking :options="{ bounce: 0, bound: true, horizontal: true }">
-                    <div class="product-detail_carousel--main"
-                         v-for="item in product.data.gallery" :key="item"
-                         :style="'background-image: url(' + item + ')'"></div>
-                </Flicking>
+            <div class="product-detail_carousel">
+                <Carousel v-bind="settings">
+                    <Slide v-for="item in product.data.gallery" :key="item">
+                        <div class="product-detail_carousel--main"
+                             :style="'background-image: url(' + item + ')'"></div>
+                    </Slide>
+                </Carousel>
             </div>
             <div class="product-detail_info">
                 <div class="product-detail_info--title">
@@ -87,12 +88,13 @@
     </AppLayout>
 </template>
 <script setup>
-import Flicking from "@egjs/vue3-flicking";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import ProductCart from "@/Components/Products/ProductCart.vue";
 import {ref, watch} from "vue";
 import {useForm, usePage, Link} from "@inertiajs/vue3";
 import addToCart from "@/Mixins/Cart.js";
+import {Carousel, Slide} from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 
 defineProps({
     product: Array,
@@ -107,4 +109,10 @@ watch(() => options.countItem, (current, prev) => {
         options.price += usePage().props.product.data.price
         : options.price -= usePage().props.product.data.price
 })
+
+const settings = {
+    itemsToShow: 1.2,
+    snapAlign: 'center',
+    wrapAround: true
+}
 </script>

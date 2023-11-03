@@ -27,7 +27,7 @@ Route::get('/delivery', function () {
     return Inertia::render('Delivery');
 })->name('delivery');
 Route::get('/about', function () {
-    return Inertia::render('Delivery');
+    return Inertia::render('About');
 })->name('about');
 Route::get('/payment', function () {
     return Inertia::render('Payment');

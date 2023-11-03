@@ -397,16 +397,8 @@
             }
         }
     }
-
-
-    /** Carousel **/
     &_carousel {
-        // width: 330px;
-
-        & > .flicking-viewport {
-            width: 450px;
-            height: 330px;
-        }
+        width: 400px;
 
         &--main {
             width: 330px;
@@ -797,6 +789,9 @@ footer {
     }
 }
 
+.faq {
+    margin-top: 50px;
+}
 .faq-content {
     width: 100%;
     display: flex;
@@ -809,7 +804,7 @@ footer {
 
     &_item {
         width: 300px;
-        height: 350px;
+        height: 385px;
         padding: 32px;
         box-sizing: border-box;
         background: $secondColor;
@@ -832,6 +827,79 @@ footer {
             line-height: 24px;
             font-size: 15px;
             text-align: center;
+        }
+    }
+}
+.header-menu_mob {
+    display: none;
+}
+.catalog-nav_mob {
+    display: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.page-container_gallery {
+    overflow: hidden;
+    width: 100%;
+}
+.carousel__item {
+    width: 250px;
+    height: 250px;
+    background-position: center;
+    background-size: cover;
+}
+.carousel__slide {
+    padding: 5px;
+
+    &--active .carousel__item {
+        width: 450px;
+        height: 450px;
+        position: relative;
+    }
+}
+.page-about_info {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+
+    &--stat {
+        display: flex;
+        flex-direction: column;
+        gap: 25px 0;
+        &-item {
+            width: 170px;
+            p {
+                font-size: 32px;
+                font-style: normal;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    &--text {
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        span {
+            color: #A01447;
         }
     }
 }

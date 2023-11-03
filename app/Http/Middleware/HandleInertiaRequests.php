@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Facades\Cart;
+use App\Http\Resources\Categories\CategoriesResources;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -42,7 +44,11 @@ class HandleInertiaRequests extends Middleware
                     'totalQuantity' => Cart::totalQuantity(),
                     'totalPrice' => Cart::total(),
                     'content' => Cart::content()
-                ]
+                ],
+                'categories' => new CategoriesResources(
+                    Category::where('is_visible', true)
+                        ->orderBy('position', 'DESC')->get()
+                )
             ],
         ];
     }

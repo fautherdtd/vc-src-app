@@ -1,5 +1,5 @@
 <template>
-    <footer>
+    <footer class="footer">
         <div class="footer-container">
             <div class="footer-container_logo">
                 <svg width="198" height="97" viewBox="0 0 198 97" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +137,9 @@
             </div>
         </div>
     </footer>
+    <FooterMobile/>
 </template>
 <script setup>
 import { Link, router } from '@inertiajs/vue3';
+import FooterMobile from "@/Components/Common/FooterMobile.vue";
 </script>
