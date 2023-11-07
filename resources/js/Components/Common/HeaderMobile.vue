@@ -1,30 +1,30 @@
 <template>
     <header class="header-mobile">
         <div class="header-mobile_menu">
-            <label for="check" class="header-mobile_menu--burger">
-                <input type="checkbox" id="check" class="header-mobile_menu--burger-switch"/>
+            <div class="header-mobile_menu--burger">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
                 <div class="menu-mobile">
                     <Link :href="route('catalog')"
                           class="header-menu_nav--link-mob">
-                        <span>Каталог</span>
+                        Каталог
                     </Link>
                     <Link :href="route('delivery')"
                           class="header-menu_nav--link-mob">
-                        <span>Доставка</span>
+                        Доставка
                     </Link>
                     <Link :href="route('payment')"
                           class="header-menu_nav--link-mob">
-                        <span>Оплата</span>
+                        Оплата
                     </Link>
                     <Link :href="route('about')"
                           class="header-menu_nav--link-mob">
-                        <span>О нас</span>
+                        О нас
                     </Link>
                 </div>
-                <span class="header-mobile_menu--burger-line"></span>
-                <span class="header-mobile_menu--burger-line"></span>
-                <span class="header-mobile_menu--burger-line"></span>
-            </label>
+            </div>
         </div>
         <div class="header-mobile_logo">
             <Link :href="route('index')">
@@ -111,16 +111,14 @@
         </div>
         <div class="header-mobile_btn">
             <div class="header-menu_btn--item">
-                <Link to="/favorites">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
-                        <path d="M8.15958 25.4984L21.3153 37.8568C21.6398 38.1616 21.802 38.314 22 38.314C22.198 38.314 22.3602 38.1616 22.6847 37.8568L35.8404 25.4984L35.8406 25.4983C36.1758 25.1834 36.3434 25.0259 36.4824 24.8832C39.5107 21.7751 39.8899 16.9486 37.3841 13.4057C37.269 13.243 37.128 13.0613 36.846 12.6978L36.2788 11.9668C32.6705 7.31607 25.4277 8.09603 22.8922 13.4084C22.5341 14.1588 21.4659 14.1588 21.1078 13.4084C18.5724 8.09604 11.3295 7.31607 7.72118 11.9668L7.15402 12.6978L7.154 12.6978C6.87199 13.0613 6.73098 13.2431 6.61596 13.4057C4.11016 16.9486 4.48931 21.7751 7.51759 24.8832C7.65659 25.0259 7.82424 25.1834 8.15952 25.4983L8.15958 25.4984Z" fill-opacity="0.25" stroke="#222222" stroke-width="1.4"/>
-                    </svg>
+                <Link :href="route('cart.index')">
+                    <svg width="28" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-v-62e75f8a=""><path d="M20.4578 4.59133C19.9691 4.08683 19.3889 3.68663 18.7503 3.41358C18.1117 3.14054 17.4272 3 16.7359 3C16.0446 3 15.3601 3.14054 14.7215 3.41358C14.0829 3.68663 13.5026 4.08683 13.0139 4.59133L11.9997 5.63785L10.9855 4.59133C9.99842 3.57276 8.6596 3.00053 7.26361 3.00053C5.86761 3.00053 4.52879 3.57276 3.54168 4.59133C2.55456 5.6099 2 6.99139 2 8.43187C2 9.87235 2.55456 11.2538 3.54168 12.2724L4.55588 13.3189L11.9997 21L19.4436 13.3189L20.4578 12.2724C20.9467 11.7681 21.3346 11.1694 21.5992 10.5105C21.8638 9.85148 22 9.14517 22 8.43187C22 7.71857 21.8638 7.01225 21.5992 6.35328C21.3346 5.69431 20.9467 5.09559 20.4578 4.59133V4.59133Z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" data-v-62e75f8a=""></path></svg>
                     <span class="icon-badge">0</span>
                 </Link>
             </div>
             <div class="header-menu_btn--item">
                 <Link :href="route('cart.index')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 48 48" fill="none">
                         <path d="M21 31L19 24" stroke="#222222" stroke-linecap="round"/>
                         <path d="M17 9L13 15M31 9L35 15" stroke="#222222" stroke-linecap="round"/>
                         <path d="M27 31L29 24" stroke="#222222" stroke-linecap="round"/>

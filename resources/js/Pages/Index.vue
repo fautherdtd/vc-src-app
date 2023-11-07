@@ -88,6 +88,10 @@ const settings = {
     wrapAround: true
 }
 const breakpoints = {
+    320: {
+        itemsToShow: 1,
+        snapAlign: 'center',
+    },
     414: {
         itemsToShow: 1,
         snapAlign: 'center',
