@@ -1,3 +1,6 @@
+ion-icon {
+    color: #000;
+}
 .header-menu {
     display: flex;
     justify-content: space-between;
@@ -219,6 +222,7 @@
         height: 230px;
         background-size: cover;
         background-position: center;
+        position: relative;
     }
 
     &_content {
@@ -244,7 +248,7 @@
             font-style: normal;
             font-weight: 300;
             line-height: normal;
-            min-height: 48px;
+            min-height: 35px;
         }
     }
 
@@ -260,11 +264,10 @@
         }
 
         &--btn {
-
-            span {
-                cursor: pointer;
-                margin-left: 2.5px;
-            }
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
         }
     }
 }
@@ -303,6 +306,7 @@
     &_content {
         display: flex;
         gap: 20px 15px;
+        justify-content: space-between;
     }
 }
 .header-title {
@@ -840,9 +844,8 @@ footer {
     position: relative;
     display: inline-block;
 }
-
 .dropdown-content {
-    display: none;
+    display: block;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -851,9 +854,36 @@ footer {
     z-index: 1;
     box-sizing: border-box;
 }
+.catalog-nav_mob {
+    display: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 10px 15px;
+    background: $primaryColor;
+    margin-right: 20px;
 
-.dropdown:hover .dropdown-content {
-    display: block;
+    .dropdown-content {
+        left: 0;
+        top: 38px;
+        background: $primaryColor;
+    }
+    .catalog-nav_item--active {
+        margin: 5px 0;
+    }
+    .catalog-nav_item--active a {
+        font-size: 16px;
+        color: #fff;
+    }
+    span {
+        margin: 0;
+        display: flex;
+        align-items: center;
+
+        svg {
+            margin-left: 10px;
+        }
+    }
 }
 .page-container_gallery {
     overflow: hidden;

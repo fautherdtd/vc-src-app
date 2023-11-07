@@ -182,39 +182,11 @@
         display: flex;
         align-items: center;
     }
-    .catalog-nav_mob {
-        display: block;
-        color: #fff;
-        font-size: 18px;
-        font-weight: 400;
-        padding: 10px 15px;
-        background: $primaryColor;
-        margin-right: 20px;
-
-        .dropdown-content {
-            left: 0;
-            top: 38px;
-            background: $primaryColor;
-        }
-        .catalog-nav_item--active {
-            margin: 5px 0;
-        }
-        .catalog-nav_item--active a {
-            font-size: 16px;
-            color: #fff;
-        }
-        span {
-            margin: 0;
-            display: flex;
-            align-items: center;
-
-            svg {
-                margin-left: 10px;
-            }
-        }
-    }
     .catalog-nav {
         display: none;
+    }
+    .catalog-nav_mob {
+        display: block;
     }
     .catalog-product {
         width: 100%;
@@ -224,7 +196,7 @@
     }
     .wrapper {
         width: 100%;
-        padding: 150px 25px 0 25px;
+        padding: 100px 25px 0 25px;
         box-sizing: border-box;
     }
     .product-detail {
@@ -342,10 +314,32 @@
         }
     }
 }
-@media (max-width: 414px) {
-    .product-detail_carousel--main {
-        width: 100%;
-        height: 350px;
+@media (max-width: 425px) {
+    .page-title {
+        font-size: 18px;
+    }
+    .cart-page_block--header {
+        font-size: 16px;
+    }
+    .order-form_block--child {
+        font-size: 14px;
+        .btn-primary {
+            font-size: 14px;
+        }
+    }
+    .product-detail {
+        &_carousel--main {
+            width: 100%;
+            height: 350px;
+        }
+        &_info--footer {
+            flex-wrap: wrap;
+            .btn, a  {
+                width: 100%;
+                justify-content: center;
+                margin-top: 20px;
+            }
+        }
     }
     .catalog-product_sort {
         display: block;
@@ -395,7 +389,7 @@
         width: 100%;
 
         &_footer--price {
-            font-size: 24px;
+            font-size: 18px;
             font-style: normal;
             font-weight: 500;
         }
@@ -405,7 +399,12 @@
         border: 0;
     }
     .cart-item {
+        align-items: start;
+        flex-wrap: wrap;
+        height: fit-content;
+
         &_header {
+            margin-top: 20px;
             &--title {
                 font-size: 22px;
             }
@@ -414,8 +413,8 @@
             }
         }
         &_img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 250px;
         }
     }
     .order-form_block--child--content {

@@ -112,19 +112,13 @@
         <div class="header-mobile_btn">
             <div class="header-menu_btn--item">
                 <Link :href="route('cart.index')">
-                    <svg width="28" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-v-62e75f8a=""><path d="M20.4578 4.59133C19.9691 4.08683 19.3889 3.68663 18.7503 3.41358C18.1117 3.14054 17.4272 3 16.7359 3C16.0446 3 15.3601 3.14054 14.7215 3.41358C14.0829 3.68663 13.5026 4.08683 13.0139 4.59133L11.9997 5.63785L10.9855 4.59133C9.99842 3.57276 8.6596 3.00053 7.26361 3.00053C5.86761 3.00053 4.52879 3.57276 3.54168 4.59133C2.55456 5.6099 2 6.99139 2 8.43187C2 9.87235 2.55456 11.2538 3.54168 12.2724L4.55588 13.3189L11.9997 21L19.4436 13.3189L20.4578 12.2724C20.9467 11.7681 21.3346 11.1694 21.5992 10.5105C21.8638 9.85148 22 9.14517 22 8.43187C22 7.71857 21.8638 7.01225 21.5992 6.35328C21.3346 5.69431 20.9467 5.09559 20.4578 4.59133V4.59133Z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" data-v-62e75f8a=""></path></svg>
+                    <ion-icon name="heart-outline" size="large"></ion-icon>
                     <span class="icon-badge">0</span>
                 </Link>
             </div>
             <div class="header-menu_btn--item">
                 <Link :href="route('cart.index')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 48 48" fill="none">
-                        <path d="M21 31L19 24" stroke="#222222" stroke-linecap="round"/>
-                        <path d="M17 9L13 15M31 9L35 15" stroke="#222222" stroke-linecap="round"/>
-                        <path d="M27 31L29 24" stroke="#222222" stroke-linecap="round"/>
-                        <path d="M9 19V19C9.37518 19 9.56277 19 9.72757 19.0277C10.4121 19.1429 10.988 19.6049 11.249 20.2481C11.3118 20.403 11.3525 20.5861 11.4339 20.9524L14.3039 33.8677C14.6376 35.3694 14.8045 36.1202 15.3529 36.5601C15.9013 37 16.6704 37 18.2087 37H29.7913C31.3296 37 32.0987 37 32.6471 36.5601C33.1955 36.1202 33.3624 35.3694 33.6961 33.8677L36.5661 20.9524C36.6475 20.5861 36.6882 20.403 36.751 20.2481C37.012 19.6049 37.5879 19.1429 38.2724 19.0277C38.4372 19 38.6248 19 39 19V19" stroke="#222222" stroke-linecap="round"/>
-                        <path d="M39 19H9C7.89543 19 7 18.1046 7 17C7 15.8954 7.89543 15 9 15H39C40.1046 15 41 15.8954 41 17C41 18.1046 40.1046 19 39 19Z" stroke="#222222" stroke-linecap="round"/>
-                    </svg>
+                    <ion-icon name="cart-outline" size="large"></ion-icon>
                     <span class="icon-badge">{{ $page.props.share.cart.totalQuantity }}</span>
                 </Link>
             </div>
