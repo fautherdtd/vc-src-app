@@ -334,7 +334,8 @@
         }
         &_info--footer {
             flex-wrap: wrap;
-            .btn, a  {
+            width: 100%;
+            .btn  {
                 width: 100%;
                 justify-content: center;
                 margin-top: 20px;
@@ -437,10 +438,13 @@
     .page-about_info--stat-item p {
         font-size: 22px;
     }
+    .breadcrumbs-item a {
+        font-size: 12px;
+    }
 }
 @media (max-width: 390px) {
     .main-container_text--title {
-        font-size: 36px;
+        font-size: 28px;
     }
     .header-mobile_logo svg {
         width: 70px;
