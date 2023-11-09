@@ -114,7 +114,7 @@ class OrderShowScreen extends Screen
             Layout::table('order.items', [
                 TD::make('id', '#ID'),
                 TD::make('product.image', '#ID')->render(function (OrderItems $item) {
-                    return "<img src='{$this->getUrl($item->product->attachment->first())}'/>";
+                    return "<img width='150px' src='{$this->getUrl($item->product->attachment->first())}'/>";
                 }),
                 TD::make('product.name', 'Наименование продукта')->render(function (OrderItems $item) {
                     return $item->product->name;
