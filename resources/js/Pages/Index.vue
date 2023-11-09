@@ -78,9 +78,9 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
 defineProps({
-    popular: Array,
-    faq: Array,
-    categories: Array
+    popular: Object,
+    faq: Object,
+    categories: Object
 })
 const settings = {
     itemsToShow: 4,

@@ -2,20 +2,28 @@
 
 namespace App\Orchid\Screens\Order;
 
+use App\Enums\OrderStatuses;
+use App\Http\Controllers\Helpers\Images;
 use App\Models\Order;
+use App\Models\OrderItems;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
+use Orchid\Screen\TD;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
 class OrderShowScreen extends Screen
 {
-    public $oder;
+    use Images;
+
+    public $order;
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -51,7 +59,11 @@ class OrderShowScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
+        return [
+            Link::make('Отредактировать заказ')
+                ->icon('pencil')
+                ->route('platform.order.edit')
+        ];
     }
 
     /**
@@ -64,26 +76,54 @@ class OrderShowScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::legend('Заказ', [
-                Sight::make('number')
-                    ->popover('Номер заказа'),
-                Sight::make('name'),
-                Sight::make('email'),
-                Sight::make('email_verified_at', 'Email Verified')->render(fn (User $user) => $user->email_verified_at === null
-                    ? '<i class="text-danger">●</i> False'
-                    : '<i class="text-success">●</i> True'),
-                Sight::make('created_at', 'Created'),
-                Sight::make('updated_at', 'Updated'),
-                Sight::make('Simple Text')->render(fn () => 'This is a wider card with supporting text below as a natural lead-in to additional content.'),
-                Sight::make('Action')->render(fn () => Button::make('Show toast')
-                    ->type(Color::BASIC)
-                    ->method('showToast')),
-            ])->title('User'),
+            Layout::legend('order', [
+                Sight::make('Номер заказа')->render(fn (Order $order) => $order->number),
+                Sight::make('Статус заказа')->render(fn (Order $order) => OrderStatuses::fromName($order->status)),
+                Sight::make('Общая сумма заказа')->render(fn (Order $order) => $order->total_price . " руб."),
+                Sight::make('Статус оплаты')->render(fn (Order $order) => $order->is_payment ? '<span class="text-success">Оплачен</span>' : '<span class="text-danger">Не оплачен</span>'),
+                Sight::make('Заказ поступил')->render(fn (Order $order) => $order->created_at->format('Y-m-d H:i')),
+                Sight::make('Комментарий к заказу')->render(fn (Order $order) => $order->notes),
+            ]),
+            Layout::accordion([
+                'Доставка' => Layout::legend('order', [
+                    Sight::make('Способ доставки')->render(function (Order $order) {
+                        return $order->shipping->label;
+                    }),
+                    Sight::make('Сумма доставки')->render(function (Order $order) {
+                        return $order->shipping_price . " руб.";
+                    }),
+                    Sight::make('Адрес доставки')->render(fn (Order $order) => $order->address),
+                    Sight::make('Дата и время доставки')->render(fn (Order $order) => $order->delivery_time),
+                ])
+            ]),
+            Layout::accordion([
+                'Клиент и получатель' => Layout::legend('order', [
+                    Sight::make('Клиент')->render(function (Order $order) {
+                        $anon = $order->is_anonymous ?
+                            '<span class="text-success">● Да</span>' : '<span class="text-danger">● Нет</span>';
+                        return "<div>Имя: {$order->customer->name}</div>
+                            <div>Телефон: {$order->customer->phone}</div>
+                            <div>Анонимный: $anon</div>";
+                    }),
+                    Sight::make('Получатель')->render(function (Order $order) {
+                        return "<div>Имя: {$order->recipient['name']}</div>
+                            <div>Телефон: {$order->recipient['phone']}</div>";
+                    }),
+                ])
+            ]),
+            Layout::table('order.items', [
+                TD::make('id', '#ID'),
+                TD::make('product.image', '#ID')->render(function (OrderItems $item) {
+                    return "<img src='{$this->getUrl($item->product->attachment->first())}'/>";
+                }),
+                TD::make('product.name', 'Наименование продукта')->render(function (OrderItems $item) {
+                    return $item->product->name;
+                }),
+                TD::make('qty', 'Количество'),
+            ])
         ];
     }
 
-    public function showToast(Request $request): void
-    {
-        Toast::warning($request->get('toast', 'Hello, world! This is a toast message.'));
-    }
+
+
 }

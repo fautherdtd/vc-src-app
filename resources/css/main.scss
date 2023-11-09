@@ -848,7 +848,7 @@ footer {
     display: block;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 12px 16px;
     z-index: 1;
@@ -857,15 +857,16 @@ footer {
 .catalog-nav_mob {
     display: none;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     padding: 10px 15px;
     background: $primaryColor;
     margin-right: 20px;
+    letter-spacing: 1px;
 
     .dropdown-content {
         left: 0;
-        top: 38px;
+        top: 36px;
         background: $primaryColor;
     }
     .catalog-nav_item--active {
@@ -879,8 +880,10 @@ footer {
         margin: 0;
         display: flex;
         align-items: center;
+        justify-content: center;
 
-        svg {
+        ion-icon {
+            color: #fff;
             margin-left: 10px;
         }
     }

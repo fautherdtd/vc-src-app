@@ -13,7 +13,7 @@
                     price: product.price,
                     count: 1
                 })">
-                Купить
+                В корзину
                 <ion-icon name="cart-outline" size="small"></ion-icon>
             </div>
         </div>

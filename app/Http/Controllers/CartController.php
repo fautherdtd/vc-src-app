@@ -12,6 +12,7 @@ use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
 use App\Services\Order\OrderService;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
@@ -45,16 +46,14 @@ class CartController extends Controller
 
     /**
      * @param StoreOrderRequest $request
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function create(StoreOrderRequest $request)
+    public function create(StoreOrderRequest $request, OrderService $service)
     {
-        $order = new OrderService();
-        $result = $order->create($order->prepare($request));
-        return response()->json([
-            'message' => $result
-        ]);
+        $service->create($service->prepare($request));
+        if ($request->input('online')) {
+            // TODO
+        }
     }
 
     /**

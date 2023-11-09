@@ -3,7 +3,7 @@
         <BreadCrumbs :child="[{id: 1, title: 'Корзина', link: 'cart.index'}]"/>
         <div class="container">
             <div class="cart-page" v-if="$page.props.share.cart.totalQuantity > 0">
-                <div class="cart-page_items" v-for="product in $page.props.share.cart.content">
+                <div class="cart-page_items">
                     <CartItem v-for="(product, key) in $page.props.share.cart.content"
                               :product="product"
                               :cartID="key"

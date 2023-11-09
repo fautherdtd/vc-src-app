@@ -291,7 +291,7 @@
         </div>
         <div class="header-menu_btn">
             <div class="header-menu_btn--item">
-                <Link to="/favorites">
+                <Link :href="route('cart.index')">
                     <ion-icon name="heart-outline" size="large"></ion-icon>
                     <span class="icon-badge">0</span>
                 </Link>

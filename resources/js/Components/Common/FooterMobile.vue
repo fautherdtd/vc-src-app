@@ -3,7 +3,8 @@
         <div class="footer-mobile_nav">
             <div class="footer-mobile_nav--category">
                 <Link class="header-menu_nav--link-mob"
-                      v-for="category in $page.props.share.categories.data">
+                      v-for="category in $page.props.share.categories.data"
+                        :href="route('catalog', category.slug)">
                     {{ category.name }}
                 </Link>
             </div>

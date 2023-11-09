@@ -19,28 +19,24 @@ class OrderService
      */
     public function create(array $data): bool
     {
-        DB::beginTransaction();
-        try {
-            $customerID = Customer::create($data['customer']);
-            $data['order']['customer_id'] = $customerID;
+        return DB::transaction(function()  use($data) {
+            $data['order']['customer_id'] = $this->customer($data['customer']);
             $orderID = Order::create($data['order']);
 
             $items = [];
             foreach (Cart::content() as $key => $item) {
                 $items[] = [
-                    'order_id' => $orderID,
+                    'order_id' => $orderID->id,
                     'product_id' => $key,
                     'qty' => $item['quantity'],
-                    'unit_price' => $item['price']
+                    'unit_price' => $item['price'],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
             }
             OrderItems::insert($items);
-            DB::commit();
             return true;
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            return $exception->getMessage();
-        }
+        });
     }
 
     /**
@@ -48,40 +44,44 @@ class OrderService
      * @return array[]
      * @throws \Exception
      */
-    public function prepare(Request $request)
+    public function prepare(Request $request): array
     {
         return [
             'order' => [
                 'number' => substr(Carbon::now()->unix(), 0, 3) . random_int(0, 999),
                 'total_price' => (int) Cart::total(),
-                'delivery_time' => $request->input('delivery_time'),
+                'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
                 'shipping_method' => $request->input('delivery.method'),
-                'shipping_price' => $request->input('delivery.price'),
+                'shipping_price' => 0,
                 'address' => $request->input('delivery.address'),
                 'buyer' => $request->input('contacts.from'),
                 'recipient' => $request->input('contacts.to'),
-                'notes' => $request->input('message') ?? 'Комментария нет.'
+                'notes' => $request->input('message') ?? 'Комментария нет.',
+                'anonymous' => $request->input('anonymous') ?? false
             ],
             'customer' => [
                 'name' => $request->input('contacts.from.name'),
-                'phone' => $request->input('contacts.from.name.phone')
+                'phone' => $request->input('contacts.from.phone')
             ],
             'products' => Cart::content()
         ];
     }
 
     /**
+     * @param $contacts
      * @return mixed
      */
-    public function customer(): mixed
+    public function customer($contacts): mixed
     {
-        $model = Customer::where('phone', $this->data['contacts']['from']['phone']);
-        if ($model->exist()) {
+        $model = Customer::where('phone', $contacts['phone'])->first();
+        if (! $model) {
             return Customer::insertGetId([
-                'name' => $this->data['contacts']['from']['name'],
-                'phone' => $this->data['contacts']['from']['phone']
+                'name' => $contacts['name'],
+                'phone' => $contacts['phone'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
-        return $model->first();
+        return $model->id;
     }
 }

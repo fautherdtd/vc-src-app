@@ -6,7 +6,8 @@
         ]"/>
         <div class="container">
             <h1 class="page-title">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
-            <form class="order-form" @submit.prevent="createOrder">
+            <form class="order-form" v-if="!formProcess"
+                  @submit.prevent="createOrder">
                 <div class="order-form_block order-form_block-main">
                     <div class="order-form_block--child">
                         <div class="order-form_block--child--title">Способ доставки</div>
@@ -14,13 +15,19 @@
                             <label :for="ship.method" class="input-label"
                                    v-for="ship in props.delivery.data"
                                    :key="ship.id">
-                                <input type="radio" :model="form.delivery.method" :value="ship.method" name="delivery" :id="ship.method">
+                                <input type="radio"
+                                       v-model="form.delivery.method"
+                                       :value="ship.method"
+                                       name="delivery" :id="ship.method">
                                 <p class="inp-radio-primary">{{ ship.label}}</p>
                             </label>
                             <InputError style="margin: 0" :message="form.errors['delivery.method']" />
                         </div>
                         <div class="order-form_block--child--content">
-                            <input type="text" v-model="form.delivery.address" placeholder="Адрес доставки *" style="width: 100%" class="inp-text-primary">
+                            <input type="text"
+                                   v-model="form.delivery.address"
+                                   @change="enterAddress"
+                                   placeholder="Адрес доставки *" style="width: 100%" class="inp-text-primary">
                             <ul class="address-dadata" v-if="addressSuggest.length > 0">
                                 <li class="address-dadata_item"
                                     @click="changeAddress(suggest.text)"
@@ -45,7 +52,6 @@
                             </label>
                             <label for="time" class="input-label">
                                 <input type="time" id="time"
-                                       step="300"
                                        v-model="form.timeDelivery.time"
                                        :disabled="form.timeDelivery.date == null"
                                        class="inp-text-primary">
@@ -67,6 +73,12 @@
                         </div>
                         <InputError class="mt-2" :message="form.errors['contacts.from.name']" />
                         <InputError class="mt-2" :message="form.errors['contacts.from.phone']" />
+                        <div class="order-form_block--child--content">
+                            <label class="input-label" for="anonymous">
+                                <input type="checkbox" v-model="form.contacts.from.anonymous" name="anonymous" id="anonymous">
+                                <p class="inp-radio-primary">Анонимный заказ</p>
+                            </label>
+                        </div>
                         <div class="order-form_block--child--title" style="margin-top: 18px;">
                             Получатель
                         </div>
@@ -89,7 +101,7 @@
                             <label :for="payment.method" class="input-label"
                                    v-for="payment in props.payments.data"
                                    :key="payment.id">
-                                <input type="radio" :model="form.payment.method" :value="payment.method" name="payment" :id="payment.method">
+                                <input type="radio" v-model="form.payment.method" :value="payment.method" name="payment" :id="payment.method">
                                 <p class="inp-radio-primary">{{ payment.label }}</p>
                             </label>
                         </div>
@@ -100,14 +112,14 @@
                     <div class="order-form_block--child">
                         <div class="order-form_block--child--content" style="margin: 0;">
                         <textarea name="" id=""
-                                  :model="form.message"
+                                  v-model="form.message"
                                   class="inp-text-primary inp-textarea-primary"
                                   placeholder="Комментарий к заказу"></textarea>
                         </div>
                         <InputError class="mt-2" :message="form.errors.message" />
                         <div class="order-form_block--child--content">
                             <label for="rules" class="input-label">
-                                <input type="checkbox" :model="form.rules" value="rules" name="rules" id="rules">
+                                <input type="checkbox" v-model="form.rules" value="rules" name="rules" id="rules">
                                 <p class="inp-radio-primary">Я даю согласие на обработку моих данных</p>
                             </label>
                         </div>
@@ -120,12 +132,12 @@
                         <div class="order-form_block--child--content">
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
-                                    <span>2 товара на сумму</span>
-                                    <span>13 780 ₽</span>
+                                    <span>{{ $page.props.share.cart.totalQuantity }} товара на сумму</span>
+                                    <span>{{ $page.props.share.cart.totalPrice }} ₽</span>
                                 </div>
                                 <div class="order-form_block--child--table_item">
                                     <span>доставка</span>
-                                    <span>1 780 ₽</span>
+                                    <span>0 ₽</span>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +146,7 @@
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
                                     <h1>ИТОГО:</h1>
-                                    <h2>13 780 ₽</h2>
+                                    <h2>{{ $page.props.share.cart.totalPrice }} ₽</h2>
                                 </div>
                             </div>
                         </div>
@@ -145,12 +157,15 @@
                     </div>
                 </div>
             </form>
+            <div v-else>
+                Ваш заказ оформлен.
+            </div>
         </div>
     </AppLayout>
 </template>
 <script setup>
 import {router, useForm} from "@inertiajs/vue3";
-import {defineComponent, ref, watch} from "vue";
+import {ref, watch, onMounted} from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
 import axios from "axios";
@@ -164,20 +179,21 @@ const props = defineProps({
 const form = useForm({
     delivery: {
         method: null,
-        address: null,
-        price: null
+        price: null,
+        address: null
     },
     payment: {
         method: null
     },
     timeDelivery: {
         date: new Date().toISOString().slice(0,10),
-        time: null,
+        time: new Date().getHours() + 2 + ':' + new Date().getMinutes(),
     },
     contacts: {
         from: {
             name: null,
             phone: null,
+            anonymous: false
         },
         to: {
             name: null,
@@ -188,40 +204,44 @@ const form = useForm({
     rules: null,
 })
 const addressSuggest = ref([]);
-watch(
-    () => form.delivery.address,
-    (query) => {
-        axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
-            query: query,
-            "locations_geo": [{
-                "lat": 42.057669,
-                "lon": 48.288776,
-                "radius_meters": 1000
-            }]
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Token 4dcd1419b5dd26819456ea95743d1fa70a42d844"
-            },
-        }).then(response => {
-            response.data.suggestions.forEach((element) => {
-                addressSuggest.value.push({
-                    value: element.value,
-                    text: element.value
-                });
-            })
+const address = ref(null)
+
+const enterAddress = () => {
+    axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+        query: form.delivery.address,
+        "locations_geo": [{
+            "lat": 42.057669,
+            "lon": 48.288776,
+            "radius_meters": 2000
+        }]
+    }, {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Token 4dcd1419b5dd26819456ea95743d1fa70a42d844"
+        },
+    }).then(response => {
+        response.data.suggestions.forEach((element) => {
+            addressSuggest.value.push({
+                value: element.value,
+                text: element.value
+            });
         })
-    }
-)
+    })
+}
 const changeAddress = (text) => {
     form.delivery.address = text;
     addressSuggest.value = [];
 }
 
+const formProcess = ref(false);
+
 const createOrder = () => {
     form.post(route('cart.createOrder'), {
-        onSuccess: () => form.reset(),
+        preserveScroll: true,
+        onSuccess: () => {
+            formProcess.value = true
+        }
     });
 }
 </script>

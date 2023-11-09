@@ -22,11 +22,10 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'delivery.method' => ['required', 'exists:App\Models\Shipping,slug'],
+            'delivery.method' => ['required', 'exists:App\Models\Shipping,method'],
             'delivery.address' => ['required', 'string'],
-            'delivery.price' => ['required', 'numeric'],
-            'payment.method' => ['required', 'exists:App\Models\Payment,slug'],
-            'delivery_time' => ['required', 'date'],
+            'payment.method' => ['required', 'exists:App\Models\Payment,method'],
+            'timeDelivery.date' => ['required', 'date'],
             'contacts.from.name' => ['required', 'string'],
             'contacts.from.phone' => ['required', 'string'],
             'contacts.to.name' => ['required', 'string'],
@@ -46,7 +45,8 @@ class StoreOrderRequest extends FormRequest
         return [
             'delivery.method' => 'Выберите метод доставки.',
             'delivery.address' => 'Введите адрес доставки.',
-            'delivery_time' => 'Укажите время доставки.',
+            'timeDelivery.date' => 'Укажите дату доставки.',
+            'timeDelivery.time' => 'Укажите время доставки.',
             'contacts.from.name' => 'Имя отправиля обязательное поле.',
             'contacts.from.phone' => 'Номер отправителя обязательное поле.',
             'contacts.to.name' => 'Имя получателя обязательное поле.',

@@ -2,18 +2,22 @@
 
 namespace App\Orchid\Screens\Order;
 
+use App\Models\Order;
+use App\Orchid\Layouts\Order\OrderListLayout;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
 class OrderListScreen extends Screen
-{
-    /**
-     * Fetch data to be displayed on the screen.
-     *
-     * @return array
-     */
+{/**
+ * Fetch data to be displayed on the screen.
+ *
+ * @return array
+ */
     public function query(): iterable
     {
-        return [];
+        return [
+            'orders' => Order::paginate()
+        ];
     }
 
     /**
@@ -23,7 +27,7 @@ class OrderListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'OrderListScreen';
+        return 'Заказы';
     }
 
     /**
@@ -43,6 +47,8 @@ class OrderListScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            OrderListLayout::class
+        ];
     }
 }
