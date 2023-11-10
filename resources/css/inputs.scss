@@ -95,6 +95,16 @@ input::-webkit-inner-spin-button {
         border: 0;
         background: none;
         height: 29px;
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        color: inherit;
+        line-height: normal;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+        -webkit-appearance: none;
     }
     input {
         background: none;
