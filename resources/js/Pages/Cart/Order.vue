@@ -132,7 +132,7 @@
                         <div class="order-form_block--child--content">
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
-                                    <span>{{ $page.props.share.cart.totalQuantity }} товара на сумму</span>
+                                    <span>{{ $page.props.share.cart.totalQuantity }} товар(а) на сумму</span>
                                     <span>{{ $page.props.share.cart.totalPrice }} ₽</span>
                                 </div>
                                 <div class="order-form_block--child--table_item">

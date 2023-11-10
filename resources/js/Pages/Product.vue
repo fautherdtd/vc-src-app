@@ -65,7 +65,7 @@
                             <path d="M13.125 20.1555L11.875 15.9854M16.875 20.1555L18.125 15.9854" stroke="#fff"
                                   stroke-linecap="round" />
                         </svg>
-                        в корзине
+                        в корзину
                     </button>
                     <button class="btn btn-transparent"  v-else>
                         В корзине
