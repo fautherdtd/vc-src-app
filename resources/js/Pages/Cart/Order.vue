@@ -52,6 +52,7 @@
                             </label>
                             <label for="time" class="input-label">
                                 <input type="time" id="time"
+                                       placeholder="Время доставки"
                                        v-model="form.timeDelivery.time"
                                        :disabled="form.timeDelivery.date == null"
                                        class="inp-text-primary">
