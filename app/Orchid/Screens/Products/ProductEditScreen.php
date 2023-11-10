@@ -110,7 +110,6 @@ class ProductEditScreen extends Screen
                         ->required()
                         ->title('SEO описание'),
                     CheckBox::make('is_active')
-                        ->value(1)
                         ->title('Активность')
                         ->placeholder('Отобразить товар')
                 ])->title('Доп информация'),
