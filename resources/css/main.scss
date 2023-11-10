@@ -7,6 +7,43 @@ ion-icon {
     align-items: center;
     margin: 20px 0 40px;
 
+    &_nav {
+        &--link {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+            color: #000;
+            margin-right: 35px;
+            &-mob--drop {
+                font-size: 18px;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                &_content {
+                    padding-left: 15px;
+                    box-sizing: border-box;
+                    margin-bottom: 15px;
+                    p {
+                        margin: 5px 0;
+                    }
+                }
+                ion-icon {
+                    margin-left: 10px;
+                }
+            }
+            &:hover,
+            &-active{
+                color: #303030;
+                border-bottom: 1px solid $primaryColor;
+            }
+
+            &:nth-last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
     &_btn {
         display: flex;
         align-items: center;
@@ -14,26 +51,6 @@ ion-icon {
         &--item {
             margin: 0 10px;
             position: relative;
-        }
-    }
-}
-.header-menu_nav {
-    &--link {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: normal;
-        color: #000;
-        margin-right: 35px;
-
-        &:hover,
-        &-active{
-            color: #303030;
-            border-bottom: 1px solid $primaryColor;
-        }
-
-        &:nth-last-child {
-            margin-right: 0;
         }
     }
 }

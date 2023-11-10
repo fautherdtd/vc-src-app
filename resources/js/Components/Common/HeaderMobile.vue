@@ -7,10 +7,21 @@
                 <span></span>
                 <span></span>
                 <div class="menu-mobile">
-                    <Link :href="route('catalog')"
-                          class="header-menu_nav--link-mob">
+                    <div class="header-menu_nav--link-mob--drop"
+                         @click="activeMobMenu = !activeMobMenu">
                         Каталог
-                    </Link>
+                        <ion-icon name="chevron-down-outline" v-if="!activeMobMenu"></ion-icon>
+                        <ion-icon name="chevron-up-outline" v-else></ion-icon>
+                    </div>
+                    <div  class="header-menu_nav--link-mob--drop_content"
+                        v-if="activeMobMenu">
+                        <p v-for="category in $page.props.share.categories.data">
+                            <Link :href="route('catalog', category.slug)"
+                                  class="header-menu_nav--link-mob">
+                                - {{ category.name }}
+                            </Link>
+                        </p>
+                    </div>
                     <Link :href="route('delivery')"
                           class="header-menu_nav--link-mob">
                         Доставка
@@ -128,4 +139,5 @@
 <script setup>
 import {ref} from "vue";
 import {Link} from "@inertiajs/vue3";
+const activeMobMenu = ref(false)
 </script>
