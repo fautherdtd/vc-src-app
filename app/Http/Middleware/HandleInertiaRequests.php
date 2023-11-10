@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Facades\Cart;
+use App\Facades\Favorites;
 use App\Http\Resources\Categories\CategoriesResources;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -44,6 +45,9 @@ class HandleInertiaRequests extends Middleware
                     'totalQuantity' => Cart::totalQuantity(),
                     'totalPrice' => Cart::total(),
                     'content' => Cart::content()
+                ],
+                'favorites' => [
+                    'totalQuantity' => Favorites::totalQuantity()
                 ],
                 'categories' => new CategoriesResources(
                     Category::where('is_visible', true)

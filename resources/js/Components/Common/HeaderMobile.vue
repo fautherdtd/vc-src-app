@@ -122,9 +122,9 @@
         </div>
         <div class="header-mobile_btn">
             <div class="header-menu_btn--item">
-                <Link :href="route('cart.index')">
+                <Link :href="route('favorites.index')">
                     <ion-icon name="heart-outline" size="large"></ion-icon>
-                    <span class="icon-badge">0</span>
+                    <span class="icon-badge">{{ $page.props.share.favorites.totalQuantity }}</span>
                 </Link>
             </div>
             <div class="header-menu_btn--item">

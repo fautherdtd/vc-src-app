@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Services\Cart\CartFlowService;
+use App\Services\Favorites\FavoritesFlowService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,6 +34,12 @@ Route::get('/about', function () {
 Route::get('/payment', function () {
     return Inertia::render('Payment');
 })->name('payment');
+
+Route::prefix('favorites')->name('favorites.')->group(function () {
+    Route::get('/', [FavoritesController::class, 'index'])->name('index');
+    Route::post('/add', [FavoritesController::class, 'add'])->name('add');
+    Route::post('/remove/{id}', [FavoritesFlowService::class, 'remove'])->name('remove');
+});
 
 Route::prefix('cart')->name('cart.')->group(function () {
     /** Cart */
