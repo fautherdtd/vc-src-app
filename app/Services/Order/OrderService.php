@@ -53,9 +53,9 @@ class OrderService
                 'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
                 'shipping_method' => $request->input('delivery.method'),
                 'shipping_price' => 0,
-                'address' => $request->input('delivery.address'),
+                'address' => $request->input('delivery.address') ?? "Самовывоз",
                 'buyer' => $request->input('contacts.from'),
-                'recipient' => $request->input('contacts.to'),
+                'recipient' => $request->input('contacts.to') ?? $request->input('contacts.from'),
                 'notes' => $request->input('message') ?? 'Комментария нет.',
                 'anonymous' => $request->input('anonymous') ?? false
             ],

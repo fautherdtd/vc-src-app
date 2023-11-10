@@ -1,5 +1,8 @@
 <template>
-    <AppLayout :title="product.data.name">
+    <AppLayout
+        :title="product.data.seo_title"
+        :description="product.data.seo_description"
+    >
         <div class="product-detail">
             <div class="product-detail_carousel">
                 <Carousel v-bind="settings">

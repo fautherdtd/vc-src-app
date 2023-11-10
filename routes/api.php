@@ -20,12 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('categories')->group(function () {
-    Route::get('list', [Categories::class, 'index'])->name('index');
-});
-
-Route::prefix('products')->group(function () {
-    Route::get('list', [Products::class, 'index'])->name('index');
-    Route::get('popular', [Products::class, 'popular'])->name('popular');
-    Route::get('item/{slug}', [Products::class, 'item'])->name('item');
-});
+Route::middleware('yookassa')
+    ->get('webhook', [\App\Services\Payment\PaymentHandler::class, 'webhookTransaction']);

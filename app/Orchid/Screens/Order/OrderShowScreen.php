@@ -29,10 +29,10 @@ class OrderShowScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Order $order): iterable
     {
         return [
-            'order' => Order::firstOrFail(),
+            'order' => $order,
         ];
     }
 
@@ -60,9 +60,6 @@ class OrderShowScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make('Отредактировать заказ')
-                ->icon('pencil')
-                ->route('platform.order.edit')
         ];
     }
 

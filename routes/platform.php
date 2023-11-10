@@ -140,8 +140,8 @@ Route::prefix('customer')->name('platform.customer.')->group(function () {
 // Customer
 Route::prefix('order')->name('platform.order.')->group(function () {
     Route::screen('list', OrderListScreen::class)->name('list');
-    Route::screen('show/{order?}', OrderShowScreen::class)->name('show');
-    Route::screen('edit/{order?}', OrderEditScreen::class)->name('edit');
+    Route::screen('show/{order}', OrderShowScreen::class)->name('show');
+    Route::screen('edit/{order}', OrderEditScreen::class)->name('edit');
 });
 
 // Payment method

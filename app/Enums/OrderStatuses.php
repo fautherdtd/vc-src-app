@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use function Laravel\Prompts\search;
+
 enum OrderStatuses: string
 {
     case New = 'Новый';
@@ -13,10 +15,10 @@ enum OrderStatuses: string
     public static function fromName(string $name): string
     {
         foreach (self::cases() as $status) {
-            if (ucwords($name) === $status->name ){
+            if (ucwords($name) === $status->name) {
                 return $status->value;
             }
         }
-        throw new \ValueError("$name is not a valid backing value for enum " . self::class );
+        throw new \ValueError("$name is not a valid backing value for enum " . self::class);
     }
 }

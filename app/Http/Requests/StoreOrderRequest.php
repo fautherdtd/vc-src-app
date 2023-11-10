@@ -23,14 +23,14 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'delivery.method' => ['required', 'exists:App\Models\Shipping,method'],
-            'delivery.address' => ['required', 'string'],
+            'delivery.address' => ['string', 'nullable'],
             'payment.method' => ['required', 'exists:App\Models\Payment,method'],
             'timeDelivery.date' => ['required', 'date'],
             'contacts.from.name' => ['required', 'string'],
             'contacts.from.phone' => ['required', 'string'],
-            'contacts.to.name' => ['required', 'string'],
-            'contacts.to.phone' => ['required', 'string'],
-            'message' => ['required', 'string', 'nullable'],
+            'contacts.to.name' => ['string', 'nullable'],
+            'contacts.to.phone' => ['string', 'nullable'],
+            'message' => ['string', 'nullable'],
             'rules' => ['required']
         ];
     }
@@ -52,7 +52,6 @@ class StoreOrderRequest extends FormRequest
             'contacts.to.name' => 'Имя получателя обязательное поле.',
             'contacts.to.phone' => 'Номер получателя обязательное поле.',
             'payment.method' => 'Выберите метод оплаты.',
-            'message' => 'Комментарий обязателен.',
             'rules' => 'Согласие обязательно.',
         ];
     }

@@ -23,7 +23,7 @@
                             </label>
                             <InputError style="margin: 0" :message="form.errors['delivery.method']" />
                         </div>
-                        <div class="order-form_block--child--content">
+                        <div class="order-form_block--child--content" v-if="form.delivery.method !== 'self'">
                             <input type="text"
                                    v-model="form.delivery.address"
                                    @change="enterAddress"
@@ -75,22 +75,31 @@
                         <InputError class="mt-2" :message="form.errors['contacts.from.name']" />
                         <InputError class="mt-2" :message="form.errors['contacts.from.phone']" />
                         <div class="order-form_block--child--content">
-                            <label class="input-label" for="anonymous">
-                                <input type="checkbox" v-model="form.contacts.from.anonymous" name="anonymous" id="anonymous">
-                                <p class="inp-radio-primary">Анонимный заказ</p>
+                            <label class="input-label" for="buyerSelf">
+                                <input type="checkbox" v-model="buyerSelf" name="buyerSelf" id="buyerSelf">
+                                <p class="inp-radio-primary">Получатель я сам(а)</p>
                             </label>
                         </div>
-                        <div class="order-form_block--child--title" style="margin-top: 18px;">
-                            Получатель
-                        </div>
-                        <div class="order-form_block--child--content">
-                            <label for="">
-                                <input type="text" v-model="form.contacts.to.name" placeholder="Имя получателя *" class="inp-text-primary inp-w-20">
-                            </label>
-                            <label for="">
-                                <input type="text" v-model="form.contacts.to.phone" placeholder="Телефон получателя *" class="inp-text-primary inp-w-20">
-                            </label>
-                        </div>
+                        <template v-if="!buyerSelf">
+                            <div class="order-form_block--child--title"
+                                 style="margin-top: 18px;">
+                                Получатель
+                            </div>
+                            <div class="order-form_block--child--content">
+                                <label for="">
+                                    <input type="text" v-model="form.contacts.to.name" placeholder="Имя получателя *" class="inp-text-primary inp-w-20">
+                                </label>
+                                <label for="">
+                                    <input type="text" v-model="form.contacts.to.phone" placeholder="Телефон получателя *" class="inp-text-primary inp-w-20">
+                                </label>
+                            </div>
+                            <div class="order-form_block--child--content">
+                                <label class="input-label" for="anonymous">
+                                    <input type="checkbox" v-model="form.contacts.from.anonymous" name="anonymous" id="anonymous">
+                                    <p class="inp-radio-primary">Анонимный заказ <i>(мы не скажем получателю о вас)</i></p>
+                                </label>
+                            </div>
+                        </template>
                         <InputError class="mt-2" :message="form.errors['contacts.to.name']" />
                         <InputError class="mt-2" :message="form.errors['contacts.to.phone']" />
                     </div>
@@ -103,7 +112,7 @@
                                    v-for="payment in props.payments.data"
                                    :key="payment.id">
                                 <input type="radio" v-model="form.payment.method" :value="payment.method" name="payment" :id="payment.method">
-                                <p class="inp-radio-primary">{{ payment.label }}</p>
+                                <span class="inp-radio-primary">{{ payment.label }}</span>
                             </label>
                         </div>
                         <InputError class="mt-2" :message="form.errors['payment.method']" />
@@ -202,7 +211,7 @@ const form = useForm({
         }
     },
     message: null,
-    rules: null,
+    rules: true,
 })
 const addressSuggest = ref([]);
 const address = ref(null)
@@ -236,11 +245,12 @@ const changeAddress = (text) => {
 }
 
 const formProcess = ref(false);
-
+const buyerSelf = ref(false);
 const createOrder = () => {
     form.post(route('cart.createOrder'), {
         preserveScroll: true,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            console.log(data)
             formProcess.value = true
         }
     });

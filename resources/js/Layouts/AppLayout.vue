@@ -9,7 +9,11 @@ defineProps({
 </script>
 
 <template>
-    <Head :title="title" />
+    <Head>
+        <title>{{ title }}</title>
+        <meta name="description" :content="description ?? 'Доставка цветов в г. Дербент'">
+    </Head>
+
     <div class="wrapper">
         <Header/>
         <main>

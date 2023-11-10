@@ -5,16 +5,24 @@ namespace App\Orchid\Screens\Order;
 use App\Enums\OrderStatuses;
 use App\Enums\PaymentStatuses;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Models\Shipping;
+use Illuminate\Http\Request;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\CheckBox;
+use Orchid\Screen\Fields\DateRange;
+use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Fields\Switcher;
 use Orchid\Screen\Fields\TextArea;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Screen;
 
 class OrderEditScreen extends Screen
 {
+    public $order;
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -44,9 +52,18 @@ class OrderEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
-    }
+        return [
+            Button::make('Обновить')
+                ->icon('bs.pencil-square')
+                ->method('save')
+                ->canSee($this->order->exists),
 
+            Button::make('Удалить')
+                ->icon('trash')
+                ->method('remove')
+                ->canSee($this->order->exists),
+        ];
+    }
     /**
      * The screen's layout elements.
      *
@@ -57,57 +74,89 @@ class OrderEditScreen extends Screen
         return [
             Layout::columns([
                 Layout::rows([
-                    Input::make('number')
+                    Input::make('order.number')
                         ->disabled()
                         ->title('Номер заказа'),
-                    Input::make('total_price')
+                    Input::make('order.total_price')
                         ->disabled()
                         ->title('Сумма заказа'),
-                    Select::make('status')
+                    Select::make('order.status')
                         ->title('Статус')
                         ->options(OrderStatuses::cases())
                 ])->title('Заказ'),
                 Layout::rows([
-                    Input::make('created_at')
+                    Input::make('order.created_at')
                         ->disabled()
                         ->title('Заказ был создан'),
-                    Input::make('delivery_time')
+                    DateTimer::make('order.delivery_time')
+                        ->enableTime()
                         ->title('Время доставки'),
-                    TextArea::make('notes')
+                    TextArea::make('order.notes')
                         ->title('Комментарий к заказу'),
                 ])->title('Доп. информация')
             ]),
             Layout::columns([
                 Layout::rows([
-                    Input::make('buyer.name')
+                    Input::make('order.buyer.name')
                         ->title('Имя заказчика'),
-                    Input::make('buyer.phone')
+                    Input::make('order.buyer.phone')
                         ->title('Телефон заказчика')
                 ])->title('Заказчик'),
                 Layout::rows([
-                    Input::make('recipient.name')
+                    Input::make('order.recipient.name')
                         ->title('Имя получателя'),
-                    Input::make('recipient.phone')
+                    Input::make('order.recipient.phone')
                         ->title('Номер получателя'),
                 ])->title('Получатель'),
             ]),
             Layout::columns([
                 Layout::rows([
-                    TextArea::make('address')
+                    TextArea::make('order.address')
                         ->title('Адрес доставки'),
-                    Input::make('shipping_price')
+                    Input::make('order.shipping_price')
                         ->title('Сумма доставки'),
-                    Input::make('shipping_method')
+                    Select::make('order.shipping_method')
+                        ->options(Shipping::pluck('label', 'method'))
                         ->title('Метод доставки'),
                 ])->title('Доставка'),
                 Layout::rows([
-                    Input::make('payment_method')
+                    Select::make('order.payment_method')
+                        ->options(Payment::pluck('label', 'method'))
                         ->title('Метод оплаты'),
-                    Select::make('transactions')
-                        ->title('Статус заказа')
-                        ->options(PaymentStatuses::cases())
+                    CheckBox::make('order.is_payment')
+                        ->title('Статус оплаты')
+                        ->placeholder('Заказ оплачен да/нет')
                 ])->title('Оплата')
             ])
         ];
+    }
+
+    /**
+     * @param Order $order
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function save(Order $order, Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $order->fill(
+            $request->get('payment')
+        )->save();
+
+        Alert::info('Заказ обновлен.');
+        return redirect()->route('platform.order.list');
+    }
+
+    /**
+     * @param Payment $payment
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function remove(Order $order): \Illuminate\Http\RedirectResponse
+    {
+        $order->delete();
+        Alert::info('Заказ удален.');
+        return redirect()->route('platform.order.list');
     }
 }
