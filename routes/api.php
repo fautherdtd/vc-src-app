@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('yookassa')
-    ->get('webhook', [\App\Services\Payment\PaymentHandler::class, 'webhookTransaction']);
+    ->post('webhook', [\App\Services\Payment\PaymentHandler::class, 'webhookTransaction']);
