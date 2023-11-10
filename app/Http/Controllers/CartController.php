@@ -63,6 +63,7 @@ class CartController extends Controller
             ]);
             return Inertia::location($result);
         }
+        Cart::clear();
     }
 
     /**
