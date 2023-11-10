@@ -53,20 +53,17 @@ class PaymentHandler
 
     public function webhookTransaction(Request $request)
     {
-        $model = Transactions::where('uuid', $request->input('object.id'))->first();
-        $model->uuid = $request->input('object.id');
-        $model->amount = $request->input('amount.value');
-        $model->payment_method = $request->input('payment_method.type');
-        $model->order_id = $request->input('object.description');
-        $model->save();
         if ($request->input('object.status') === 'succeeded') {
-            Order::where('id', $request->input('object.description'))
+            Order::where('number', (int) $request->input('object.description'))
                 ->update([
                     'is_payment' => true
                 ]);
+            Transactions::where('uuid', $request->input('object.id'))
+                ->update([
+                    'payment_method' => $request->input('object.payment_method.type'),
+                ]);
+            return response()->json();
         }
-        $guzzle = new \GuzzleHttp\Client();
-        $guzzle->get($request->url());
     }
 
     /**
