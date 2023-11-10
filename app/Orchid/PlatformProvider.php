@@ -66,11 +66,15 @@ class PlatformProvider extends OrchidServiceProvider
                 ->route('platform.faq.list'),
 
             // Система
+            Menu::make(__('Транзакции'))
+                ->icon('bs.credit-card')
+                ->route('platform.transactions.list')
+                ->title(__('Система')),
+
             Menu::make(__('Пользователи'))
                 ->icon('bs.people')
                 ->route('platform.systems.users')
-                ->permission('platform.systems.users')
-                ->title(__('Система')),
+                ->permission('platform.systems.users'),
 
             Menu::make(__('Роли'))
                 ->icon('bs.shield')

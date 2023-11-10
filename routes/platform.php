@@ -29,6 +29,7 @@ use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\Shipping\ShippingEditScreen;
 use App\Orchid\Screens\Shipping\ShippingListScreen;
+use App\Orchid\Screens\Transactions\TransactionsListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
@@ -162,4 +163,8 @@ Route::prefix('faq')->name('platform.faq.')->group(function () {
    Route::screen('list', FAQListScreen::class)->name('list');
    Route::screen('create', FAQEditScreen::class)->name('create');
    Route::screen('edit/{faq?}', FAQEditScreen::class)->name('edit');
+});
+
+Route::prefix('transactions')->name('platform.transactions.')->group(function () {
+   Route::screen('list', TransactionsListScreen::class)->name('list');
 });
