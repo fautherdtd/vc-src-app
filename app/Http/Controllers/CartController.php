@@ -61,6 +61,7 @@ class CartController extends Controller
                 'amount' => $data['order']['total_price'],
                 'description' => $data['order']['number'],
             ]);
+            Cart::clear();
             return Inertia::location($result);
         }
         Cart::clear();
