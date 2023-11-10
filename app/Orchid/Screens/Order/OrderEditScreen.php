@@ -82,7 +82,13 @@ class OrderEditScreen extends Screen
                         ->title('Сумма заказа'),
                     Select::make('order.status')
                         ->title('Статус')
-                        ->options(OrderStatuses::cases())
+                        ->options([
+                            'new' => 'Новый' ,
+                            'processing' => 'На оформлении',
+                            'shipped' => 'Доставляется',
+                            'delivered' => 'Доставлен',
+                            'cancelled' => 'Отменен',
+                        ])
                 ])->title('Заказ'),
                 Layout::rows([
                     Input::make('order.created_at')
@@ -140,7 +146,7 @@ class OrderEditScreen extends Screen
     public function save(Order $order, Request $request): \Illuminate\Http\RedirectResponse
     {
         $order->fill(
-            $request->get('payment')
+            $request->get('order')
         )->save();
 
         Alert::info('Заказ обновлен.');
