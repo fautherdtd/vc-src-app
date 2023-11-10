@@ -61,7 +61,7 @@ class CartController extends Controller
                 'amount' => $data['order']['total_price'],
                 'description' => $data['order']['number'],
             ]);
-            return \redirect($result);
+            return Inertia::location($result);
         }
     }
 
