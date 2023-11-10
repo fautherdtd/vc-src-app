@@ -55,7 +55,7 @@ class CartController extends Controller
     {
         $data = $service->prepare($request);
         $order =$service->create($data);
-        if ($request->input('payment.method') === 'card' && $order) {
+        if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
             $result = $transaction->create([
                 'amount' => $data['order']['total_price'],
