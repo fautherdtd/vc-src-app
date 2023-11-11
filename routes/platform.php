@@ -20,6 +20,8 @@ use App\Orchid\Screens\FAQ\FAQListScreen;
 use App\Orchid\Screens\Order\OrderEditScreen;
 use App\Orchid\Screens\Order\OrderListScreen;
 use App\Orchid\Screens\Order\OrderShowScreen;
+use App\Orchid\Screens\Pages\PageEditScreen;
+use App\Orchid\Screens\Pages\PageListScreen;
 use App\Orchid\Screens\Payment\PaymentEditScreen;
 use App\Orchid\Screens\Payment\PaymentListScreen;
 use App\Orchid\Screens\PlatformScreen;
@@ -167,4 +169,10 @@ Route::prefix('faq')->name('platform.faq.')->group(function () {
 
 Route::prefix('transactions')->name('platform.transactions.')->group(function () {
    Route::screen('list', TransactionsListScreen::class)->name('list');
+});
+
+Route::prefix('page')->name('platform.page.')->group(function () {
+   Route::screen('list', PageListScreen::class)->name('list');
+   Route::screen('create', PageEditScreen::class)->name('create');
+   Route::screen('edit/{page}', PageEditScreen::class)->name('edit');
 });

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Services\Cart\CartFlowService;
@@ -25,15 +26,9 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/catalog/{slug?}', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/product/{slug}', [ProductController::class, 'index'])->name('product');
 
-Route::get('/delivery', function () {
-    return Inertia::render('Delivery');
-})->name('delivery');
-Route::get('/about', function () {
-    return Inertia::render('About');
-})->name('about');
-Route::get('/payment', function () {
-    return Inertia::render('Payment');
-})->name('payment');
+Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
+Route::get('/payment', [PageController::class, 'payment'])->name('payment');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::prefix('favorites')->name('favorites.')->group(function () {
     Route::get('/', [FavoritesController::class, 'index'])->name('index');

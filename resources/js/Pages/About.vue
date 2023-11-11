@@ -1,18 +1,14 @@
 <template>
-    <AppLayout title="О Нас">
+    <AppLayout :title="page.data.seo_title"
+               :description="page.data.seo_description">
         <BreadCrumbs  :child="[
             {id: 1, title: 'О нас', link: 'about'},
         ]"/>
         <h1 class="page-title">О НАС</h1>
-        <div class="page-container">
-            ВАЛЬС ЦВЕТОВ
-            <p>Это история о любви к цветам, ко всему прекрасному. Это желание нести эту красоту в массы,
-                сделать ее доступной для каждого. Проект создавался с осознанием того, что стильный красивый букет не обязательно
-                должен стоить дорого.</p>
-        </div>
+        <div class="page-container" v-html="page.data.body"></div>
         <div class="page-container_gallery">
             <Carousel :breakpoints="breakpoints" :wrapAround="true" :transition="500">
-                <Slide v-for="item in gallery" :key="item">
+                <Slide v-for="item in page.data.images" :key="item">
                     <div class="carousel__item"
                          :style="'background-image: url(' + item + ')'"></div>
                 </Slide>
@@ -47,6 +43,9 @@ import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
 import {Carousel, Pagination, Slide} from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
+defineProps({
+    page: Object
+})
 const gallery = [
 ]
 const breakpoints = {
