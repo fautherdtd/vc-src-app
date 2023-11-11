@@ -48,7 +48,7 @@
                     <div class="order-form_block--child">
                         <div class="order-form_block--child--title">
                             Дата и время <template v-if="!buyerSelf">доставки</template>
-                            <span>Курьер позвонит по указанному номеру за час до доставки.</span>
+                            <span v-if="!buyerSelf">Курьер позвонит по указанному номеру за час до доставки.</span>
                         </div>
                         <div class="order-form_block--child--content">
                             <label for="date" class="input-label">
