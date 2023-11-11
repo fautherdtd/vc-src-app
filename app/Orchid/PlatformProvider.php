@@ -62,16 +62,16 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.truck')
                 ->route('platform.shipping.list'),
             Menu::make(__('FAQ'))
-                ->icon('bs.faq')
+                ->icon('bs.question-circle')
                 ->route('platform.faq.list'),
 
             // Система
             Menu::make(__('Страницы'))
-                ->icon('bs.credit-card')
+                ->icon('bs.file-earmark-fill')
                 ->route('platform.page.list')
                 ->title(__('Система')),
             Menu::make(__('Транзакции'))
-                ->icon('bs.credit-card')
+                ->icon('bs.card-list')
                 ->route('platform.transactions.list'),
 
             Menu::make(__('Пользователи'))
