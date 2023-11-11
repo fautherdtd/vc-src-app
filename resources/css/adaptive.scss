@@ -410,6 +410,9 @@
     .product-item {
         width: 100%;
 
+        &_img {
+            height: 350px;
+        }
         &_footer--price {
             font-size: 18px;
             font-style: normal;
