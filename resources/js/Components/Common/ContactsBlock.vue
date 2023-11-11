@@ -7,18 +7,22 @@
                     <p class="contact-block__info-item--text">
                         <ion-icon name="call-outline"></ion-icon>
                         <a href="tel: 8 (928) 045 66 17" class="contact-block__info-item--link">8 (928) 045 66 17</a></p>
+                    <p class="contact-block__info-item--text">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto: faridamelikova@mail.ru" class="contact-block__info-item--link">faridamelikova@mail.ru</a>
+                    </p>
                 </div>
                 <div class="contact-block__info-item--sub">
                     <h4>Адрес:</h4>
                     <p class="contact-block__info-item--text">
-                        г. Дербент, ул. Кобякова, 12.
+                        г. Дербент, ул. Кобякова, 12, 368600
                     </p>
                     <p class="contact-block__info-item--text">
                         Ежедневно с 08:00 до 00:00
                     </p>
                 </div>
                 <div class="contact-block__info-item--sub">
-                    <h4>Реквизиты:</h4>
+                    <h4>Юридическая информация:</h4>
                     <p class="contact-block__info-item--small">
                         <b>ИП: </b>Меликова Фарида Нурмагомед Кызы
                     </p>

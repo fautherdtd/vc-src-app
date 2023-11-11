@@ -1015,6 +1015,8 @@ footer {
             &--text {
                 font-size: 14px;
                 line-height: 22px;
+                display: flex;
+                align-items: center;
             }
             &--small {
                 margin: 5px 0;
