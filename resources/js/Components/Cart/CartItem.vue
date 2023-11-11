@@ -31,9 +31,7 @@
     </div>
 </template>
 <script setup>
-import {useForm, usePage, router} from "@inertiajs/vue3";
-import {ref, watch} from "vue";
-
+import {router} from "@inertiajs/vue3";
 const props = defineProps({
     product: Array,
     cartID: Number,

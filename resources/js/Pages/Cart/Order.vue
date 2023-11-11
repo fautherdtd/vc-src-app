@@ -23,6 +23,12 @@
                             </label>
                             <InputError style="margin: 0" :message="form.errors['delivery.method']" />
                         </div>
+                        <div class="order-form_block--child--content" v-if="buyerSelf">
+                            <div class="order-form_block--child--content--sublink">
+                                <p>Заказ можно забрать по адресу:
+                                    <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank"><ion-icon name="location-outline"></ion-icon> г. Дербент, ул. Кобякова, 12</a></p>
+                            </div>
+                        </div>
                         <div class="order-form_block--child--content" v-if="form.delivery.method !== 'self'">
                             <input type="text"
                                    v-model="form.delivery.address"
@@ -41,7 +47,7 @@
                     </div>
                     <div class="order-form_block--child">
                         <div class="order-form_block--child--title">
-                            Дата и время доставки
+                            Дата и время <template v-if="!buyerSelf">доставки</template>
                             <span>Курьер позвонит по указанному номеру за час до доставки.</span>
                         </div>
                         <div class="order-form_block--child--content">
@@ -174,7 +180,7 @@
     </AppLayout>
 </template>
 <script setup>
-import {router, useForm} from "@inertiajs/vue3";
+import {router, useForm, usePage} from "@inertiajs/vue3";
 import {ref, watch, onMounted} from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
@@ -215,6 +221,11 @@ const form = useForm({
 })
 const addressSuggest = ref([]);
 const address = ref(null)
+
+watch(() => form.delivery.method, (current) => {
+    current === 'self' ? buyerSelf.value = true : buyerSelf.value = false;
+})
+
 
 const enterAddress = () => {
     axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {

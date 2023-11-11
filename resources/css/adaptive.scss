@@ -177,6 +177,9 @@
     .order-form_block-main {
         width: 520px;
     }
+    .contact-block .iframe-map {
+        width: 100%;
+    }
 }
 @media (max-width: 640px) {
     .catalog-product_sort {
@@ -318,8 +321,21 @@
         flex-wrap: wrap;
         gap: 20px 0;
     }
+    .contact-block {
+        flex-wrap: wrap;
+        width: 100%;
+        box-sizing: border-box;
+
+        &__maps {
+            width: 100%;
+        }
+    }
+
 }
 @media (max-width: 425px) {
+    .contact-block .iframe-map {
+        height: 600px;
+    }
     .page-title {
         font-size: 18px;
     }
@@ -460,6 +476,11 @@
     }
     .product-detail_carousel--main {
         height: 310px;
+    }
+}
+@media (max-width: 375px) {
+    .contact-block .iframe-map {
+        height: 300px;
     }
 }
 

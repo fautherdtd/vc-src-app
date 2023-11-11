@@ -5,7 +5,7 @@
             {id: 1, title: 'О нас', link: 'about'},
         ]"/>
         <h1 class="page-title">О НАС</h1>
-        <div class="page-container" v-html="page.data.body"></div>
+        <div v-html="page.data.body"></div>
         <div class="page-container_gallery">
             <Carousel :breakpoints="breakpoints" :wrapAround="true" :transition="500">
                 <Slide v-for="item in page.data.images" :key="item">
@@ -17,6 +17,7 @@
                 </template>
             </Carousel>
         </div>
+        <ContactsBlock/>
         <div class="page-about_info">
             <div class="page-about_info--text">
                 МЫ - КОМАНДА <span>ПРОФЕССИОНАЛЬНЫХ
@@ -42,6 +43,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
 import {Carousel, Pagination, Slide} from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import ContactsBlock from "@/Components/Common/ContactsBlock.vue";
 
 defineProps({
     page: Object
