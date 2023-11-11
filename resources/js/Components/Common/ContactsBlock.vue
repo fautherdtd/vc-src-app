@@ -15,7 +15,7 @@
                 <div class="contact-block__info-item--sub">
                     <h4>Адрес:</h4>
                     <p class="contact-block__info-item--text">
-                        г. Дербент, ул. Кобякова, 12, 368600
+                        г. Дербент, ул. Кобякова, 12. 368600
                     </p>
                     <p class="contact-block__info-item--text">
                         Ежедневно с 08:00 до 00:00
