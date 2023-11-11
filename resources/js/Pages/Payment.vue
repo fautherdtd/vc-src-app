@@ -16,3 +16,12 @@ defineProps({
     data: Object
 })
 </script>
+<style>
+.page-container h2 {
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+.page-container ul > li:before {
+    content: '- ';
+}
+</style>

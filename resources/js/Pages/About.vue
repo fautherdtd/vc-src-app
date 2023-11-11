@@ -57,5 +57,16 @@ const breakpoints = {
         itemsToShow: 1.8,
         snapAlign: 'center',
     },
+    960: {
+        itemsToShow: 2.5,
+        snapAlign: 'center',
+    },
 }
 </script>
+<style>
+.page-container h2 {
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+</style>
+
