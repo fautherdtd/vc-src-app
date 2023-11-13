@@ -80,10 +80,9 @@ class ProductListScreen extends Screen
      */
     public function activeChange(Request $request)
     {
-        dd($request->all());
-        $product->is_active = !$product->is_active;
-        $product->save();
-        Alert::info('Активность "' .$product->name . '" изменена');
+        $product = Product::where('id', $request->input('id'))
+            ->update(['is_active' => !$request->input('is_active')]);
+        Alert::info('Активность изменена');
         return redirect()->route('platform.product.list');
     }
 }

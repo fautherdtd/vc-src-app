@@ -57,7 +57,8 @@ class ProductListLayout extends Table
             TD::make('slug', 'Slug'),
             TD::make('is_active', 'Активность')
                 ->render(function (Product $product) {
-                    return '<span>' . $product->is_active ? "Да" : "Нет" . '</span>';
+                    $text = $product->is_active ? "Да" : "Нет";
+                    return "<span> $text </span>";
                 }),
             TD::make('created_at', 'Создан')
                 ->usingComponent(DateTimeSplit::class),
@@ -72,6 +73,7 @@ class ProductListLayout extends Table
                             ->icon('bs.eye-fill')
                             ->method('activeChange', [
                                 'id' => $product->id,
+                                'is_active' => $product->is_active
                             ]),
 
                         Link::make(__('Редактировать'))
