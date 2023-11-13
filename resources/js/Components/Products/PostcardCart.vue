@@ -2,7 +2,7 @@
     <div class="product-item">
         <div class="product-item_carousel">
             <Carousel :itemsToShow="1" :wrap-around="true" :transition="500">
-                <Slide v-for="image in ['https://shop-cdn1-2.vigbo.tech/shops/108425/products/18589061/images/2-5d64f9892d3911e8975d453c92b08819.jpg', 'https://shop-cdn1-2.vigbo.tech/shops/108425/products/18589061/images/2-5d64f9892d3911e8975d453c92b08819.jpg']" :key="image">
+                <Slide v-for="image in postcard.image" :key="image">
                     <div class="product-item_img" :style="'background-image: url(' + image + ')'" ></div>
                 </Slide>
             </Carousel>
