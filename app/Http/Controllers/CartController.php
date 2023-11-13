@@ -9,6 +9,7 @@ use App\Http\Resources\Delivery\DeliveryResources;
 use App\Http\Resources\Payments\PaymentsResources;
 use App\Facades\Order;
 use App\Models\Payment;
+use App\Models\Postcards;
 use App\Models\Product;
 use App\Models\Shipping;
 use App\Services\Order\OrderService;
@@ -74,15 +75,21 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
-        $product = Product::with('category')->find($request->input('id'));
+        $product = $request->input('type') === 'product' ?
+            Product::with('category')->find($request->input('id')) :
+            Postcards::with('category')->find($request->input('id'));
+
         Cart::add(
             $request->input('id'),
             $product->name,
             $request->input('price'),
             $request->count ?? 1,
             [
+                'type' => $request->type,
                 'category' => $product->category->name,
-                'image' => $this->getUrl($product->attachment('preview')->first()),
+                'image' => $this->getUrl($product->attachment(
+                    $request->input('type') === 'product' ? 'preview' : 'postcards'
+                )->first()),
                 'modify' => $request->input('modify') ?? []
             ]
         );

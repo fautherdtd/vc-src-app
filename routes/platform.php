@@ -25,6 +25,8 @@ use App\Orchid\Screens\Pages\PageListScreen;
 use App\Orchid\Screens\Payment\PaymentEditScreen;
 use App\Orchid\Screens\Payment\PaymentListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Postcards\PostcardEditScreen;
+use App\Orchid\Screens\Postcards\PostcardsListScreen;
 use App\Orchid\Screens\Products\ProductEditScreen;
 use App\Orchid\Screens\Products\ProductListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
@@ -175,4 +177,10 @@ Route::prefix('page')->name('platform.page.')->group(function () {
    Route::screen('list', PageListScreen::class)->name('list');
    Route::screen('create', PageEditScreen::class)->name('create');
    Route::screen('edit/{page}', PageEditScreen::class)->name('edit');
+});
+
+Route::prefix('postcard')->name('platform.postcard.')->group(function () {
+   Route::screen('list', PostcardsListScreen::class)->name('list');
+   Route::screen('create', PostcardEditScreen::class)->name('create');
+   Route::screen('edit/{postcard}', PostcardEditScreen::class)->name('edit');
 });

@@ -24,10 +24,19 @@
                         >По цене</span>
                     </div>
                     <div class="catalog-product_data">
-                        <ProductCart
-                            v-for="product in products.data"
-                            :product="product"
-                            :key="product.id"/>
+                        <template v-if="!visiblePostcard">
+                            <ProductCart
+                                v-for="product in products.data"
+                                :product="product"
+                                :key="product.id"/>
+                        </template>
+                        <template v-else>
+                            <PostcardCart
+                                v-for="postcard in products.data"
+                                :postcard="postcard"
+                                :key="postcard.id"
+                            />
+                        </template>
                     </div>
                 </div>
             </div>
@@ -40,9 +49,11 @@ import ProductCart from "@/Components/Products/ProductCart.vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {Link, router, usePage} from "@inertiajs/vue3";
 import DropdownCatalog from "@/Components/Inputs/DropdownCatalog.vue";
+import PostcardCart from "@/Components/Products/PostcardCart.vue";
 
 defineProps({
-    products: Array
+    products: Object,
+    visiblePostcard: Boolean
 })
 const sortByEnabled = ref('id')
 const active = ref(false);

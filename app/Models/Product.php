@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Attachment\Attachable;
-use Orchid\Attachment\Models\Attachment;
 use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -29,7 +28,7 @@ class Product extends Model
     protected $casts = [
         'chars' => 'array',
         'modify' => 'array',
-        'is_active' => 'boolean'
+        'is_active' => 'bool'
     ];
     /**
      * Get the options for generating the slug.

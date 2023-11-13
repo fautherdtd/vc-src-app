@@ -2,19 +2,26 @@
 
 namespace App\Orchid\Layouts\Product;
 
+use App\Http\Controllers\Helpers\Images;
 use App\Models\Category;
+use App\Models\OrderItems;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Components\Cells\DateTimeSplit;
+use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\Repository;
 use Orchid\Screen\TD;
+use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
+use Orchid\Support\Facades\Toast;
 
 class ProductListLayout extends Table
 {
+    use Images;
     /**
      * Data source.
      *
@@ -39,6 +46,9 @@ class ProductListLayout extends Table
                     return "<span class='small text-muted mt-1 mb-0'># {$product->id}</span>";
                     }
                 ),
+            TD::make('preview', 'Изображение')->render(function (Product $item) {
+                return "<img height='100px' src='{$this->getUrl($item->attachment->first())}'/>";
+            }),
             TD::make('name', 'Наименование')
                 ->render(function (Product $product) {
                     return Link::make($product->name)
@@ -46,7 +56,9 @@ class ProductListLayout extends Table
                 }),
             TD::make('slug', 'Slug'),
             TD::make('is_active', 'Активность')
-                ->render(fn (Product $product) => $product->is_active ? 'Да' : 'Нет'),
+                ->render(function (Product $product) {
+                    return '<span>' . $product->is_active ? "Да" : "Нет" . '</span>';
+                }),
             TD::make('created_at', 'Создан')
                 ->usingComponent(DateTimeSplit::class),
             TD::make(__('Действия'))
@@ -55,6 +67,12 @@ class ProductListLayout extends Table
                 ->render(fn (Product $product) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
+
+                        Button::make(__('Активность'))
+                            ->icon('bs.eye-fill')
+                            ->method('activeChange', [
+                                'id' => $product->id,
+                            ]),
 
                         Link::make(__('Редактировать'))
                             ->route('platform.product.edit', $product->id)

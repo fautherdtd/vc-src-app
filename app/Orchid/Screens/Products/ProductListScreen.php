@@ -4,6 +4,8 @@ namespace App\Orchid\Screens\Products;
 
 use App\Models\Product;
 use App\Orchid\Layouts\Product\ProductListLayout;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
@@ -69,6 +71,19 @@ class ProductListScreen extends Screen
     {
         $product->delete();
         Alert::info('Продукт удален.');
+        return redirect()->route('platform.product.list');
+    }
+
+    /**
+     * @param Product $product
+     * @return RedirectResponse
+     */
+    public function activeChange(Request $request)
+    {
+        dd($request->all());
+        $product->is_active = !$product->is_active;
+        $product->save();
+        Alert::info('Активность "' .$product->name . '" изменена');
         return redirect()->route('platform.product.list');
     }
 }

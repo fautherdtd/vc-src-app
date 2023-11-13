@@ -20,5 +20,6 @@ defineProps({
             <slot />
         </main>
     </div>
+    <notifications position="bottom right"/>
     <Footer/>
 </template>

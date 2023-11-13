@@ -110,12 +110,13 @@ class OrderShowScreen extends Screen
             ]),
             Layout::table('order.items', [
                 TD::make('id', '#ID'),
-                TD::make('product.image', '#ID')->render(function (OrderItems $item) {
-                    return "<img height='100px' src='{$this->getUrl($item->product->attachment->first())}'/>";
+                TD::make('product.image', 'Изображение')->render(function (OrderItems $item) {
+                    return "<img height='100px' src='{$this->getUrl($item->{strtolower($item->type)}->attachment->first())}'/>";
                 }),
                 TD::make('product.name', 'Наименование продукта')->render(function (OrderItems $item) {
-                    return $item->product->name;
+                    return $item->{strtolower($item->type)}->name;
                 }),
+                TD::make('type', 'Тип'),
                 TD::make('qty', 'Количество'),
             ])
         ];

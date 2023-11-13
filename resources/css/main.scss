@@ -1028,3 +1028,12 @@ footer {
 .ql-align-center {
     text-align: center;
 }
+.product-item_carousel {
+    width: 240px;
+    height: 240px;
+    overflow: hidden;
+
+    .carousel__slide {
+        padding: 0 !important;
+    }
+}

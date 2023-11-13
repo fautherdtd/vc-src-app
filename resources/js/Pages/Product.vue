@@ -57,7 +57,8 @@
                         v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
                         @click="addToCart(product.data.id, {
                           count: options.countItem,
-                          price: product.data.price
+                          price: product.data.price,
+                          type: 'product'
                         })" class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
                             <path
@@ -99,8 +100,8 @@ import {Carousel, Slide} from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
 defineProps({
-    product: Array,
-    popular: Array
+    product: Object,
+    popular: Object
 })
 const options = useForm({
     price: usePage().props.product.data.price,

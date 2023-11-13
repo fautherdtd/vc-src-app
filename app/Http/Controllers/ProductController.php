@@ -20,7 +20,7 @@ class ProductController extends Controller
             ->where('slug', $slug);
 
         return Inertia::render('Product', [
-           'product' => new ProductResource($product->first()),
+            'product' => new ProductResource($product->first()),
             'popular' => $this->popular()
         ]);
     }

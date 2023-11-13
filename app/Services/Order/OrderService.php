@@ -32,6 +32,7 @@ class OrderService
                     'unit_price' => $item['price'],
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
+                    'type' => ucwords($item['options']['type'])
                 ];
             }
             OrderItems::insert($items);

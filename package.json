@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@egjs/vue3-flicking": "^4.11.0",
+        "@kyvg/vue3-notification": "^3.0.2",
         "feather-icons": "^4.29.1",
         "vue-feather": "^2.0.0",
         "vue3-burger-menu": "^1.1.1",

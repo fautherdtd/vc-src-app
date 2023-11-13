@@ -11,7 +11,8 @@
             <div class="product-item_footer--price">{{  product.price  }} ₽</div>
             <div class="product-item_footer--btn" @click="addToCart(product.id, {
                     price: product.price,
-                    count: 1
+                    count: 1,
+                    type: 'product'
                 })">
                 В корзину
                 <ion-icon name="cart-outline" size="small"></ion-icon>
