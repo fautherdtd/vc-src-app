@@ -133,6 +133,10 @@
                 </div>
                 <div class="order-form_block  order-form_block-sub">
                     <div class="order-form_block--child">
+                        <p class="text-small_info">
+                            Вы также можете добавить приятные слова к своему заказу.
+                            <br>Выбрать открытку можете в <Link :href="route('catalog', 'otkrytki')">каталоге</Link>.
+                        </p>
                         <div class="order-form_block--child--content" style="margin: 0;">
                         <textarea name="" id=""
                                   v-model="form.message"
@@ -187,7 +191,7 @@
     </AppLayout>
 </template>
 <script setup>
-import {router, useForm, usePage} from "@inertiajs/vue3";
+import {router, useForm, Link, usePage} from "@inertiajs/vue3";
 import {ref, watch, onMounted} from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";

@@ -1037,3 +1037,13 @@ footer {
         padding: 0 !important;
     }
 }
+.text-small_info {
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: $primaryColor;
+
+    a {
+        border-bottom: 1px dashed;
+        color: #000;
+    }
+}
