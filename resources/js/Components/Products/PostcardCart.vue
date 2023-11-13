@@ -2,7 +2,7 @@
     <div class="product-item">
         <div class="product-item_carousel">
             <Carousel :itemsToShow="1" :wrap-around="true" :transition="500">
-                <Slide v-for="image in ['https://valscvetov.ru/storage/2023/10/17/80ab223f221467c6d64a3e49c854fa38cf757e49.jpg']" :key="image">
+                <Slide v-for="image in postcard.images" :key="image">
                     <div class="product-item_img" :style="'background-image: url(' + image + ')'" ></div>
                 </Slide>
             </Carousel>
