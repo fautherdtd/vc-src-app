@@ -54,11 +54,11 @@ class OrderService
                 'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
                 'shipping_method' => $request->input('delivery.method'),
                 'shipping_price' => 0,
-                'address' => $request->input('delivery.address') ?? "Самовывоз",
+                'address' => $this->getAddress($request),
                 'buyer' => $request->input('contacts.from'),
                 'recipient' => $request->input('contacts.to') ?? $request->input('contacts.from'),
                 'notes' => $request->input('message') ?? 'Комментария нет.',
-                'anonymous' => $request->input('anonymous') ?? false
+                'anonymous' => $request->input('anonymous')
             ],
             'customer' => [
                 'name' => $request->input('contacts.from.name'),
@@ -66,6 +66,18 @@ class OrderService
             ],
             'products' => Cart::content()
         ];
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    protected function getAddress(Request $request): string
+    {
+        if ($request->input('delivery.method' === 'self')) {
+            return 'Самовывоз';
+        }
+        return $request->input('delivery.address') ?? "Узнать самостоятельно у получателя.";
     }
 
     /**

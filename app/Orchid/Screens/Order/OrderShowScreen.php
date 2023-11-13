@@ -96,7 +96,7 @@ class OrderShowScreen extends Screen
             Layout::accordion([
                 'Клиент и получатель' => Layout::legend('order', [
                     Sight::make('Клиент')->render(function (Order $order) {
-                        $anon = $order->is_anonymous ?
+                        $anon = $order->anonymous ?
                             '<span class="text-success">● Да</span>' : '<span class="text-danger">● Нет</span>';
                         return "<div>Имя: {$order->customer->name}</div>
                             <div>Телефон: {$order->customer->phone}</div>

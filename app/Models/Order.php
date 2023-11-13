@@ -27,9 +27,11 @@ class Order extends Model
         'shipping_price',
         'shipping_method',
         'payment_method',
-        'notes'
+        'notes',
+        'anonymous'
     ];
     public $casts = [
+        'anonymous' => 'bool',
         'buyer' => 'array',
         'recipient' => 'array',
         'delivery_time' => 'datetime',

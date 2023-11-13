@@ -29,7 +29,8 @@
                                     <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank"><ion-icon name="location-outline"></ion-icon> г. Дербент, ул. Кобякова, 12</a></p>
                             </div>
                         </div>
-                        <div class="order-form_block--child--content" v-if="form.delivery.method !== 'self'">
+                        <div class="order-form_block--child--content"
+                             v-if="form.delivery.method !== 'self'">
                             <input type="text"
                                    v-model="form.delivery.address"
                                    @change="enterAddress"
@@ -42,6 +43,12 @@
                                     <label :for="'addressSuggest' + key">{{ suggest.text }}</label>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="order-form_block--child--content" v-if="!buyerSelf">
+                            <label class="input-label" for="selfAddress">
+                                <input type="checkbox" v-model="selfAddress" name="selfAddress" id="selfAddress">
+                                <p class="inp-radio-primary">Узнать адрес самостоятельно (свяжемся с получателем)</p>
+                            </label>
                         </div>
                         <InputError class="mt-2" :message="form.errors['delivery.address']" />
                     </div>
@@ -101,7 +108,7 @@
                             </div>
                             <div class="order-form_block--child--content">
                                 <label class="input-label" for="anonymous">
-                                    <input type="checkbox" v-model="form.contacts.from.anonymous" name="anonymous" id="anonymous">
+                                    <input type="checkbox" v-model="form.anonymous" name="anonymous" id="anonymous">
                                     <p class="inp-radio-primary">Анонимный заказ <i>(мы не скажем получателю о вас)</i></p>
                                 </label>
                             </div>
@@ -209,13 +216,13 @@ const form = useForm({
         from: {
             name: null,
             phone: null,
-            anonymous: false
         },
         to: {
             name: null,
             phone: null
         }
     },
+    anonymous: false,
     message: null,
     rules: true,
 })
@@ -225,7 +232,6 @@ const address = ref(null)
 watch(() => form.delivery.method, (current) => {
     current === 'self' ? buyerSelf.value = true : buyerSelf.value = false;
 })
-
 
 const enterAddress = () => {
     axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
@@ -257,6 +263,7 @@ const changeAddress = (text) => {
 
 const formProcess = ref(false);
 const buyerSelf = ref(false);
+const selfAddress = ref(false)
 const createOrder = () => {
     form.post(route('cart.createOrder'), {
         preserveScroll: true,
