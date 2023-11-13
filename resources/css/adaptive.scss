@@ -333,6 +333,14 @@
 
 }
 @media (max-width: 425px) {
+    .product-item_carousel {
+        width: 100%;
+        height: 350px;
+    }
+    .product-item_img {
+        width: 100%;
+        height: 350px;
+    }
     .contact-block .iframe-map {
         height: 600px;
     }
