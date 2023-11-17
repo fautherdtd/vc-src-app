@@ -43,10 +43,11 @@ class CartController extends Controller
         $delivery = Shipping::where('is_active', true)->get();
         $payments = Payment::where('is_active', true)->get();
         $times = [];
+
+        $start = Carbon::now()->addHour()->roundHour()->format('H:i') > '08:00' ?
+            Carbon::now()->addHour()->roundHour()->format('H:i') : '08:00';
         $intervals = CarbonInterval::minutes(60)
-                ->toPeriod(
-                    Carbon::now()->addHour()->roundHour()->format('H:i'),
-                    '23:59');
+                ->toPeriod($start, '23:59');
 
         foreach ($intervals as $date) {
             $times[] = $date->format('H:i');
