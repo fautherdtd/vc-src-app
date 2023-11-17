@@ -275,6 +275,8 @@ hr {
             width: 170px;
             height: 40px;
             position: relative;
+            max-height: 185px;
+            overflow: scroll;
 
             &:before {
                 content: '';
