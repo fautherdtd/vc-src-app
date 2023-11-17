@@ -21,6 +21,8 @@ class FavoritesFlowService extends FavoritesService
         if (! $content->has($id)) {
             $content->put($id, $cartItem);
             $this->session->put(self::DEFAULT_INSTANCE, $content);
+        } else {
+            $this->remove($id);
         }
     }
 

@@ -47,7 +47,8 @@ class HandleInertiaRequests extends Middleware
                     'content' => Cart::content()
                 ],
                 'favorites' => [
-                    'totalQuantity' => Favorites::totalQuantity()
+                    'totalQuantity' => Favorites::totalQuantity(),
+                    'content' => Favorites::content()
                 ],
                 'categories' => new CategoriesResources(
                     Category::where('is_visible', true)

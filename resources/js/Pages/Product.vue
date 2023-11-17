@@ -18,10 +18,15 @@
                         <span>{{ product.data.category.name }}</span>
                         <h1>{{ product.data.name }}</h1>
                     </div>
-                    <button @click="addToFavorite(product.data.id)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
-                            <path d="M6.4906 20.2828L16.8154 29.9818C17.1398 30.2866 17.302 30.439 17.5 30.439C17.6981 30.439 17.8603 30.2866 18.1847 29.9818L28.5095 20.2828C31.3622 17.6029 31.7087 13.193 29.3093 10.1005L28.8582 9.51903C25.9879 5.81959 20.2266 6.44002 18.2098 10.6657C17.9249 11.2626 17.0752 11.2626 16.7903 10.6657C14.7735 6.44002 9.01213 5.81959 6.14188 9.51904L5.69073 10.1005C3.29142 13.193 3.63785 17.6029 6.4906 20.2828Z" fill="#952323" fill-opacity="0.25" stroke="#222222" stroke-width="1.4"/>
-                        </svg>
+                    <button class="btn-favorite"
+                        @click="addToFavorite(product.data.id)">
+                        <template
+                            v-if="$page.props.share.favorites.content.hasOwnProperty(product.data.id)">
+                            <ion-icon name="heart-dislike-outline" size="large"></ion-icon>
+                        </template>
+                        <template v-else>
+                            <ion-icon name="heart-outline" size="large"></ion-icon>
+                        </template>
                     </button>
                 </div>
                 <fieldset class="product-detail_info--chars">

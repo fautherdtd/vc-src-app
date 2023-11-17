@@ -33,10 +33,11 @@
             <a class="footer-mobile_bottom--phone" href="tel: 8 (928) 045 66 17">8 (928) 045 66 17</a>
         </p>
         <p>
-            <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">г. Дербент, ул. Кобякова, 12. Ежедневно 08:00 - 00:00</a>
+            <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">г. Дербент, ул. Кобякова, 12. <br>Ежедневно 08:00 - 00:00</a>
         </p>
         <div class="footer-container_address--item">
-            Все права защищены © 2023 Вальс-цветов.
+            <p>Доставка цветов по Дербенту.</p>
+            <p>Все права защищены © 2023 Вальс-цветов.</p>
         </div>
     </div>
 </template>

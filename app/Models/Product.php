@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Attachment\Attachable;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model
 {
-    use HasSlug, AsSource, Attachable;
+    use HasSlug, AsSource, Attachable, Filterable;
 
     protected $table = 'products';
     protected $fillable = [
@@ -30,6 +31,17 @@ class Product extends Model
         'modify' => 'array',
         'is_active' => 'bool'
     ];
+
+    /**
+     * Name of columns to which http sorting can be applied
+     *
+     * @var array
+     */
+    protected $allowedSorts = [
+        'is_active',
+        'price',
+    ];
+
     /**
      * Get the options for generating the slug.
      */

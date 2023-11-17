@@ -25,8 +25,13 @@
                         </div>
                         <div class="order-form_block--child--content" v-if="buyerSelf">
                             <div class="order-form_block--child--content--sublink">
-                                <p>Заказ можно забрать по адресу:
-                                    <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank"><ion-icon name="location-outline"></ion-icon> г. Дербент, ул. Кобякова, 12</a></p>
+                                <p>
+                                    Заказ можно забрать по адресу:
+                                    <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">
+                                        <ion-icon name="location-outline"></ion-icon>
+                                        г. Дербент, ул. Кобякова, 12
+                                    </a>
+                                </p>
                             </div>
                         </div>
                         <div class="order-form_block--child--content"
@@ -58,18 +63,41 @@
                             <span v-if="!buyerSelf">Курьер позвонит по указанному номеру за час до доставки.</span>
                         </div>
                         <div class="order-form_block--child--content">
-                            <label for="date" class="input-label">
-                                <input type="date" id="date"
-                                       v-model="form.timeDelivery.date"
-                                       class="inp-text-primary">
-                            </label>
-                            <label for="time" class="input-label">
-                                <input type="time" id="time"
-                                       placeholder="Время доставки"
-                                       v-model="form.timeDelivery.time"
-                                       :disabled="form.timeDelivery.date == null"
-                                       class="inp-text-primary">
-                            </label>
+                            <div class="select-date--picker">
+                                <div class="select-date--picker_text" @click="dateBody = !dateBody">
+                                    <span v-if="form.timeDelivery.date === null">Дата доставки</span>
+                                    <div class="select-date--picker_text--active" v-else>
+                                        <span class="select-date--picker_text--active-label">Время доставки</span>
+                                        <span class="select-date--picker_text--active-time">{{ form.timeDelivery.date }}</span>
+                                    </div>
+                                </div>
+                                <div class="select-date--body" v-if="dateBody === true">
+                                    <VDatePicker transparent borderless
+                                                 mode="date"
+                                                 :min-date='new Date()'
+                                                 :masks="masksDate"
+                                                 v-model.string="form.timeDelivery.date"/>
+                                </div>
+                            </div>
+                            <div class="select-time--picker">
+                                <div class="select-time--picker_text" @click="timesBody = !timesBody">
+                                    <span v-if="form.timeDelivery.time === null">Время доставки</span>
+                                    <div class="select-time--picker_text--active" v-else>
+                                        <span class="select-time--picker_text--active-label">Время доставки</span>
+                                        <span class="select-time--picker_text--active-time">{{ form.timeDelivery.time }}</span>
+                                    </div>
+                                </div>
+                                <ul class="select-time--body" v-if="timesBody === true">
+                                    <li class="select-time_item"
+                                        @click="form.timeDelivery.time = time; timesBody = false;"
+                                        v-for="(time, key) in times">
+                                        <label :for="'time-' + key">
+                                            {{ time }}
+                                            <input type="radio" :id="'time-' + key" name="time" :value="time" />
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <InputError class="mt-2" :message="form.errors['delivery_time']" />
                     </div>
@@ -200,7 +228,8 @@ import InputError from "@/Components/Inputs/InputError.vue";
 
 const props = defineProps({
     delivery: Array,
-    payments: Array
+    payments: Array,
+    times: Object
 });
 
 const form = useForm({
@@ -214,7 +243,7 @@ const form = useForm({
     },
     timeDelivery: {
         date: new Date().toISOString().slice(0,10),
-        time: new Date().getHours() + 2 + ':' + new Date().getMinutes(),
+        time: null,
     },
     contacts: {
         from: {
@@ -232,9 +261,17 @@ const form = useForm({
 })
 const addressSuggest = ref([]);
 const address = ref(null)
+const masksDate = ref({
+    modelValue: 'DD.MM.YYYY',
+});
 
 watch(() => form.delivery.method, (current) => {
     current === 'self' ? buyerSelf.value = true : buyerSelf.value = false;
+})
+watch(() => form.timeDelivery.date, (current, old) => {
+    if(current !== old) {
+        dateBody.value = false
+    }
 })
 
 const enterAddress = () => {
@@ -265,9 +302,13 @@ const changeAddress = (text) => {
     addressSuggest.value = [];
 }
 
+
+
 const formProcess = ref(false);
 const buyerSelf = ref(false);
 const selfAddress = ref(false)
+const timesBody = ref(false)
+const dateBody = ref(false)
 const createOrder = () => {
     form.post(route('cart.createOrder'), {
         preserveScroll: true,

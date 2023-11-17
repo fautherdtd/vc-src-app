@@ -15,6 +15,7 @@ use App\Models\Shipping;
 use App\Services\Order\OrderService;
 use App\Services\Payment\PaymentHandler;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -41,10 +42,19 @@ class CartController extends Controller
     {
         $delivery = Shipping::where('is_active', true)->get();
         $payments = Payment::where('is_active', true)->get();
+        $times = [];
+        $intervals = CarbonInterval::minutes(60)
+                ->toPeriod(
+                    Carbon::now()->addHour()->roundHour()->format('H:i'),
+                    '23:59');
 
+        foreach ($intervals as $date) {
+            $times[] = $date->format('H:i');
+        }
         return Inertia::render('Cart/Order', [
             'delivery' => new DeliveryResources($delivery),
             'payments' => new PaymentsResources($payments),
+            'times' => $times
         ]);
     }
 

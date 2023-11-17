@@ -12,6 +12,7 @@ use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Components\Cells\DateTimeSplit;
 use Orchid\Screen\Fields\CheckBox;
+use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\Repository;
 use Orchid\Screen\TD;
@@ -55,7 +56,13 @@ class ProductListLayout extends Table
                         ->route('platform.product.edit', $product);
                 }),
             TD::make('slug', 'Slug'),
+            TD::make('category.name', 'Категория')
+                ->sort()
+                ->render(function (Product $product) {
+                    return "<span>" . $product->category->name . "</span>";
+                }),
             TD::make('is_active', 'Активность')
+                ->sort()
                 ->render(function (Product $product) {
                     $text = $product->is_active ? "Да" : "Нет";
                     return "<span> $text </span>";
