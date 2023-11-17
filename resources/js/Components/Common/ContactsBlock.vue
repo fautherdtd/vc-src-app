@@ -35,10 +35,20 @@
                 </div>
             </div>
             <div class="contact-block__info-item">
-                <p class="contact-block__info-item--social">
-                    <a href="https://wa.me/79280456617" target="_blank"><ion-icon size="large" name="logo-whatsapp"></ion-icon></a>
-                    <a href="https://www.instagram.com/vals.cvetov/" target="_blank"><ion-icon size="large" name="logo-instagram"></ion-icon></a>
-                </p>
+                <div class="contact-block__info-item--social">
+                    <p>
+                        <a href="https://wa.me/79280456617" target="_blank">
+                            <ion-icon name="logo-whatsapp"></ion-icon>
+                            WhatsApp
+                        </a>
+                    </p>
+                    <p>
+                        <a href="https://www.instagram.com/vals.cvetov/" target="_blank">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                            Instagram
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
         <div class="contact-block__maps">

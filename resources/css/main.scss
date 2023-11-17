@@ -1007,8 +1007,20 @@ footer {
             &--sub {
 
             }
-            &--social a {
-                margin: 0 5px;
+            &--social {
+                p {
+                    width: fit-content;
+                }
+                a {
+                    ion-icon {
+                        font-size: 22px;
+                        margin-right: 5px;
+                    }
+                    color: #000;
+                    margin: 5px 0;
+                    display: flex;
+                    align-items: center;
+                }
             }
             h4 {
                 font-size: 18px;

@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Shipping;
 use App\Services\Order\OrderService;
 use App\Services\Payment\PaymentHandler;
+use App\Services\Smsc\Smsc;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ class CartController extends Controller
         foreach ($intervals as $date) {
             $times[] = $date->format('H:i');
         }
+        $times[] = ['23:59'];
         return Inertia::render('Cart/Order', [
             'delivery' => new DeliveryResources($delivery),
             'payments' => new PaymentsResources($payments),
@@ -66,7 +68,7 @@ class CartController extends Controller
     public function create(StoreOrderRequest $request, OrderService $service)
     {
         $data = $service->prepare($request);
-        $order =$service->create($data);
+        $order = $service->create($data);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
             $result = $transaction->create([
@@ -76,6 +78,10 @@ class CartController extends Controller
             Cart::clear();
             return Inertia::location($result);
         }
+        (new Smsc())->make([
+            'phone' => $data['customer']['phone'],
+            'message' => "Ваш номер заказа: #" . $data['order']['number'] . ". Спасибо за оформление!",
+        ]);
         Cart::clear();
     }
 
