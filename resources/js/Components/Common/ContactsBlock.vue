@@ -39,13 +39,13 @@
                     <p>
                         <a href="https://wa.me/79280456617" target="_blank">
                             <ion-icon name="logo-whatsapp"></ion-icon>
-                            WhatsApp
+                            8 (928) 045 66 17
                         </a>
                     </p>
                     <p>
                         <a href="https://www.instagram.com/vals.cvetov/" target="_blank">
                             <ion-icon name="logo-instagram"></ion-icon>
-                            Instagram
+                            @vals.cvetov
                         </a>
                     </p>
                 </div>
