@@ -16,7 +16,7 @@ class Smsc
     {
         $client = new Client([
             'base_uri' => 'https://smsc.ru/rest/',
-            'timeout'  => 10.0,
+            'timeout'  => 2.0,
         ]);
 
         $result = $client->post('send/', [

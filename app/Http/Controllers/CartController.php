@@ -17,6 +17,7 @@ use App\Services\Payment\PaymentHandler;
 use App\Services\Smsc\Smsc;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -53,7 +54,7 @@ class CartController extends Controller
         foreach ($intervals as $date) {
             $times[] = $date->format('H:i');
         }
-        $times[] = ['23:59'];
+        $times[] = '23:59';
         return Inertia::render('Cart/Order', [
             'delivery' => new DeliveryResources($delivery),
             'payments' => new PaymentsResources($payments),
@@ -64,6 +65,7 @@ class CartController extends Controller
     /**
      * @param StoreOrderRequest $request
      * @throws \Exception
+     * @throws GuzzleException
      */
     public function create(StoreOrderRequest $request, OrderService $service)
     {
