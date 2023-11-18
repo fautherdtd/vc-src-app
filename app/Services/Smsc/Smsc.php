@@ -22,7 +22,7 @@ class Smsc
         $result = $client->post('send/', [
             'json' => [
                 'login' => 'Nike0550',
-                'psw' => 'ugKk5wste6',
+                'psw' => 'N6pMwGsJgD',
                 'phones' => $param['phone'],
                 'mes' => $param['message'],
                 'fmt' => 3

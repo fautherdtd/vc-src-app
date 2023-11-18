@@ -82,7 +82,7 @@ class CartController extends Controller
         }
         (new Smsc())->make([
             'phone' => $data['customer']['phone'],
-            'message' => "Ваш номер заказа: #" . $data['order']['number'] . ". Спасибо за оформление!",
+            'message' => "Спасибо за оформление заказа на сайте ВальсЦветов. Ваш номер заказа: #" . $data['order']['number'],
         ]);
         Cart::clear();
     }
