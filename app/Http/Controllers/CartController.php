@@ -73,7 +73,7 @@ class CartController extends Controller
         $order = $service->create($data);
         (new Smsc())->make([
             'phone' => $data['customer']['phone'],
-            'message' => "Спасибо за оформление заказа на сайте ВальсЦветов. Ваш номер заказа: #" . $data['order']['number'],
+            'message' => "Заказ #". $data['order']['number'] ." оформлен. С уважением, Вальс цветов!",
         ]);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
