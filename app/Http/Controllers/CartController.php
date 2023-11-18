@@ -71,6 +71,10 @@ class CartController extends Controller
     {
         $data = $service->prepare($request);
         $order = $service->create($data);
+        (new Smsc())->make([
+            'phone' => $data['customer']['phone'],
+            'message' => "Спасибо за оформление заказа на сайте ВальсЦветов. Ваш номер заказа: #" . $data['order']['number'],
+        ]);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
             $result = $transaction->create([
@@ -80,10 +84,6 @@ class CartController extends Controller
             Cart::clear();
             return Inertia::location($result);
         }
-        (new Smsc())->make([
-            'phone' => $data['customer']['phone'],
-            'message' => "Спасибо за оформление заказа на сайте ВальсЦветов. Ваш номер заказа: #" . $data['order']['number'],
-        ]);
         Cart::clear();
     }
 
