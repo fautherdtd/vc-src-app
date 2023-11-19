@@ -31,8 +31,7 @@ class ProductController extends Controller
     public function popular(): ProductsResources
     {
         return new ProductsResources(
-            Product::where('is_active', true)
-                ->orderBy('id', 'DESC')
+            Product::orderBy('id', 'DESC')
                 ->offset(0)
                 ->limit(4)
                 ->get()

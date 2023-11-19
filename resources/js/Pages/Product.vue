@@ -58,30 +58,35 @@
                             <button @click="options.countItem++">+</button>
                         </div>
                     </div>
-                    <button
-                        v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
-                        @click="addToCart(product.data.id, {
+                    <template v-if="product.data.is_active">
+                        <button
+                            v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
+                            @click="addToCart(product.data.id, {
                           count: options.countItem,
                           price: product.data.price,
                           type: 'product'
                         })" class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
-                            <path
-                                d="M26.25 12.9003V12.1203C26.25 11.568 25.8023 11.1203 25.25 11.1203H4.75C4.19772 11.1203 3.75 11.568 3.75 12.1203V12.9003C3.75 13.4526 4.19772 13.9003 4.75 13.9003H5.44986C5.91763 13.9003 6.3229 14.2246 6.4255 14.681L8.39899 23.4593C8.6042 24.372 9.41474 25.0206 10.3503 25.0206H19.6497C20.5853 25.0206 21.3958 24.372 21.601 23.4593L23.5745 14.681C23.6771 14.2246 24.0824 13.9003 24.5501 13.9003H25.25C25.8023 13.9003 26.25 13.4526 26.25 12.9003Z"
-                                fill="white" stroke="#000" stroke-width="1.4" />
-                            <path d="M10.625 4.86511L8.125 9.03521M19.375 4.86511L21.875 9.03521" stroke="#fff"
-                                  stroke-linecap="round" />
-                            <path d="M13.125 20.1555L11.875 15.9854M16.875 20.1555L18.125 15.9854" stroke="#fff"
-                                  stroke-linecap="round" />
-                        </svg>
-                        в корзину
-                    </button>
-                    <button class="btn btn-transparent"  v-else>
-                        В корзине
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 14L8.23309 16.4248C8.66178 16.7463 9.26772 16.6728 9.60705 16.2581L18 6" stroke="#222222" stroke-linecap="round"/>
-                        </svg>
-                    </button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
+                                <path
+                                    d="M26.25 12.9003V12.1203C26.25 11.568 25.8023 11.1203 25.25 11.1203H4.75C4.19772 11.1203 3.75 11.568 3.75 12.1203V12.9003C3.75 13.4526 4.19772 13.9003 4.75 13.9003H5.44986C5.91763 13.9003 6.3229 14.2246 6.4255 14.681L8.39899 23.4593C8.6042 24.372 9.41474 25.0206 10.3503 25.0206H19.6497C20.5853 25.0206 21.3958 24.372 21.601 23.4593L23.5745 14.681C23.6771 14.2246 24.0824 13.9003 24.5501 13.9003H25.25C25.8023 13.9003 26.25 13.4526 26.25 12.9003Z"
+                                    fill="white" stroke="#000" stroke-width="1.4" />
+                                <path d="M10.625 4.86511L8.125 9.03521M19.375 4.86511L21.875 9.03521" stroke="#fff"
+                                      stroke-linecap="round" />
+                                <path d="M13.125 20.1555L11.875 15.9854M16.875 20.1555L18.125 15.9854" stroke="#fff"
+                                      stroke-linecap="round" />
+                            </svg>
+                            в корзину
+                        </button>
+                        <button class="btn btn-transparent"  v-else>
+                            В корзине
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 14L8.23309 16.4248C8.66178 16.7463 9.26772 16.6728 9.60705 16.2581L18 6" stroke="#222222" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </template>
+                    <template v-else>
+                        Нет в наличии
+                    </template>
                 </div>
             </div>
         </div>

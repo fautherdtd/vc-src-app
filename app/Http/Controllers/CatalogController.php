@@ -35,8 +35,7 @@ class CatalogController extends Controller
      */
     public function prepareProducts(Request $request, string $slug = null): ProductsResources
     {
-        $products = Product::where('is_active', true);
-
+        $products = new Product();
         if (! is_null($slug)) {
             $products->whereHas('category', function ($q) use($slug) {
                 $q->where('slug', $slug);

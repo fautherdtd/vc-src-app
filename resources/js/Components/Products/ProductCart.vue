@@ -21,14 +21,19 @@
                         <ion-icon name="heart-outline"></ion-icon>
                     </template>
                 </div>
-                <div class="product-item_footer--btn--item" @click="addToCart(product.id, {
+                <template v-if="product.is_active === true">
+                    <div class="product-item_footer--btn--item" @click="addToCart(product.id, {
                     price: product.price,
                     count: 1,
                     type: 'product'
                 })">
-                    В корзину
-                    <ion-icon name="cart-outline" size="small"></ion-icon>
-                </div>
+                        В корзину
+                        <ion-icon name="cart-outline" size="small"></ion-icon>
+                    </div>
+                </template>
+                <template v-else>
+                    Нет в наличии
+                </template>
             </div>
 
         </div>
