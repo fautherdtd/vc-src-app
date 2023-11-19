@@ -44,22 +44,29 @@ class CartController extends Controller
     {
         $delivery = Shipping::where('is_active', true)->get();
         $payments = Payment::where('is_active', true)->get();
-        $times = [];
+        return Inertia::render('Cart/Order', [
+            'delivery' => new DeliveryResources($delivery),
+            'payments' => new PaymentsResources($payments)
+        ]);
+    }
 
-        $start = Carbon::now()->addHour()->roundHour()->format('H:i') > '08:00' ?
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getSlotsTime(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $carbonDay = Carbon::create($request->input('date'));
+        $times = [];
+        $start = $carbonDay->format('Y-m-d') === Carbon::now()->format('Y-m-d') ?
             Carbon::now()->addHour()->roundHour()->format('H:i') : '08:00';
         $intervals = CarbonInterval::minutes(60)
-                ->toPeriod($start, '23:59');
+            ->toPeriod($start, '23:59');
 
         foreach ($intervals as $date) {
             $times[] = $date->format('H:i');
         }
         $times[] = '23:59';
-        return Inertia::render('Cart/Order', [
-            'delivery' => new DeliveryResources($delivery),
-            'payments' => new PaymentsResources($payments),
-            'times' => $times
-        ]);
+        return response()->json($times);
     }
 
     /**

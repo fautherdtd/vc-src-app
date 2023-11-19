@@ -47,4 +47,6 @@ Route::prefix('cart')->name('cart.')->group(function () {
     /** Order */
     Route::get('/order', [CartController::class, 'order'])->name('order');
     Route::post('/order/create', [CartController::class, 'create'])->name('createOrder');
+
+    Route::get('/time/slots', [CartController::class, 'getSlotsTime'])->name('timeSlots');
 });

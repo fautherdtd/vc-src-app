@@ -90,7 +90,7 @@
                                 <ul class="select-time--body" v-if="timesBody === true">
                                     <li class="select-time_item"
                                         @click="form.timeDelivery.time = time; timesBody = false;"
-                                        v-for="(time, key) in times">
+                                        v-for="(time, key) in slotsTime">
                                         <label :for="'time-' + key">
                                             {{ time }}
                                             <input type="radio" :id="'time-' + key" name="time" :value="time" />
@@ -318,6 +318,7 @@ const buyerSelf = ref(false);
 const selfAddress = ref(false)
 const timesBody = ref(false)
 const dateBody = ref(false)
+const slotsTime = ref({});
 const createOrder = () => {
     form.post(route('cart.createOrder'), {
         preserveScroll: true,
@@ -339,4 +340,18 @@ watch(() => form.delivery.method, (current) => {
         buyerSelf.value = false;
     }
 })
+watch(() => form.timeDelivery.date, (current) => {
+    form.timeDelivery.time = null;
+    getTimeSlots(current)
+    dateBody.value = false;
+})
+onMounted(() => {
+    getTimeSlots(new Date().toISOString().slice(0,10))
+});
+
+const getTimeSlots = (string) => {
+    axios.get(route('cart.timeSlots'), {
+        params: { date:  string }
+    }).then(data => slotsTime.value = data.data)
+}
 </script>
