@@ -261,22 +261,14 @@ const form = useForm({
     rules: true,
     total: null,
 })
+
 const addressSuggest = ref([]);
 const address = ref(null)
 const masksDate = ref({
     modelValue: 'DD.MM.YYYY',
 });
+const tempDistance = ref({});
 const totalPrice = ref(usePage().props.share.cart.totalPrice);
-
-watch(() => form.delivery.method, (current) => {
-    current === 'self' ? buyerSelf.value = true : buyerSelf.value = false;
-})
-watch(() => form.timeDelivery.date, (current, old) => {
-    if(current !== old) {
-        dateBody.value = false
-    }
-})
-
 const enterAddress = () => {
     axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
         query: form.delivery.address,
@@ -306,10 +298,12 @@ const enterAddress = () => {
     })
 }
 const changeAddress = function (text) {
+    tempDistance.value = text;
     if (text.kladr_id == '0500000600000') {
         form.delivery.price = 250;
         totalPrice.value = totalPrice.value + 250;
     } else {
+        tempDistance.value = text.distance;
         let price = distancePrice(text.distance);
         form.delivery.price = price;
         totalPrice.value = totalPrice.value + price
@@ -333,4 +327,15 @@ const createOrder = () => {
         }
     });
 }
+
+watch(() => form.delivery.method, (current) => {
+    if (current === 'self') {
+        buyerSelf.value = true
+        form.delivery.price = 0
+        form.delivery.address = null;
+        selfAddress.value = false;
+    } else {
+        buyerSelf.value = false;
+    }
+})
 </script>
