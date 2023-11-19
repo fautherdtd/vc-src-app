@@ -8,7 +8,6 @@ const landingPrice = 100;
 
 const distancePrice = (end) => {
     let distance = Math.ceil(Math.ceil(haversine(start, end)) + + Math.floor(10));
-    console.log(distance);
     return Math.ceil(landingPrice + (Math.ceil(distance * 50)));
 }
 
