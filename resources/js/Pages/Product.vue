@@ -6,17 +6,14 @@
         <div class="product-detail">
             <div class="product-detail_carousel">
                 <Carousel v-bind="settings">
-<!--                    <Slide v-for="item in product.data.gallery" :key="item">-->
-                    <Slide v-for="(item, id) in ['https://img.freepik.com/premium-photo/refreshing-nature-background-with-bokeh_948265-2082.jpg',
-                    'https://img.freepik.com/premium-photo/refreshing-nature-background-with-bokeh_948265-2082.jpg']" :key="item">
+                    <Slide v-for="(item, id) in product.data.gallery" :key="item">
                         <div class="product-detail_carousel--main"
                              @click="() => showImg(id)"
                              :style="'background-image: url(' + item + ')'"></div>
                     </Slide>
                 </Carousel>
                 <vue-easy-lightbox :visible="visibleRef"
-                                   :imgs="['https://img.freepik.com/premium-photo/refreshing-nature-background-with-bokeh_948265-2082.jpg',
-                    'https://img.freepik.com/premium-photo/refreshing-nature-background-with-bokeh_948265-2082.jpg']"
+                                   :imgs="product.data.gallery"
                                    :index="indexRef"
                                    :zoomDisabled="false"
                                    :moveDisabled="true"
