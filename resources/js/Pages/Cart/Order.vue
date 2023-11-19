@@ -188,7 +188,7 @@
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
                                     <span>{{ $page.props.share.cart.totalQuantity }} товар(а) на сумму</span>
-                                    <span>{{ totalPrice }} ₽</span>
+                                    <span>{{ $page.props.share.cart.totalPrice }} ₽</span>
                                 </div>
                                 <div class="order-form_block--child--table_item">
                                     <span>доставка</span>
@@ -301,12 +301,12 @@ const changeAddress = function (text) {
     tempDistance.value = text;
     if (text.kladr_id == '0500000600000') {
         form.delivery.price = 250;
-        totalPrice.value = totalPrice.value + 250;
+        totalPrice.value = usePage().props.share.cart.totalPrice + 250;
     } else {
         tempDistance.value = text.distance;
-        let price = distancePrice(text.distance);
+        const price = distancePrice(text.distance);
         form.delivery.price = price;
-        totalPrice.value = totalPrice.value + price
+        totalPrice.value = usePage().props.share.cart.totalPrice + price
     }
     form.total = totalPrice.value;
     form.delivery.address = text.value;
@@ -334,6 +334,7 @@ watch(() => form.delivery.method, (current) => {
         form.delivery.price = 0
         form.delivery.address = null;
         selfAddress.value = false;
+        totalPrice.value = usePage().props.share.cart.totalPrice
     } else {
         buyerSelf.value = false;
     }
