@@ -24,6 +24,7 @@ class StoreOrderRequest extends FormRequest
         return [
             'delivery.method' => ['required', 'exists:App\Models\Shipping,method'],
             'delivery.address' => ['string', 'nullable'],
+            'delivery.price' => ['nullable'],
             'payment.method' => ['required', 'exists:App\Models\Payment,method'],
             'timeDelivery.date' => ['required', 'date'],
             'contacts.from.name' => ['required', 'string'],
@@ -31,6 +32,7 @@ class StoreOrderRequest extends FormRequest
             'contacts.to.name' => ['string', 'nullable'],
             'contacts.to.phone' => ['string', 'nullable'],
             'message' => ['string', 'nullable'],
+            'total' => ['nullable'],
             'rules' => ['required']
         ];
     }

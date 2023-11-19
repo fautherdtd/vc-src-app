@@ -19,5 +19,7 @@
         @inertia
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=660e469f-81fe-4df7-8424-84437ca63637&lang=ru_RU" type="text/javascript">
+        </script>
     </body>
 </html>

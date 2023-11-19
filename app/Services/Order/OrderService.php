@@ -50,10 +50,11 @@ class OrderService
         return [
             'order' => [
                 'number' => substr(Carbon::now()->unix(), 0, 3) . random_int(0, 999),
-                'total_price' => (int) Cart::total(),
+                'total_price' =>
+                    (int) $request->input('total') === 0 ? Cart::total() : $request->input('total'),
                 'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
                 'shipping_method' => $request->input('delivery.method'),
-                'shipping_price' => 0,
+                'shipping_price' => $request->input('delivery.price'),
                 'address' => $this->getAddress($request),
                 'buyer' => $request->input('contacts.from'),
                 'recipient' => $request->input('contacts.to') ?? $request->input('contacts.from'),

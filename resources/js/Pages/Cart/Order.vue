@@ -42,7 +42,7 @@
                                    placeholder="Адрес доставки *" style="width: 100%" class="inp-text-primary">
                             <ul class="address-dadata" v-if="addressSuggest.length > 0">
                                 <li class="address-dadata_item"
-                                    @click="changeAddress(suggest.text)"
+                                    @click="changeAddress(suggest)"
                                     v-for="(suggest, key) in addressSuggest">
                                     <input type="radio" :id="'addressSuggest' + key" name="address" :value="suggest.text" />
                                     <label :for="'addressSuggest' + key">{{ suggest.text }}</label>
@@ -188,11 +188,11 @@
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
                                     <span>{{ $page.props.share.cart.totalQuantity }} товар(а) на сумму</span>
-                                    <span>{{ $page.props.share.cart.totalPrice }} ₽</span>
+                                    <span>{{ totalPrice }} ₽</span>
                                 </div>
                                 <div class="order-form_block--child--table_item">
                                     <span>доставка</span>
-                                    <span>0 ₽</span>
+                                    <span>{{ form.delivery.price }} ₽</span>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                             <div class="order-form_block--child--table">
                                 <div class="order-form_block--child--table_item">
                                     <h1>ИТОГО:</h1>
-                                    <h2>{{ $page.props.share.cart.totalPrice }} ₽</h2>
+                                    <h2>{{ totalPrice }} ₽</h2>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +225,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
 import axios from "axios";
 import InputError from "@/Components/Inputs/InputError.vue";
+import distancePrice from "@/Mixins/DeliveryPrice.js";
 
 const props = defineProps({
     delivery: Array,
@@ -234,12 +235,12 @@ const props = defineProps({
 
 const form = useForm({
     delivery: {
-        method: null,
-        price: null,
+        method: 'courier',
+        price: 0,
         address: null
     },
     payment: {
-        method: null
+        method: 'online-card'
     },
     timeDelivery: {
         date: new Date().toISOString().slice(0,10),
@@ -258,12 +259,14 @@ const form = useForm({
     anonymous: false,
     message: null,
     rules: true,
+    total: null,
 })
 const addressSuggest = ref([]);
 const address = ref(null)
 const masksDate = ref({
     modelValue: 'DD.MM.YYYY',
 });
+const totalPrice = ref(usePage().props.share.cart.totalPrice);
 
 watch(() => form.delivery.method, (current) => {
     current === 'self' ? buyerSelf.value = true : buyerSelf.value = false;
@@ -280,7 +283,7 @@ const enterAddress = () => {
         "locations_geo": [{
             "lat": 42.057669,
             "lon": 48.288776,
-            "radius_meters": 2000
+            "radius_meters": 8000
         }]
     }, {
         headers: {
@@ -292,17 +295,29 @@ const enterAddress = () => {
         response.data.suggestions.forEach((element) => {
             addressSuggest.value.push({
                 value: element.value,
-                text: element.value
+                text: element.value,
+                kladr_id: element.data.city_kladr_id,
+                distance: {
+                    "latitude": element.data.geo_lat,
+                    "longitude": element.data.geo_lon,
+                }
             });
         })
     })
 }
-const changeAddress = (text) => {
-    form.delivery.address = text;
+const changeAddress = function (text) {
+    if (text.kladr_id == '0500000600000') {
+        form.delivery.price = 250;
+        totalPrice.value = totalPrice.value + 250;
+    } else {
+        let price = distancePrice(text.distance);
+        form.delivery.price = price;
+        totalPrice.value = totalPrice.value + price
+    }
+    form.total = totalPrice.value;
+    form.delivery.address = text.value;
     addressSuggest.value = [];
 }
-
-
 
 const formProcess = ref(false);
 const buyerSelf = ref(false);

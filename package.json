@@ -25,6 +25,7 @@
         "@kyvg/vue3-notification": "^3.0.2",
         "@popperjs/core": "^2.11.8",
         "feather-icons": "^4.29.1",
+        "haversine": "^1.1.1",
         "v-calendar": "^3.1.2",
         "vue-feather": "^2.0.0",
         "vue3-burger-menu": "^1.1.1",
