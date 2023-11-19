@@ -35,7 +35,7 @@ class CatalogController extends Controller
      */
     public function prepareProducts(Request $request, string $slug = null): ProductsResources
     {
-        $products = new Product();
+        $products = Product::where('id', '>', 0);
         if (! is_null($slug)) {
             $products->whereHas('category', function ($q) use($slug) {
                 $q->where('slug', $slug);
@@ -43,7 +43,7 @@ class CatalogController extends Controller
         }
 
         if ($request->filled('sort')) {
-            $products->orderBy($request->input('sort'), 'DESC');
+            $products->orderBy($request->input('sort'), 'ASC');
         }
 
         return new ProductsResources($products->get());

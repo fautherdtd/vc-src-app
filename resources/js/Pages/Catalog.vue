@@ -59,7 +59,7 @@ defineProps({
     products: Object,
     visiblePostcard: Boolean
 })
-const sortByEnabled = ref('id')
+const sortByEnabled = ref('id');
 const active = ref(false);
 const changeSort = (sort) => {
     sortByEnabled.value = sort;
