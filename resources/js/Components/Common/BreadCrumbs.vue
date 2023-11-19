@@ -3,8 +3,8 @@
         <li class="breadcrumbs-item">
             <Link :href="route('index')">Главная</Link>
         </li>
-        <template v-if="this.child">
-            <li class="breadcrumbs-item" v-for="item in this.child" :key="item.id">
+        <template v-if="child">
+            <li class="breadcrumbs-item" v-for="item in child" :key="item.id">
                 <Link :href="route(item.link)">{{ item.title  }}</Link>
             </li>
         </template>
