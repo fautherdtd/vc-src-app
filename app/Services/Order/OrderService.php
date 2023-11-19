@@ -55,6 +55,7 @@ class OrderService
                 'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
                 'shipping_method' => $request->input('delivery.method'),
                 'shipping_price' => $request->input('delivery.price'),
+                'address_sub' => $request->input('delivery.sub'),
                 'address' => $this->getAddress($request),
                 'buyer' => $request->input('contacts.from'),
                 'recipient' => $request->input('contacts.to') ?? $request->input('contacts.from'),

@@ -28,13 +28,15 @@ class Order extends Model
         'shipping_method',
         'payment_method',
         'notes',
-        'anonymous'
+        'anonymous',
+        'address_sub'
     ];
     public $casts = [
         'anonymous' => 'bool',
         'buyer' => 'array',
         'recipient' => 'array',
         'delivery_time' => 'datetime',
+        'address_sub' => 'array'
     ];
 
     public function customer(): BelongsTo

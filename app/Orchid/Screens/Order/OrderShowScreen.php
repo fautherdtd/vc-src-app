@@ -91,6 +91,12 @@ class OrderShowScreen extends Screen
                     }),
                     Sight::make('Адрес доставки')->render(fn (Order $order) => $order->address),
                     Sight::make('Дата и время доставки')->render(fn (Order $order) => $order->delivery_time),
+                    Sight::make('Информация')->render(function (Order $order) {
+                        return "<div>Подъезд: {$order->address_sub['entrance']}</div>
+                            <div>Этаж: {$order->address_sub['floor']}</div>
+                            <div>Квартира: {$order->address_sub['apartment']}</div>
+                            <div>Домофон: {$order->address_sub['intercom']}</div>";
+                    })
                 ])
             ]),
             Layout::accordion([

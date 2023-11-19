@@ -16,7 +16,7 @@ class OrderListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'orders' => Order::paginate()
+            'orders' => Order::orderBy('id', 'DESC')->paginate()
         ];
     }
 

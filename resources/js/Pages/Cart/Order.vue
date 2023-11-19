@@ -34,21 +34,37 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="order-form_block--child--content"
-                             v-if="form.delivery.method !== 'self'">
-                            <input type="text"
-                                   v-model="form.delivery.address"
-                                   @change="enterAddress"
-                                   placeholder="Адрес доставки *" style="width: 100%" class="inp-text-primary">
-                            <ul class="address-dadata" v-if="addressSuggest.length > 0">
-                                <li class="address-dadata_item"
-                                    @click="changeAddress(suggest)"
-                                    v-for="(suggest, key) in addressSuggest">
-                                    <input type="radio" :id="'addressSuggest' + key" name="address" :value="suggest.text" />
-                                    <label :for="'addressSuggest' + key">{{ suggest.text }}</label>
-                                </li>
-                            </ul>
-                        </div>
+                        <template v-if="form.delivery.method !== 'self'">
+                            <div class="order-form_block--child--content">
+                                <input type="text"
+                                       v-model="form.delivery.address"
+                                       placeholder="Адрес доставки *" style="width: 100%" class="inp-text-primary">
+                                <ul class="address-dadata" v-if="addressSuggest.length > 0">
+                                    <li class="address-dadata_item"
+                                        @click="changeAddress(suggest)"
+                                        v-for="(suggest, key) in addressSuggest">
+                                        <input type="radio" :id="'addressSuggest' + key" name="address" :value="suggest.text" />
+                                        <label :for="'addressSuggest' + key">{{ suggest.text }}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="order-form_block--child--content">
+                                <label for="">
+                                    <input type="text" v-model="form.delivery.sub.entrance" placeholder="Подъезд *" class="inp-text-primary inp-w-20">
+                                </label>
+                                <label for="">
+                                    <input type="text" v-model="form.delivery.sub.floor" placeholder="Этаж *" class="inp-text-primary inp-w-20">
+                                </label>
+                            </div>
+                            <div class="order-form_block--child--content">
+                                <label for="">
+                                    <input type="text" v-model="form.delivery.sub.apartment" placeholder="Квартира *" class="inp-text-primary inp-w-20">
+                                </label>
+                                <label for="">
+                                    <input type="text" v-model="form.delivery.sub.intercom" placeholder="Домофон" class="inp-text-primary inp-w-20">
+                                </label>
+                            </div>
+                        </template>
                         <div class="order-form_block--child--content" v-if="!buyerSelf">
                             <label class="input-label" for="selfAddress">
                                 <input type="checkbox" v-model="selfAddress" name="selfAddress" id="selfAddress">
@@ -237,7 +253,13 @@ const form = useForm({
     delivery: {
         method: 'courier',
         price: 0,
-        address: null
+        address: null,
+        sub: {
+            entrance: null,
+            floor: null,
+            apartment: null,
+            intercom: null,
+        }
     },
     payment: {
         method: 'online-card'
@@ -269,13 +291,13 @@ const masksDate = ref({
 });
 const tempDistance = ref({});
 const totalPrice = ref(usePage().props.share.cart.totalPrice);
-const enterAddress = () => {
+watch(() => form.delivery.address, (current, old) => {
     axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
         query: form.delivery.address,
         "locations_geo": [{
             "lat": 42.057669,
             "lon": 48.288776,
-            "radius_meters": 8000
+            "radius_meters": 38000
         }]
     }, {
         headers: {
@@ -285,7 +307,7 @@ const enterAddress = () => {
         },
     }).then(response => {
         response.data.suggestions.forEach((element) => {
-            addressSuggest.value.push({
+            addressSuggest.value.unshift({
                 value: element.value,
                 text: element.value,
                 kladr_id: element.data.city_kladr_id,
@@ -296,7 +318,7 @@ const enterAddress = () => {
             });
         })
     })
-}
+})
 const changeAddress = function (text) {
     tempDistance.value = text;
     if (text.kladr_id == '0500000600000') {
