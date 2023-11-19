@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\Cart;
 use App\Facades\Favorites;
+use App\Http\Resources\Postcards\PostcardsResource;
 use App\Http\Resources\Products\ProductsResources;
 use App\Models\Product;
+use App\Models\Postcards;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,10 +17,21 @@ class FavoritesController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        $favorites = Product::where('is_active', true)
-            ->whereIn('id', Favorites::content()->toArray());
+        $items = Favorites::content()->groupBy('type');
+        $postcards = [];
+        $products = [];
+
+        if (!empty($items['postcards'])) {
+            $postcards = Postcards::whereIn('id', $items->get('postcards')
+                ->pluck('id'))->get();
+        }
+        if (!empty($items['products'])) {
+            $products =  Product::whereIn('id', $items->get('products')
+                ->pluck('id'))->get();
+        }
         return Inertia::render('Favorites', [
-            'favorites' => new ProductsResources($favorites->get())
+            'postcards' => new PostcardsResource($postcards),
+            'products' => new ProductsResources($products),
         ]);
     }
 
@@ -30,6 +42,6 @@ class FavoritesController extends Controller
      */
     public function add(Request $request)
     {
-        Favorites::add($request->input('id'));
+        Favorites::add($request->input('id'), $request->input('type'));
     }
 }

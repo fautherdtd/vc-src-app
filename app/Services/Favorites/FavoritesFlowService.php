@@ -12,9 +12,9 @@ class FavoritesFlowService extends FavoritesService
      * @param int $id
      * @return void
      */
-    public function add(int $id): void
+    public function add(int $id, string $type): void
     {
-        $cartItem = $this->createFavoriteItem($id);
+        $cartItem = $this->createFavoriteItem($id, $type);
 
         $content = $this->getContent();
 

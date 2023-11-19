@@ -31,7 +31,7 @@
                         <h1>{{ product.data.name }}</h1>
                     </div>
                     <button class="btn-favorite"
-                        @click="addToFavorite(product.data.id)">
+                        @click="addToFavorite(product.data.id, 'products')">
                         <template
                             v-if="$page.props.share.favorites.content.hasOwnProperty(product.data.id)">
                             <ion-icon name="heart-dislike-outline" size="large"></ion-icon>

@@ -11,7 +11,7 @@
             <div class="product-item_footer--price">{{  product.price  }} ₽</div>
             <div class="product-item_footer--btn">
                 <div class="product-item_footer--btn--item"
-                     @click="addToFavorite(product.id)">
+                     @click="addToFavorite(product.id, 'products')">
                     <span class="product-item_footer--btn--item_label">В избранное</span>
                     <template
                         v-if="$page.props.share.favorites.content.hasOwnProperty(product.id)">

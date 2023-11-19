@@ -1,8 +1,9 @@
 import {router} from "@inertiajs/vue3";
 
-const addToFavorite = (id) => {
+const addToFavorite = (id, type) => {
     router.post(route('favorites.add'), {
-        id: id
+        id: id,
+        type: type
     }, {
         preserveScroll: true,
         onSuccess: () => {},

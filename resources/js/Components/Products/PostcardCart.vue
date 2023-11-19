@@ -13,13 +13,25 @@
         </div>
         <div class="product-item_footer">
             <div class="product-item_footer--price">{{  postcard.price  }} ₽</div>
-            <div class="product-item_footer--btn" @click="addToCart(postcard.id, {
+            <div class="product-item_footer--btn">
+                <div class="product-item_footer--btn--item" @click="addToFavorite(postcard.id, 'postcards')">
+                    <span class="product-item_footer--btn--item_label">В избранное</span>
+                    <template
+                        v-if="$page.props.share.favorites.content.hasOwnProperty(postcard.id)">
+                        <ion-icon name="heart-dislike-outline"></ion-icon>
+                    </template>
+                    <template v-else>
+                        <ion-icon name="heart-outline"></ion-icon>
+                    </template>
+                </div>
+                <div class="product-item_footer--btn--item" @click="addToCart(postcard.id, {
                     type: 'postcard',
                     price: postcard.price,
                     count: 1
                 })">
-                В корзину
-                <ion-icon name="cart-outline" size="small"></ion-icon>
+                    В корзину
+                    <ion-icon name="cart-outline" size="small"></ion-icon>
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +40,7 @@
 import addToCart from "@/Mixins/Cart.js";
 import {Carousel, Slide} from "vue3-carousel";
 import 'vue3-carousel/dist/carousel.css'
+import addToFavorite from "@/Mixins/Favorites.js";
 
 defineProps({
     postcard: Object

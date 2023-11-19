@@ -38,11 +38,15 @@ class FavoritesService
      * Creates a new cart item from given inputs.
      *
      * @param int $id
+     * @param string $type
      * @return Collection
      */
-    protected function createFavoriteItem(int $id): Collection
+    protected function createFavoriteItem(int $id, string $type): Collection
     {
-        return collect($id);
+        return collect([
+            'id' => $id,
+            'type' => $type
+        ]);
     }
 
 }
