@@ -1,5 +1,8 @@
 <template>
     <AppLayout title="Каталог">
+        <BreadCrumbs :child="[
+            {id: 1, title: 'Каталог', link: 'catalog'},
+        ]"/>
         <div class="container">
             <div class="catalog-page">
                 <ul class="catalog-nav">
@@ -50,6 +53,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import {Link, router, usePage} from "@inertiajs/vue3";
 import DropdownCatalog from "@/Components/Inputs/DropdownCatalog.vue";
 import PostcardCart from "@/Components/Products/PostcardCart.vue";
+import BreadCrumbs from "@/Components/Common/BreadCrumbs.vue";
 
 defineProps({
     products: Object,
