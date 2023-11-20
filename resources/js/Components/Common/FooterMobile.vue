@@ -33,7 +33,7 @@
             <a class="footer-mobile_bottom--phone" href="tel: 8 (928) 045 66 17">8 (928) 045 66 17</a>
         </p>
         <p>
-            <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">г. Дербент, ул. Кобякова, 12. <br>Ежедневно 08:00 - 00:00</a>
+            <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">г. Дербент, ул. Кобякова, 3/5 <br>Ежедневно 08:00 - 00:00</a>
         </p>
         <div class="footer-container_address--item">
             <p>Доставка цветов по Дербенту.</p>
