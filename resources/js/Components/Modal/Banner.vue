@@ -1,14 +1,19 @@
 <template>
-    <div class="modal-item">
-        <div class="banner-src"
-             :style="'background-image: url(' + this.img + ')'"></div>
+    <div class="modal-item" @click="closeBanner(data.id)">
+        <a :href="data.link">
+            <div class="banner-src"
+                 :style="'background-image: url(' + data.img + ')'"></div>
+        </a>
     </div>
 </template>
 <script>
+import {usePage} from "@inertiajs/vue3";
 export default {
     props: {
-        title: String,
-        img: String
+        data: Object,
+    },
+    methods: {
+        closeBanner: (id) => document.cookie = "bannerID_" + id + "=0",
     }
 }
 </script>

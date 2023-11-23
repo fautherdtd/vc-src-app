@@ -92,6 +92,9 @@ class BannersEditScreen extends Screen
                     Input::make('banner.title')
                         ->required()
                         ->title('Наименование'),
+                    Input::make('banner.link')
+                        ->required()
+                        ->title('Ссылка'),
                     Select::make('banner.type')
                         ->options([
                             'modal'   => 'Модальное окно',

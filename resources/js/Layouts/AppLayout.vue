@@ -15,7 +15,7 @@ if (usePage().props.share.banner !== null) {
     if (getCookie('bannerID_' + usePage().props.share.banner.data.id) === undefined) {
         setTimeout(async () =>  {
             const modal = await openModal(BannerComponent, {
-                img: usePage().props.share.banner.data.src
+                data: usePage().props.share.banner.data
             });
             modal.onclose = () => {
                 document.cookie = "bannerID_" + usePage().props.share.banner.data.id + "=0"

@@ -14,7 +14,8 @@ class BannerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'src' => $this->getUrl($this->attachment('preview')->first())
+            'src' => $this->getUrl($this->attachment('preview')->first()),
+            'link' => $this->link
         ];
     }
 }
