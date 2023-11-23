@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Facades\Cart;
 use App\Facades\Favorites;
+use App\Http\Controllers\BannerController;
 use App\Http\Resources\Banners\BannerResource;
 use App\Http\Resources\Categories\CategoriesResources;
 use App\Models\Banners;
@@ -43,10 +44,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'share' => [
-                'banner' => new BannerResource(Banners::where([
-                    ['type', 'modal'],
-                    ['is_active', true]
-                ])->first()),
+                'banner' => (new BannerController())->getBanner(),
                 'cart' => [
                     'totalQuantity' => Cart::totalQuantity(),
                     'totalPrice' => Cart::total(),

@@ -11,16 +11,18 @@ const getCookie = function (name) {
     if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-if (getCookie('bannerID_' + usePage().props.share.banner.data.id) === undefined) {
-    setTimeout(async () =>  {
-        const modal = await openModal(BannerComponent, {
-            img: usePage().props.share.banner.data.src
-        });
-        modal.onclose = () => {
-            document.cookie = "bannerID_" + usePage().props.share.banner.data.id + "=0"
-            return true;
-        }
-    }, 1)
+if (usePage().props.share.banner !== null) {
+    if (getCookie('bannerID_' + usePage().props.share.banner.data.id) === undefined) {
+        setTimeout(async () =>  {
+            const modal = await openModal(BannerComponent, {
+                img: usePage().props.share.banner.data.src
+            });
+            modal.onclose = () => {
+                document.cookie = "bannerID_" + usePage().props.share.banner.data.id + "=0"
+                return true;
+            }
+        }, 1)
+    }
 }
 
 defineProps({
