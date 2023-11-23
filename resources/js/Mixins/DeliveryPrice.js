@@ -4,11 +4,13 @@ const start = {
     latitude: 42.056954,
     longitude: 48.305317
 }
-const landingPrice = 50;
 
 const distancePrice = (end) => {
-    let distance = Math.ceil(Math.ceil(haversine(start, end)) + + Math.floor(10));
-    return Math.ceil(landingPrice + (Math.ceil(distance * 30)));
+    const distanceKM = haversine(start, end);
+    const landingPrice = distanceKM > 15 ? 40 : 20;
+    const roundPrice = distanceKM > 15 ? 30 : 18;
+    let distance = Math.ceil(Math.ceil(distanceKM) + + Math.floor(10));
+    return Math.ceil(landingPrice + (Math.ceil(distance * roundPrice)));
 }
 
 export default distancePrice;
