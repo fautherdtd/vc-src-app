@@ -2,7 +2,7 @@
     <div class="modal-item" @click="closeBanner(data.id)">
         <a :href="data.link">
             <div class="banner-src"
-                 :style="'background-image: url(' + data.img + ')'"></div>
+                 :style="'background-image: url(' + data.src + ')'"></div>
         </a>
     </div>
 </template>
