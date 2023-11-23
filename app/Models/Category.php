@@ -19,10 +19,12 @@ class Category extends Model
         'position',
         'is_visible',
         'seo_title',
-        'seo_description'
+        'seo_description',
+        'is_deactivation'
     ];
     protected $casts = [
-        'is_visible' => 'boolean'
+        'is_visible' => 'boolean',
+        'is_deactivation' => 'boolean',
     ];
 
     /**

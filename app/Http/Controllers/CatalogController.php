@@ -35,7 +35,7 @@ class CatalogController extends Controller
      */
     public function prepareProducts(Request $request, string $slug = null): ProductsResources
     {
-        $products = Product::where('id', '>', 0);
+        $products = Product::orderBy('is_active', 'DESC');
         if (! is_null($slug)) {
             $products->whereHas('category', function ($q) use($slug) {
                 $q->where('slug', $slug);
@@ -46,7 +46,11 @@ class CatalogController extends Controller
             $products->orderBy($request->input('sort'), 'ASC');
         }
 
-        return new ProductsResources($products->get());
+        return new ProductsResources(
+            $products->get()->sortBy(function ($q) {
+                return $q->category->is_deactivation;
+            })
+        );
     }
 
     /**

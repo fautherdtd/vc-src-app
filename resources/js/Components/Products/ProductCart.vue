@@ -1,5 +1,8 @@
 <template>
-    <div class="product-item">
+    <div
+        class="product-item"
+        :class="product.is_deactivation === true ? 'product-item_deactivate' : ''"
+    >
         <div class="product-item_img" :style="'background-image: url(' + product.image + ')'" ></div>
         <Link :href="route('product', product.slug)">
             <div class="product-item_content">

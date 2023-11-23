@@ -70,7 +70,12 @@
                             <button @click="options.countItem++">+</button>
                         </div>
                     </div>
-                    <template v-if="product.data.is_active">
+                    <template v-if="product.data.category.is_deactivation === true">
+                        <p style="text-align: center">
+                            Сейчас недоступно
+                        </p>
+                    </template>
+                    <template v-else-if="product.data.is_active">
                         <button
                             v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
                             @click="addToCart(product.data.id, {

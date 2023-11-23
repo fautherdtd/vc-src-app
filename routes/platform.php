@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Banners\BannersEditScreen;
+use App\Orchid\Screens\Banners\BannersListScreen;
 use App\Orchid\Screens\Categories\CategoriesEditScreen;
 use App\Orchid\Screens\Categories\CategoriesListScreen;
 use App\Orchid\Screens\Customer\CustomerEditScreen;
@@ -33,6 +35,8 @@ use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\Shipping\ShippingEditScreen;
 use App\Orchid\Screens\Shipping\ShippingListScreen;
+use App\Orchid\Screens\TimeSlots\TimeSlotsEditScreen;
+use App\Orchid\Screens\TimeSlots\TimeSlotsListScreen;
 use App\Orchid\Screens\Transactions\TransactionsListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
@@ -183,4 +187,16 @@ Route::prefix('postcard')->name('platform.postcard.')->group(function () {
    Route::screen('list', PostcardsListScreen::class)->name('list');
    Route::screen('create', PostcardEditScreen::class)->name('create');
    Route::screen('edit/{postcard}', PostcardEditScreen::class)->name('edit');
+});
+
+Route::prefix('banner')->name('platform.banner.')->group(function () {
+   Route::screen('list', BannersListScreen::class)->name('list');
+   Route::screen('create', BannersEditScreen::class)->name('create');
+   Route::screen('edit/{banner}', BannersEditScreen::class)->name('edit');
+});
+
+Route::prefix('times')->name('platform.times.')->group(function () {
+   Route::screen('list', TimeSlotsListScreen::class)->name('list');
+   Route::screen('create', TimeSlotsEditScreen::class)->name('create');
+   Route::screen('edit/{time}', TimeSlotsEditScreen::class)->name('edit');
 });

@@ -49,6 +49,9 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make(__('Открытки'))
                 ->icon('bs.card-text')
                 ->route('platform.postcard.list'),
+            Menu::make(__('Баннеры'))
+                ->icon('bs.image')
+                ->route('platform.banner.list'),
 
             // Сервис
             Menu::make(__('Заказы'))
@@ -73,6 +76,9 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.file-earmark-fill')
                 ->route('platform.page.list')
                 ->title(__('Система')),
+            Menu::make(__('Временные слоты'))
+                ->icon('bs.clock')
+                ->route('platform.times.list'),
             Menu::make(__('Транзакции'))
                 ->icon('bs.card-list')
                 ->route('platform.transactions.list'),

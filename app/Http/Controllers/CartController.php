@@ -12,12 +12,14 @@ use App\Models\Payment;
 use App\Models\Postcards;
 use App\Models\Product;
 use App\Models\Shipping;
+use App\Models\TimeSlots;
 use App\Services\Order\OrderService;
 use App\Services\Payment\PaymentHandler;
 use App\Services\Smsc\Smsc;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -51,22 +53,38 @@ class CartController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
     public function getSlotsTime(Request $request): \Illuminate\Http\JsonResponse
     {
-        $carbonDay = Carbon::create($request->input('date'));
-        $times = [];
-        $start = $carbonDay->format('Y-m-d') === Carbon::now()->format('Y-m-d') ?
-            Carbon::now()->addHour()->roundHour()->format('H:i') : '08:00';
-        $intervals = CarbonInterval::minutes(60)
-            ->toPeriod($start, '23:59');
-
-        foreach ($intervals as $date) {
-            $times[] = $date->format('H:i');
+        $carbonDay = Carbon::create($request->input('date') . date('H:i'));
+        $model = TimeSlots::where('is_active', true)->first();
+        $slots = [];
+        foreach ($model->slots as $key => $value) {
+            $slots[] = $value['Слот'];
         }
-        $times[] = '23:59';
-        return response()->json($times);
+
+        if ($carbonDay->format('Y-m-d') !== Carbon::now()->format('Y-m-d')) {
+            return response()->json($slots);
+        } else {
+            $start = $carbonDay->addHour()->roundHour()->format('H:i');
+            foreach ($slots as $key => $slot) {
+                $item = explode('-', $slot);
+                if (!empty($item[1])) {
+                    if (strtotime($start) > strtotime($item[0])
+                        && strtotime($start) > strtotime($item[1])) {
+                        unset($slots[$key]);
+                    }
+                } else {
+                    if (strtotime($start) > strtotime($item[0])) {
+                        unset($slots[$key]);
+                    }
+                }
+
+            }
+            return response()->json(array_values($slots));
+        }
     }
 
     /**

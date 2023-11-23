@@ -47,12 +47,15 @@ class OrderService
      */
     public function prepare(Request $request): array
     {
+        $slot = function ($value) {
+            return preg_replace("/\?.+/", "", $value);
+        };
         return [
             'order' => [
                 'number' => substr(Carbon::now()->unix(), 0, 3) . random_int(0, 999),
                 'total_price' =>
                     (int) $request->input('total') === 0 ? Cart::total() : $request->input('total'),
-                'delivery_time' => $request->input('timeDelivery.date') . ' ' . $request->input('timeDelivery.time'),
+                'delivery_time' => $request->input('timeDelivery.date') . ' ' . $slot($request->input('timeDelivery.time')),
                 'shipping_method' => $request->input('delivery.method'),
                 'shipping_price' => $request->input('delivery.price'),
                 'address_sub' => $request->input('delivery.sub'),

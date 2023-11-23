@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use App\Facades\Cart;
 use App\Facades\Favorites;
+use App\Http\Resources\Banners\BannerResource;
 use App\Http\Resources\Categories\CategoriesResources;
+use App\Models\Banners;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -41,6 +43,10 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'share' => [
+                'banner' => new BannerResource(Banners::where([
+                    ['type', 'modal'],
+                    ['is_active', true]
+                ])->first()),
                 'cart' => [
                     'totalQuantity' => Cart::totalQuantity(),
                     'totalPrice' => Cart::total(),
@@ -51,8 +57,11 @@ class HandleInertiaRequests extends Middleware
                     'content' => Favorites::content()
                 ],
                 'categories' => new CategoriesResources(
-                    Category::where('is_visible', true)
-                        ->orderBy('position', 'DESC')->get()
+                    Category::where('is_visible', '=', true)
+                        ->orderBy('position', 'ASC')->get()
+                        ->sortBy(function ($q) {
+                           return $q->is_deactivation;
+                        })
                 )
             ],
         ];

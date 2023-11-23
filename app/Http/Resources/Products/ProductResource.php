@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'modify' => $this->modify,
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,
-            'is_active' => $this->is_active
+            'is_active' => $this->is_active,
         ];
     }
 
