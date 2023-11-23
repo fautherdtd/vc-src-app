@@ -85,7 +85,7 @@
                             v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
                             @click="addToCart(product.data.id, {
                           count: options.countItem,
-                          price: (Number(product.data.price) + (Number(options.modifyPrice))),
+                          price: options.price,
                           type: 'product'
                         })" class="btn btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
@@ -142,7 +142,7 @@ const options = useForm({
     modifyPrice: ref(0)
 })
 watch(() => options.countItem, (current, prev) => {
-    let currentPrice = usePage().props.product.data.price + Number(options.modifyPrice);
+    let currentPrice = options.modifyPrice ==  0 ? usePage().props.product.data.price : options.modifyPrice;
     current > prev ?
         options.price = currentPrice * current : options.price -= currentPrice
 })
@@ -151,7 +151,7 @@ watch(() => options.modifyPrice, (current) => {
     if (current == 0) {
         options.price = usePage().props.product.data.price * options.countItem
     } else {
-        options.price = (usePage().props.product.data.price + Number(current)) * options.countItem
+        options.price = Number(current) * options.countItem
     }
 })
 
