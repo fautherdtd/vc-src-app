@@ -100,6 +100,7 @@ class BannersEditScreen extends Screen
                         ->title('Тип медиа-баннера')
                         ->required(),
                     CheckBox::make('banner.is_active')
+                        ->sendTrueOrFalse()
                         ->placeholder('Включить баннер')
                         ->title('Активность'),
                     Upload::make('banner.attachment')
