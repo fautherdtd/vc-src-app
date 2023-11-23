@@ -52,9 +52,14 @@
                 <div class="product-detail_info--flower-count" v-if="product.data.modify">
                     <label for="flower-count" class="input-block">
                         <h4>Кол-во цветов: </h4>
-                        <select name="flower-count" id="flower-count" class="select-primary">
-                            <option :value="modify['Название']" v-for="modify in product.data.modify">
-                                {{ modify['Кол-во цветов'] }} - {{ modify['Цена'] }}
+                        <select name="flower-count"
+                                v-model="options.modifyPrice"
+                                id="flower-count"
+                                class="select-primary">
+                            <option value="0" selected>Сбросить модификацию</option>
+                            <option
+                                :value="modify['Цена']" v-for="modify in product.data.modify">
+                                {{ modify['Кол-во цветов'] }} - {{ modify['Цена'] }} руб.
                             </option>
                         </select>
                     </label>
@@ -80,7 +85,7 @@
                             v-if="! $page.props.share.cart.content.hasOwnProperty(product.data.id)"
                             @click="addToCart(product.data.id, {
                           count: options.countItem,
-                          price: product.data.price,
+                          price: (Number(product.data.price) + (Number(options.modifyPrice))),
                           type: 'product'
                         })" class="btn btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 30 34" fill="none">
@@ -127,18 +132,27 @@ import {Carousel, Slide} from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 import VueEasyLightbox from 'vue-easy-lightbox'
 
-defineProps({
+const props = defineProps({
     product: Object,
     popular: Object
 })
 const options = useForm({
     price: usePage().props.product.data.price,
-    countItem: ref(1)
+    countItem: ref(1),
+    modifyPrice: ref(0)
 })
 watch(() => options.countItem, (current, prev) => {
+    let currentPrice = usePage().props.product.data.price + Number(options.modifyPrice);
     current > prev ?
-        options.price += usePage().props.product.data.price
-        : options.price -= usePage().props.product.data.price
+        options.price = currentPrice * current : options.price -= currentPrice
+})
+
+watch(() => options.modifyPrice, (current) => {
+    if (current == 0) {
+        options.price = usePage().props.product.data.price * options.countItem
+    } else {
+        options.price = (usePage().props.product.data.price + Number(current)) * options.countItem
+    }
 })
 
 const settings = {
@@ -153,6 +167,5 @@ const showImg = (index) => {
     visibleRef.value = true
 }
 const onHide = () => visibleRef.value = false
-
 
 </script>
