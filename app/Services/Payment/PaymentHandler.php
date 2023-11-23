@@ -15,8 +15,8 @@ class PaymentHandler
     {
         $this->client = new Client();
         $this->client->setAuth(
-            '278498',
-            'test_FvPDF_U2g6Ao05xVXKE5QEgDY72RpAM-Aclibdu0C6I'
+            '261889',
+            'live_dN4MtZ1lsgisJx2VuG0FEqVoLjuQn6tW_o3ZFVqXsCY'
         );
     }
 
