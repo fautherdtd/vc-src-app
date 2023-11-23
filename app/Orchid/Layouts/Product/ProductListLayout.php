@@ -48,7 +48,7 @@ class ProductListLayout extends Table
                     }
                 ),
             TD::make('preview', 'Изображение')->render(function (Product $item) {
-                return "<img height='100px' src='{$this->getUrl($item->attachment->first())}'/>";
+                return "<img height='100px' src='{$this->getUrl($item->attachment('preview')->first())}'/>";
             }),
             TD::make('name', 'Наименование')
                 ->render(function (Product $product) {
