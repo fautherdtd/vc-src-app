@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
             'position' => $this->position,
             'seo_title' => $this->seo_title,
             'seo_description' => $this->seo_description,
+            'is_deactivation' => $this->is_deactivation,
             'image' => $this->getUrl($this->attachment('preview')->first())
         ];
     }

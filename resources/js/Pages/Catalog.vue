@@ -9,7 +9,9 @@
                     <li class="catalog-nav_item"
                         :class="route().current('catalog', category.slug) ? 'catalog-nav_item--active' : ''"
                         v-for="category in $page.props.share.categories.data" :key="category.id">
-                        <Link :href="route('catalog', category.slug)">{{ category.name }}</Link>
+                        <Link :href="route('catalog', category.slug)">
+                            {{ category.name }} <span style="font-size: 14px" v-if="category.is_deactivation">(недоступно)</span>
+                        </Link>
                     </li>
                 </ul>
                 <div class="catalog-product">

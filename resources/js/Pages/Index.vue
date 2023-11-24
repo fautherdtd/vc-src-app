@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Главная">
+    <AppLayout title="Доставка цветов по Дербенту и Дербентскому району - Вальс Цветов">
         <div class="main-container">
             <div class="main-container_text">
                 <div class="main-container_text--title">
