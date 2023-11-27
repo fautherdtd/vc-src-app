@@ -33,7 +33,7 @@ class TelegramOrder implements ShouldQueue
         $ch = curl_init("https://api.telegram.org/bot6411993510:AAEXUmjb3VeVrvV4vOMcbS5rqYyOpyla_Z4/sendMessage?");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, [
-            'chat_id' => -4040710684,
+            'chat_id' => -1002032850753,
             'text'  => 'Поступил заказ №'. $this->numberID .'. <a href="https://valscvetov.ru/admin/order/show/'. $order->id .'">Информация о заказе</a>',
             'parse_mode' => 'html'
         ]);
