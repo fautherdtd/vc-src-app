@@ -16,7 +16,8 @@
         "orchid/platform": "^14.14",
         "spatie/laravel-sluggable": "^3.5",
         "tightenco/ziggy": "^1.0",
-        "yoomoney/yookassa-sdk-php": "^3.1"
+        "yoomoney/yookassa-sdk-php": "^3.1",
+      "ext-curl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
