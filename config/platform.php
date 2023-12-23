@@ -160,7 +160,6 @@ return [
      */
 
     'template' => [
-        'header' => 'brand.header',
         'footer' => 'brand.footer',
     ],
 
