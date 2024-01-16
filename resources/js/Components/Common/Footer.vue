@@ -119,7 +119,8 @@
                         vals.cvetov
                     </a>
                 </p>
-                <a href="tel: 8 (928) 045 66 17">8 (928) 045 66 17</a>
+                <p><a href="tel: 8 (928) 045 66 17">8 (928) 045 66 17</a></p>
+                <iframe src="https://yandex.ru/sprav/widget/rating-badge/143295200969?type=rating&theme=dark" width="150" height="50" style="margin-top: 10px" frameborder="0"></iframe>
             </div>
             <div class="footer-container_address">
                 <div class="footer-container_address--item">
