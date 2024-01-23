@@ -90,11 +90,11 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $item->qty }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <a target="_blank" href="{{ Storage::disk('public')->url($item->product->attachment->first()->path . $item->product->attachment->first()->name . '.' . $item->product->attachment->first()->extension) }}">
+                                            <a target="_blank" href="{{ Storage::disk('public')->url($item->{strtolower($item->type)}->attachment->first()->path . $item->{strtolower($item->type)}->attachment->first()->name . '.' . $item->{strtolower($item->type)}->attachment->first()->extension) }}">
                                                 <img
-                                                    width="250"
-                                                    height="250"
-                                                    src="{{ Storage::disk('public')->url($item->product->attachment->first()->path . $item->product->attachment->first()->name . '.' . $item->product->attachment->first()->extension) }}" alt="">
+                                                    width="150"
+                                                    height="150"
+                                                    src="{{ Storage::disk('public')->url($item->{strtolower($item->type)}->attachment->first()->path . $item->{strtolower($item->type)}->attachment->first()->name . '.' . $item->{strtolower($item->type)}->attachment->first()->extension) }}" alt="">
                                             </a>
                                         </td>
                                     </tr>
