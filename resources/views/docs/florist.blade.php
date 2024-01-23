@@ -19,7 +19,7 @@
         </div>
         <div class="mt-6 pb-2">
             <p class="text-2xl border-b mb-2">Информация по заказу</p>
-            <p><span class="font-bold">Доставить нужно: </span> {{ $order->delivery_time->format('d.m H:i') }}</p>
+            <p><span class="font-bold">Подготовить нужно до: </span> {{ $order->delivery_time->format('d.m H:i') }}</p>
             <p>
                 <span class="font-bold">Статус оплаты: </span>
                 @if($order->is_payment)
