@@ -101,7 +101,7 @@ class CartController extends Controller
             'phone' => $data['customer']['phone'],
             'message' => "Заказ #". $data['order']['number'] ." оформлен. С уважением, Вальс цветов!",
         ]);
-        TelegramOrder::dispatch($data['order']['number']);
+//        TelegramOrder::dispatch($data['order']['number']);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
             $result = $transaction->create([

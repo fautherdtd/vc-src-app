@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Carbon;
 use Orchid\Screen\AsSource;
 
 class Order extends Model
@@ -58,6 +59,14 @@ class Order extends Model
     public function shipping(): HasOne
     {
         return $this->hasOne(Shipping::class, 'method', 'shipping_method');
+    }
+
+
+    public function getBuildTimeSlotAttribute()
+    {
+        setlocale(LC_TIME, 'ru_RU.UTF-8');
+        Carbon::setLocale('ru_RU');
+        return Carbon::parse($this->delivery_time)->format('D d M Y H:i:s');
     }
 
 }

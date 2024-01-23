@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\DocsController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -49,4 +50,9 @@ Route::prefix('cart')->name('cart.')->group(function () {
     Route::post('/order/create', [CartController::class, 'create'])->name('createOrder');
 
     Route::get('/time/slots', [CartController::class, 'getSlotsTime'])->name('timeSlots');
+});
+
+Route::prefix('docs')->name('docs.')->group(function () {
+   Route::get('florist/{id}', [DocsController::class, 'florist'])->name('florist');
+   Route::get('courier/{id}', [DocsController::class, 'courier'])->name('courier');
 });
