@@ -62,7 +62,6 @@
                     <p><span class="font-bold">Имя: </span> {{ $order->recipient['name'] }}</p>
                     <p><span class="font-bold">Номер телефона: </span> {{ $order->recipient['phone'] }}</p>
                 @else
-                    <p class="text-2xl border-b mb-2">Получатель</p>
                     <p><span class="font-bold">Имя: </span> {{ $order->customer->name }}</p>
                     <p><span class="font-bold">Номер телефона: </span> {{ $order->customer->phone }}</p>
                 @endif
