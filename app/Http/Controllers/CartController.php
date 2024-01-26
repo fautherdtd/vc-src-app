@@ -97,12 +97,10 @@ class CartController extends Controller
     {
         $data = $service->prepare($request);
         $order = $service->create($data);
-//        (new Smsc())->make([
-//            'phone' => $data['customer']['phone'],
-//            'message' => "Заказ #". $data['order']['number'] ." оформлен. С уважением, Вальс цветов!",
-//        ]);
-        $test = new TelegramOrder($data['order']['number']);
-        $test->handle();
+        (new Smsc())->make([
+            'phone' => $data['customer']['phone'],
+            'message' => "Заказ #". $data['order']['number'] ." оформлен. С уважением, Вальс цветов!",
+        ]);
         TelegramOrder::dispatch($data['order']['number']);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
