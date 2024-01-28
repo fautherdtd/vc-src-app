@@ -51,8 +51,3 @@ Route::prefix('cart')->name('cart.')->group(function () {
 
     Route::get('/time/slots', [CartController::class, 'getSlotsTime'])->name('timeSlots');
 });
-
-Route::prefix('docs')->name('docs.')->group(function () {
-   Route::get('florist/{id}', [DocsController::class, 'florist'])->name('florist');
-   Route::get('courier/{id}', [DocsController::class, 'courier'])->name('courier');
-});

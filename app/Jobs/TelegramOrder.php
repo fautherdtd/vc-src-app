@@ -34,7 +34,7 @@ class TelegramOrder implements ShouldQueue
     public function handle(): void
     {
         $order = Order::where('number', $this->numberID)->first();
-        $message = view('docs.test', ['order' => $order])->render();
+        $message = view('docs.telegram', ['order' => $order])->render();
         $this->sendInfoOrder($message);
         $this->sendFile($order);
     }

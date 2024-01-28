@@ -16,8 +16,8 @@ ____________________________
 @endif
 
 ____________________________
-<b>Клиент и получатель:</b>
-Клиент: {{ $order->customer->name }}, {{ $order->customer->phone }}
+<b>Заказчик и получатель:</b>
+Заказчик: {{ $order->customer->name }}, {{ $order->customer->phone }}
 @if(!is_null($order->recipient['name']))
 Получатель: {{ $order->recipient['name'] }}, {{ $order->recipient['phone'] }}
 @endif
@@ -32,7 +32,7 @@ ____________________________
 @if(!is_null($item->product->modify))
 @foreach($item->product->modify as $key => $value)
 @if($value['Цена'] == intval($item->unit_price))
-Модификации: общее кол-во цветов в букете {{ $value['Кол-во цветов'] }}
+Дополнительно: общее кол-во цветов в букете {{ $value['Кол-во цветов'] }}
 @endif
 @endforeach
 @endif
