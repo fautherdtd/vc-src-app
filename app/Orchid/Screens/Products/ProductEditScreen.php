@@ -112,7 +112,10 @@ class ProductEditScreen extends Screen
                     CheckBox::make('product.is_active')
                         ->sendTrueOrFalse()
                         ->title('Активность')
-                        ->placeholder('Отобразить товар')
+                        ->placeholder('Отобразить товар'),
+                    Input::make('product.qty')
+                        ->required()
+                        ->title('Кол-во доступных')
                 ])->title('Доп информация'),
             ]),
             Layout::columns([

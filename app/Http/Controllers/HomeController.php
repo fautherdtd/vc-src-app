@@ -20,7 +20,8 @@ class HomeController extends Controller
      */
     public function index(): Response
     {
-        $popular = Product::where('is_active', true)
+        $popular = Product::storageQty()
+            ->where('is_active', true)
             ->orderBy('id', 'DESC')
             ->offset(0)
             ->limit(4);

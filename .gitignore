@@ -22,3 +22,4 @@ yarn-error.log
 /.docker
 Dockerfile
 docker-compose.yml
+.DS_Store

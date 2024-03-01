@@ -126,7 +126,7 @@
                                 <input type="text" v-model="form.contacts.from.name" placeholder="Ваше имя *" class="inp-text-primary inp-w-20">
                             </label>
                             <label for="">
-                                <input type="text" v-model="form.contacts.from.phone" placeholder="Ваш телефон *" class="inp-text-primary inp-w-20">
+                                <input type="text" minlength="11" maxlength="11" v-model="form.contacts.from.phone" placeholder="Ваш телефон *" class="inp-text-primary inp-w-20">
                             </label>
                         </div>
                         <InputError class="mt-2" :message="form.errors['contacts.from.name']" />

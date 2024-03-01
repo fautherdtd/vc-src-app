@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
@@ -23,6 +24,7 @@ class Product extends Model
         'price',
         'compound',
         'seo_title',
+        'qty',
         'seo_description',
         'is_active'
     ];
@@ -58,5 +60,13 @@ class Product extends Model
     public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeStorageQty(Builder $query): void
+    {
+        $query->where('qty', '!=', 0);
     }
 }

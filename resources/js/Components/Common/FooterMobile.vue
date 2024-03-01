@@ -29,8 +29,8 @@
         </div>
     </div>
     <div class="footer-mobile_bottom">
-        <iframe src="https://yandex.ru/sprav/widget/rating-badge/143295200969?type=rating&theme=dark" width="150" height="50" frameborder="0"></iframe>
-        <p>
+        <iframe src="https://yandex.ru/sprav/widget/rating-badge/143295200969?type=award&theme=dark" width="150" height="50" frameborder="0"></iframe>
+        <p class="mt-2">
             <a class="footer-mobile_bottom--phone" href="tel: 8 (928) 045 66 17">8 (928) 045 66 17</a>
         </p>
         <p>

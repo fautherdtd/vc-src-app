@@ -102,4 +102,9 @@ class OrderService
         }
         return $model->id;
     }
+
+    public function confirmationInStock()
+    {
+
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\Delivery\DeliveryResources;
 use App\Http\Resources\Payments\PaymentsResources;
 use App\Facades\Order;
+use App\Jobs\StorageIRL;
 use App\Jobs\TelegramOrder;
 use App\Models\Payment;
 use App\Models\Postcards;
@@ -109,6 +110,7 @@ class CartController extends Controller
                 'description' => $data['order']['number'],
             ]);
             Cart::clear();
+            StorageIRL::dispatch($data['order']['number']);
             return Inertia::location($result);
         }
         Cart::clear();
