@@ -7,27 +7,18 @@ use App\Http\Controllers\Helpers\Images;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\Delivery\DeliveryResources;
 use App\Http\Resources\Payments\PaymentsResources;
-use App\Facades\Order;
-use App\Jobs\StorageIRL;
-use App\Jobs\TelegramOrder;
 use App\Models\Payment;
 use App\Models\Postcards;
 use App\Models\Product;
 use App\Models\Shipping;
-use App\Models\TimeSlots;
 use App\Services\Order\OrderService;
+use App\Services\Order\TimeSlots;
 use App\Services\Payment\PaymentHandler;
-use App\Services\Smsc\Smsc;
-use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-use Watson\Active\Route;
 
 class CartController extends Controller
 {
@@ -60,33 +51,10 @@ class CartController extends Controller
      */
     public function getSlotsTime(Request $request): \Illuminate\Http\JsonResponse
     {
-        $carbonDay = Carbon::create($request->input('date') . date('H:i'));
-        $model = TimeSlots::where('is_active', true)->first();
-        $slots = [];
-        foreach ($model->slots as $key => $value) {
-            $slots[] = $value['Слот'];
-        }
-
-        if ($carbonDay->format('Y-m-d') !== Carbon::now()->format('Y-m-d')) {
-            return response()->json($slots);
-        } else {
-            $start = $carbonDay->addHour()->roundHour()->format('H:i');
-            foreach ($slots as $key => $slot) {
-                $item = explode('-', $slot);
-                if (!empty($item[1])) {
-                    if (strtotime($start) > strtotime($item[0])
-                        && strtotime($start) > strtotime($item[1])) {
-                        unset($slots[$key]);
-                    }
-                } else {
-                    if (strtotime($start) > strtotime($item[0])) {
-                        unset($slots[$key]);
-                    }
-                }
-
-            }
-            return response()->json(array_values($slots));
-        }
+        $slots = new TimeSlots();
+        return response()->json(
+            $slots->slotTimes($request->input('date'))
+        );
     }
 
     /**

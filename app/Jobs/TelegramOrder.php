@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\Http\Controllers\Helpers\Images;
 use App\Models\Order;
+use App\Services\Order\TimeSlots;
+use Carbon\Carbon;
 use CURLFile;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
@@ -34,7 +36,12 @@ class TelegramOrder implements ShouldQueue
     public function handle(): void
     {
         $order = Order::where('number', $this->numberID)->first();
-        $message = view('docs.telegram', ['order' => $order])->render();
+        $slot = new TimeSlots();
+        $message = view('docs.telegram', [
+            'order' => $order,
+            'date' => Carbon::parse($order->delivery_time)->format('y-m-d'),
+            'slot' => $slot->slotTimeRange($order->delivery_time)
+        ])->render();
         $this->sendInfoOrder($message);
         $this->sendFile($order);
     }

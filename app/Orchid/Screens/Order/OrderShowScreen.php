@@ -7,6 +7,8 @@ use App\Http\Controllers\Helpers\Images;
 use App\Models\Order;
 use App\Models\OrderItems;
 use App\Models\Payment;
+use App\Services\Order\TimeSlots;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
@@ -90,7 +92,11 @@ class OrderShowScreen extends Screen
                         return $order->shipping_price . " руб.";
                     }),
                     Sight::make('Адрес доставки')->render(fn (Order $order) => $order->address),
-                    Sight::make('Дата и время доставки')->render(fn (Order $order) => $order->delivery_time),
+                    Sight::make('Дата и время доставки')->render(function (Order $order) {
+                        $slot = new TimeSlots();
+                        $date = Carbon::parse($order->delivery_time)->format('y-m-d');
+                        return "<div> $date ". $slot->slotTimeRange($order->delivery_time) . "</div>";
+                    }),
                     Sight::make('Информация')->render(function (Order $order) {
                         return "<div>Подъезд: {$order->address_sub['entrance']}</div>
                             <div>Этаж: {$order->address_sub['floor']}</div>
