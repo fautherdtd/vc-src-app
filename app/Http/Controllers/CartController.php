@@ -98,11 +98,6 @@ class CartController extends Controller
     {
         $data = $service->prepare($request);
         $order = $service->create($data);
-        (new Smsc())->make([
-            'phone' => $data['customer']['phone'],
-            'message' => "Заказ #". $data['order']['number'] ." оформлен. С уважением, Вальс цветов!",
-        ]);
-        TelegramOrder::dispatch($data['order']['number']);
         if ($request->input('payment.method') === 'online-card' && $order) {
             $transaction = new PaymentHandler();
             $result = $transaction->create([
@@ -110,7 +105,6 @@ class CartController extends Controller
                 'description' => $data['order']['number'],
             ]);
             Cart::clear();
-            StorageIRL::dispatch($data['order']['number']);
             return Inertia::location($result);
         }
         Cart::clear();

@@ -61,6 +61,7 @@ class ProductListLayout extends Table
                 ->render(function (Product $product) {
                     return "<span>" . $product->category->name . "</span>";
                 }),
+            TD::make('qty', 'Кол-во доступных'),
             TD::make('is_active', 'Активность')
                 ->sort()
                 ->render(function (Product $product) {

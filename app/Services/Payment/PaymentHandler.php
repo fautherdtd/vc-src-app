@@ -2,8 +2,11 @@
 
 namespace App\Services\Payment;
 
+use App\Jobs\StorageIRL;
+use App\Jobs\TelegramOrder;
 use App\Models\Order;
 use App\Models\Transactions;
+use App\Services\Smsc\Smsc;
 use Illuminate\Http\Request;
 use YooKassa\Client;
 
@@ -62,6 +65,14 @@ class PaymentHandler
                 ->update([
                     'payment_method' => $request->input('object.payment_method.type'),
                 ]);
+            $order = Order::where('number', (int) $request->input('object.description'))
+                ->first();
+            (new Smsc())->make([
+                'phone' => $order->buyer->phone,
+                'message' => "Заказ #". $request->input('object.description') ." оформлен. С уважением, Вальс цветов!",
+            ]);
+            TelegramOrder::dispatch($request->input('object.description'));
+            StorageIRL::dispatch($request->input('object.description'));
             return response()->json();
         }
     }
