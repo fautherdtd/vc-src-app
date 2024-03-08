@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CatalogController;
-use App\Http\Controllers\DocsController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
@@ -9,9 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Services\Cart\CartFlowService;
 use App\Services\Favorites\FavoritesFlowService;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------

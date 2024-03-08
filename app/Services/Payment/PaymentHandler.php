@@ -68,7 +68,7 @@ class PaymentHandler
             $order = Order::where('number', (int) $request->input('object.description'))
                 ->first();
             (new Smsc())->make([
-                'phone' => $order->buyer->phone,
+                'phone' => $order['buyer']['phone'],
                 'message' => "Заказ #". $request->input('object.description') ." оформлен. С уважением, Вальс цветов!",
             ]);
             TelegramOrder::dispatch($request->input('object.description'));
