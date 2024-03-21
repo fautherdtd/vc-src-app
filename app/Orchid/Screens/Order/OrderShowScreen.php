@@ -93,9 +93,10 @@ class OrderShowScreen extends Screen
                     }),
                     Sight::make('Адрес доставки')->render(fn (Order $order) => $order->address),
                     Sight::make('Дата и время доставки')->render(function (Order $order) {
-                        $slot = new TimeSlots();
-                        $date = Carbon::parse($order->delivery_time)->format('y-m-d');
-                        return "<div> $date ". $slot->slotTimeRange($order->delivery_time) . "</div>";
+//                        $slot = new TimeSlots();
+//                        $date = Carbon::parse($order->delivery_time)->format('y-m-d');
+//                        return "<div> $date ". $slot->slotTimeRange($order->delivery_time) . "</div>";
+                        return "<div> ". $order->delivery_time . "</div>";
                     }),
                     Sight::make('Информация')->render(function (Order $order) {
                         return "<div>Подъезд: {$order->address_sub['entrance']}</div>
