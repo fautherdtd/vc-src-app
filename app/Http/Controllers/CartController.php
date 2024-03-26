@@ -7,6 +7,8 @@ use App\Http\Controllers\Helpers\Images;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\Delivery\DeliveryResources;
 use App\Http\Resources\Payments\PaymentsResources;
+use App\Jobs\StorageIRL;
+use App\Jobs\TelegramOrder;
 use App\Models\Payment;
 use App\Models\Postcards;
 use App\Models\Product;
@@ -72,6 +74,8 @@ class CartController extends Controller
                 'amount' => $data['order']['total_price'],
                 'description' => $data['order']['number'],
             ]);
+            TelegramOrder::dispatch($request->input('object.description'));
+            StorageIRL::dispatch($request->input('object.description'));
             Cart::clear();
             return Inertia::location($result);
         }
