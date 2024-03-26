@@ -54,6 +54,11 @@ class TimeSlots
             $slots[] = $value['Слот'];
         }
 
+        if (count(explode('-', $slots[0])) >! 1) {
+            $result = array_search($carbonDay, $slots);
+            return $slots[$result];
+        }
+
         foreach ($slots as $slot) {
             list($startTime, $endTime) = explode('-', $slot);
             if ($carbonDay >= $startTime && $carbonDay < $endTime) {

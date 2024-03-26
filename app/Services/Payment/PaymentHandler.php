@@ -71,6 +71,8 @@ class PaymentHandler
                 'phone' => $order['buyer']['phone'],
                 'message' => "Заказ #". $request->input('object.description') ." оформлен. С уважением, Вальс цветов!",
             ]);
+            TelegramOrder::dispatch($request->input('object.description'));
+            StorageIRL::dispatch($request->input('object.description'));
             return response()->json();
         }
     }
