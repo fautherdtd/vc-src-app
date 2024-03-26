@@ -74,8 +74,8 @@ class CartController extends Controller
                 'amount' => $data['order']['total_price'],
                 'description' => $data['order']['number'],
             ]);
-            TelegramOrder::dispatch($data['order']['number']);
-            StorageIRL::dispatch($data['order']['number']);
+//            TelegramOrder::dispatch($data['order']['number']);
+//            StorageIRL::dispatch($data['order']['number']);
             Cart::clear();
             return Inertia::location($result);
         }
