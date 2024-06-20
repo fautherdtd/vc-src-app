@@ -38,7 +38,7 @@
         </p>
         <div class="footer-container_address--item">
             <p>Доставка цветов по Дербенту.</p>
-            <p>Все права защищены © 2023 Вальс-цветов.</p>
+            <p>Все права защищены © 2024 FruitM-SPB.</p>
         </div>
     </div>
 </template>
