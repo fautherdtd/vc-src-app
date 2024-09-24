@@ -45,7 +45,7 @@ class PageController extends Controller
     public function policy(): Response
     {
         return Inertia::render('Policy', [
-           'page' => Pages::where('slug', 'policy')->first()
+           'data' => Pages::where('slug', 'policy')->first()
         ]);
     }
 }
