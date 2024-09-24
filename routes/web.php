@@ -28,6 +28,7 @@ Route::get('/product/{slug}', [ProductController::class, 'index'])->name('produc
 Route::get('/delivery', [PageController::class, 'delivery'])->name('delivery');
 Route::get('/payment', [PageController::class, 'payment'])->name('payment');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/policy', [PageController::class, 'policy'])->name('policy');
 
 Route::prefix('favorites')->name('favorites.')->group(function () {
     Route::get('/', [FavoritesController::class, 'index'])->name('index');
