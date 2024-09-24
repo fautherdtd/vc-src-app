@@ -27,7 +27,7 @@
                 </Link>
                 <Link :href="route('policy')"
                       class="header-menu_nav--link-mob">
-                    <span>Политика обработки персональных данных</span>
+                    <span>Политика конфиденциальности</span>
                 </Link>
             </div>
         </div>
