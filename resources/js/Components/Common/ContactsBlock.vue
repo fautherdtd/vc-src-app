@@ -32,8 +32,8 @@
                     <p class="contact-block__info-item--small">
                         <b>ОГРНИП: </b>304054234400020
                     </p>
-                    <p class="contact-block__info-item--small">
-                        <Link :href="route('policy')">Политика конфиденциальности</Link>
+                    <p class="contact-block__info-item--small" style="margin-top: 10px;">
+                        <Link :href="route('policy')" style="color: #262626;border-bottom: 1px solid;">Политика конфиденциальности</Link>
                     </p>
                 </div>
             </div>
