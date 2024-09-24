@@ -38,4 +38,14 @@ class PageController extends Controller
             'page' => new PageResource(Pages::where('slug', 'about')->first())
         ]);
     }
+
+    /**
+     * @return Response
+     */
+    public function policy(): Response
+    {
+        return Inertia::render('Policy', [
+           'page' => Pages::where('slug', 'policy')->first()
+        ]);
+    }
 }
