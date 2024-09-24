@@ -25,6 +25,10 @@
                       class="header-menu_nav--link-mob">
                     <span>О нас</span>
                 </Link>
+                <Link :href="route('policy')"
+                      class="header-menu_nav--link-mob">
+                    <span>Политика обработки персональных данных</span>
+                </Link>
             </div>
         </div>
     </div>
