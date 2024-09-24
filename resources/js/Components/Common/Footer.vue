@@ -106,9 +106,6 @@
                 <li>
                     <Link :href="route('about')">О нас</Link>
                 </li>
-                <li>
-                    <Link :href="route('policy')">Политика конфиденциальности</Link>
-                </li>
             </ul>
             <div class="footer-container_contact">
                 <p class="footer-container_contact--social">

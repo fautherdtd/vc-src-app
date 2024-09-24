@@ -25,10 +25,6 @@
                       class="header-menu_nav--link-mob">
                     <span>О нас</span>
                 </Link>
-                <Link :href="route('policy')"
-                      class="header-menu_nav--link-mob">
-                    <span>Политика конфиденциальности</span>
-                </Link>
             </div>
         </div>
     </div>
