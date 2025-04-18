@@ -39,6 +39,11 @@ class PaymentHandler
                     'type' => 'redirect',
                     'return_url' => route('index')
                 ],
+
+                'payment_method_data' => [
+                    'type' => 'bank_card',
+                    'type' => 'sbp'
+                ],
                 'capture' => true,
                 'description' => $data['description']
             ],

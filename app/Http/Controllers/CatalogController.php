@@ -60,7 +60,7 @@ class CatalogController extends Controller
      */
     public function preparePostcards(Request $request): PostcardsResource
     {
-        $postcards = Postcards::all();
+$postcards = Postcards::where('is_active', true)->get();
         return new PostcardsResource($postcards);
     }
 }

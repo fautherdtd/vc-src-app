@@ -11,7 +11,7 @@ use Orchid\Screen\Components\Cells\DateTimeSplit;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
-class OrderListLayout extends Table
+class OrderListNewLayout  extends Table
 {
     /**
      * Data source.
@@ -21,7 +21,7 @@ class OrderListLayout extends Table
      *
      * @var string
      */
-    protected $target = 'orders';
+    protected $target = 'ordersNew';
 
     /**
      * Get the table cells to be displayed.
@@ -64,12 +64,6 @@ class OrderListLayout extends Table
                 ->render(fn (Order $order) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
-Button::make(__('Принят в работу'))
-                            ->icon('bs.eye-fill')
-                            ->method('activeApproved', [
-                                'id' => $order->id,
-                                'status' => "processing"
-                            ]),
                         Link::make(__('Редактировать'))
                             ->route('platform.order.edit', $order->id)
                             ->icon('bs.pencil'),
@@ -77,4 +71,3 @@ Button::make(__('Принят в работу'))
         ];
     }
 }
-

@@ -53,14 +53,20 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('bs.image')
                 ->route('platform.banner.list'),
 
-            // Сервис
-            Menu::make(__('Заказы'))
+            // Заказы
+            Menu::make(__('Все'))
                 ->icon('bs.box')
                 ->route('platform.order.list')
-                ->title('Сервис'),
+                ->title('Заказы'),
+
+            Menu::make(__('Новые Заказы'))
+                ->icon('bs.box')
+                ->route('platform.order.list-new'),
+
             Menu::make(__('Клиенты'))
                 ->icon('bs.people')
-                ->route('platform.customer.list'),
+                ->route('platform.customer.list')
+ 		->title('Сервисы'),
             Menu::make(__('Методы оплаты'))
                 ->icon('bs.credit-card')
                 ->route('platform.payment.list'),

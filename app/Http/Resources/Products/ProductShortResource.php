@@ -18,7 +18,8 @@ class ProductShortResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'compound' => mb_strimwidth($this->compound, 0, 45, ".."),
-            'image' => $this->getUrl($this->attachment('preview')->first()),
+'image' => !is_null($this->attachment('preview')->first()) ?
+                $this->getUrl($this->attachment('preview')->first()) : '',
             'is_active' => $this->is_active,
             'is_deactivation' => $this->category->is_deactivation,
         ];

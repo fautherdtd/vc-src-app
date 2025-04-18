@@ -21,6 +21,7 @@ use App\Orchid\Screens\FAQ\FAQEditScreen;
 use App\Orchid\Screens\FAQ\FAQListScreen;
 use App\Orchid\Screens\Order\OrderEditScreen;
 use App\Orchid\Screens\Order\OrderListScreen;
+use App\Orchid\Screens\Order\OrderListNewScreen;
 use App\Orchid\Screens\Order\OrderShowScreen;
 use App\Orchid\Screens\Pages\PageEditScreen;
 use App\Orchid\Screens\Pages\PageListScreen;
@@ -149,6 +150,7 @@ Route::prefix('customer')->name('platform.customer.')->group(function () {
 // Customer
 Route::prefix('order')->name('platform.order.')->group(function () {
     Route::screen('list', OrderListScreen::class)->name('list');
+    Route::screen('list-new', OrderListNewScreen::class)->name('list-new');
     Route::screen('show/{order}', OrderShowScreen::class)->name('show');
     Route::screen('edit/{order}', OrderEditScreen::class)->name('edit');
 });

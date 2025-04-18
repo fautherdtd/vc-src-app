@@ -8,6 +8,7 @@ use App\Orchid\Layouts\Postcards\PostcardListLayout;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
+use Illuminate\Http\Request;
 
 class PostcardsListScreen extends Screen
 {
@@ -70,6 +71,18 @@ class PostcardsListScreen extends Screen
     {
         $postcards->delete();
         Alert::info('Открытка удалена.');
+        return redirect()->route('platform.postcard.list');
+    }
+
+/**
+     * @param Postcards $product
+     * @return RedirectResponse
+     */
+    public function activeChange(Request $request)
+    {
+        $product = Postcards::where('id', $request->input('id'))
+            ->update(['is_active' => !$request->input('is_active')]);
+        Alert::info('Активность изменена');
         return redirect()->route('platform.postcard.list');
     }
 }

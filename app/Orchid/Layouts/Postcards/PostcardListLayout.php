@@ -31,13 +31,24 @@ class PostcardListLayout extends Table
         return [
             TD::make('name', 'Название'),
             TD::make('description', 'Описание'),
+	   TD::make('is_active', 'Активность')
+                ->sort()
+                ->render(function (Postcards $postcard) {
+                    $text = $postcard->is_active ? "Да" : "Нет";
+                    return "<span> $text </span>";
+                }),
             TD::make(__('Действия'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(fn (Postcards $postcard) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
-
+Button::make(__('Активность'))
+                            ->icon('bs.eye-fill')
+                            ->method('activeChange', [
+                                'id' => $postcard->id,
+                                'is_active' => $postcard->is_active
+                            ]),
                         Link::make(__('Редактировать'))
                             ->route('platform.postcard.edit', $postcard->id)
                             ->icon('bs.pencil'),

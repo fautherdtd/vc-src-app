@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 use Orchid\Screen\AsSource;
+use Orchid\Filters\Filterable;
 
 class Order extends Model
 {
-    use AsSource;
+    use AsSource, Filterable;
     public $table = 'orders';
 
     public $fillable = [

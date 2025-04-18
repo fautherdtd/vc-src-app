@@ -39,11 +39,11 @@ class TelegramOrder implements ShouldQueue
         $slot = new TimeSlots();
         $message = view('docs.telegram', [
             'order' => $order,
-            'date' => Carbon::parse($order->delivery_time)->format('y-m-d'),
+            'date' => Carbon::parse($order->delivery_time)->translatedFormat('j F Y'),
             'slot' => $slot->slotTimeRange($order->delivery_time)
         ])->render();
         $this->sendInfoOrder($message);
-        $this->sendFile($order);
+	$this->sendFile($order);
     }
 
     /**
