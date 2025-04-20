@@ -91,6 +91,7 @@ class PosifloraService extends PosifloraClient
             ]);
         // Отправляем в телеграм
         $message = view('docs.telegram', [
+            'docNo' => $order['docNo'],
             'amount' => $order['amount'],
             'src' => 'https://valscvetovv.posiflora.com/admin/' . $order['links']['self'],
             'link' => $link
