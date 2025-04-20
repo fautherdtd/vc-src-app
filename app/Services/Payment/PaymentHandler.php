@@ -6,8 +6,11 @@ use App\Jobs\StorageIRL;
 use App\Jobs\TelegramOrder;
 use App\Models\Order;
 use App\Models\Transactions;
+use App\Services\Posiflora\PosifloraClient;
+use App\Services\Posiflora\PosifloraService;
 use App\Services\Smsc\Smsc;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 use YooKassa\Client;
 
 class PaymentHandler
@@ -59,27 +62,60 @@ class PaymentHandler
         return $result->confirmation->confirmation_url;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function webhookTransaction(Request $request)
     {
         if ($request->input('object.status') === 'succeeded') {
-            Order::where('number', (int) $request->input('object.description'))
-                ->update([
-                    'is_payment' => true
-                ]);
-            Transactions::where('uuid', $request->input('object.id'))
-                ->update([
-                    'payment_method' => $request->input('object.payment_method.type'),
-                ]);
-            $order = Order::where('number', (int) $request->input('object.description'))
-                ->first();
-            (new Smsc())->make([
-                'phone' => $order['buyer']['phone'],
-                'message' => "Заказ #". $request->input('object.description') ." оформлен. С уважением, Вальс цветов!",
-            ]);
-            TelegramOrder::dispatch($request->input('object.description'));
-            StorageIRL::dispatch($request->input('object.description'));
-            return response()->json();
+            if (!str_contains($request->input('object.description'), ':')) {
+                throw new InvalidArgumentException("Invalid format: no ':' found");
+            }
+
+            [$type, $id] = explode(':', $request->input('object.description'), 2);
+
+            if (!in_array($type, ['posiflora', 'website'])) {
+                throw new InvalidArgumentException("Unknown source type: $type");
+            }
+
+            if ($type == 'posiflora') {
+                $this->successForPosiflora($request);
+            }
+
+            if ($type == 'website') {
+                $this->successForWebSite($request, $id);
+            }
         }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function successForPosiflora(Request $request)
+    {
+        $client = new PosifloraClient();
+        $service = new PosifloraService($client);
+        $service->webhookTransactionSuccess($request);
+    }
+    protected function successForWebSite(Request $request, $id): \Illuminate\Http\JsonResponse
+    {
+        Order::where('number', (int) $id)
+            ->update([
+                'is_payment' => true
+            ]);
+        Transactions::where('uuid', $request->input('object.id'))
+            ->update([
+                'payment_method' => $request->input('object.payment_method.type'),
+            ]);
+        $order = Order::where('number', (int) $id)
+            ->first();
+        (new Smsc())->make([
+            'phone' => $order['buyer']['phone'],
+            'message' => "Заказ #". $id ." оформлен. С уважением, Вальс цветов!",
+        ]);
+        TelegramOrder::dispatch($id);
+        StorageIRL::dispatch($id);
+        return response()->json();
     }
 
     /**
