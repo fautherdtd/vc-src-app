@@ -72,7 +72,7 @@ class CartController extends Controller
             $transaction = new PaymentHandler();
             $result = $transaction->create([
                 'amount' => $data['order']['total_price'],
-                'description' => 'website:' . $data['order']['number'],
+                'description' => $data['order']['number'],
             ]);
             Cart::clear();
             return Inertia::location($result);
