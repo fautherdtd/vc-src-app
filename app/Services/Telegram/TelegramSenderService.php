@@ -47,7 +47,7 @@ class TelegramSenderService
     {
         $token = env('TELEGRAM_BOT_TOKEN');
         Http::post("https://api.telegram.org/bot{$token}/editMessageText", [
-            'chat_id' => env('TELEGRAM_CHAT_ID'),
+            'chat_id' => -4785307407,
             'message_id' => $order->telegram_message_id,
             'text' => "✅ Заказ #{$order->doc_no} успешно оплачен.\n💵 Сумма: {$order->amount} ₽",
         ]);
