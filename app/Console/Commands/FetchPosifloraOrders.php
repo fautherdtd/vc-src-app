@@ -38,6 +38,7 @@ class FetchPosifloraOrders extends Command
             $telegramService = app(TelegramSenderService::class);
 
             foreach ($data as $orderData) {
+                $this->info($data['amount']);
                 $order = $orderService->storeIfNotExists($orderData);
 
                 if ($order->wasRecentlyCreated) {

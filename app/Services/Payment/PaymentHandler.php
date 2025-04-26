@@ -95,7 +95,7 @@ class PaymentHandler
      */
     protected function successForPosiflora(string $id)
     {
-        $order = PosifloraOrder::where('external_id', $id)->first();
+        $order = PosifloraOrder::where('external_uid', $id)->first();
         $telegram = new TelegramSenderService();
 
         if (!$order) {
