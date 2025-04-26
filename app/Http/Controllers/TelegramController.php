@@ -33,7 +33,7 @@ class TelegramController extends Controller
             ]);
 
             // Новый текст: добавляем ссылку, сохраняем кнопку
-            $newText = "🛒 Заказ #{$order->external_uid}\n" .
+            $newText = "🛒 Заказ #{$order->docNo}\n" .
                 "💵 Сумма: {$order->amount} ₽\n\n" .
                 "🔗 Ссылка для оплаты:\n{$paymentUrl}";
 
