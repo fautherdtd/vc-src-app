@@ -50,7 +50,7 @@ class PaymentHandler
                     'type' => 'sbp'
                 ],
                 'capture' => true,
-                'description' => 'website'.$data['description']
+                'description' => 'website:'.$data['description']
             ],
             uniqid('', true)
         );
