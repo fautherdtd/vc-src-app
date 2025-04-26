@@ -9,10 +9,11 @@ class PosifloraOrder extends Model
     protected $table = 'posiflora_orders';
 
     protected $fillable = [
-        'uid',
+        'external_uid',
         'docNo',
         'amount',
-        'payment',
         'status',
+        'payment_url',
+        'telegram_message_id',
     ];
 }

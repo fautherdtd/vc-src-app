@@ -5,10 +5,12 @@ namespace App\Services\Payment;
 use App\Jobs\StorageIRL;
 use App\Jobs\TelegramOrder;
 use App\Models\Order;
+use App\Models\PosifloraOrder;
 use App\Models\Transactions;
 use App\Services\Posiflora\PosifloraClient;
 use App\Services\Posiflora\PosifloraService;
 use App\Services\Smsc\Smsc;
+use App\Services\Telegram\TelegramSenderService;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use YooKassa\Client;
@@ -79,7 +81,7 @@ class PaymentHandler
             }
 
             if ($type == 'posiflora') {
-                $this->successForPosiflora($request);
+                $this->successForPosiflora($id);
             }
 
             if ($type == 'website') {
@@ -91,11 +93,20 @@ class PaymentHandler
     /**
      * @throws \Exception
      */
-    protected function successForPosiflora(Request $request)
+    protected function successForPosiflora(string $id)
     {
-        $client = new PosifloraClient();
-        $service = new PosifloraService($client);
-        $service->webhookTransactionSuccess($request);
+        $order = PosifloraOrder::where('external_id', $id)->first();
+        $telegram = new TelegramSenderService();
+
+        if (!$order) {
+            throw new \Exception("Order not found for external_id: {$id}");
+        }
+
+        $order->update([
+            'status' => 'paid',
+        ]);
+
+        $telegram->updateOrder($order);
     }
     protected function successForWebSite(Request $request, $id): \Illuminate\Http\JsonResponse
     {

@@ -23,9 +23,18 @@ class PosifloraService extends PosifloraClient
      */
     public function getOrderList(): array
     {
-        $query = http_build_query(['filter' => [
-            'statuses' => 'new'
-        ]]);
+        $query = http_build_query([
+            'page' => [
+                'size' => 10,
+                'number' => 1,
+            ],
+            'filter' => [
+                'stores' => '3275ea5b-8911-4e26-8358-63b6b6706a77',
+                'paymentMethods' => '05ca57ae-05fa-472d-ac77-6c605c31d88f',
+                'statuses' => 'new,notAccepted',
+            ],
+            'include' => 'source,store,store.timezone,customer,postedBy,createdBy,lockedBy,payments,payments.method,discounts,courier,florist'
+        ]);
         $endpoint = "orders?$query";
         return $this->client->getSomeProtectedResource($endpoint);
     }

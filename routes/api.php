@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Categories;
 use App\Http\Controllers\Products;
+use App\Http\Controllers\TelegramController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('yookassa')
     ->post('webhook', [\App\Services\Payment\PaymentHandler::class, 'webhookTransaction']);
+
+Route::post('/telegram/callback', [TelegramController::class, 'handleCallback']);

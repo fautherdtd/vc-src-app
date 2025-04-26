@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('posiflora_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('uid');
+            $table->string('external_uid')->unique();
             $table->string('docNo');
-            $table->bigInteger('amount');
-            $table->string('payment')->nullable(false);
-            $table->string('status')->default('new');
+            $table->decimal('amount', 10, 2);
+            $table->string('status')->default('new'); // new, awaiting_payment, paid
+            $table->string('payment_url')->nullable();
+            $table->string('telegram_message_id')->nullable();
             $table->timestamps();
         });
     }

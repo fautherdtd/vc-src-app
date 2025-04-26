@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\PosifloraOrder;
+use App\Services\Posiflora\PosifloraOrderService;
+use App\Services\Telegram\TelegramSenderService;
 use Illuminate\Console\Command;
 use App\Services\Posiflora\PosifloraClient;
 use App\Services\Posiflora\PosifloraService;
@@ -26,20 +28,21 @@ class FetchPosifloraOrders extends Command
 
             $data = collect($orders['data'])->map(function ($order) {
                 return [
-                    'uid' => $order['id'],
+                    'external_uid' => $order['id'],
                     'docNo' => $order['attributes']['docNo'],
                     'amount' => $order['attributes']['totalAmount'],
                 ];
-            })->toArray();
-
-
-            $uids = $data->pluck('uid')->all();
-            $existingUids = PosifloraOrder::whereIn('uid', $uids)->pluck('uid')->all();
-            $newRecords = $data->reject(function ($item) use ($existingUids) {
-                return in_array($item['uid'], $existingUids);
             });
-            if ($newRecords->isNotEmpty()) {
-                PosifloraOrder::insert($newRecords->toArray());
+
+            $orderService = app(PosifloraOrderService::class);
+            $telegramService = app(TelegramSenderService::class);
+
+            foreach ($data as $orderData) {
+                $order = $orderService->storeIfNotExists($orderData);
+
+                if ($order->wasRecentlyCreated) {
+                    $telegramService->sendOrder($order);
+                }
             }
 
         } catch (\Exception $e) {
