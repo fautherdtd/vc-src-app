@@ -70,8 +70,9 @@ class PaymentHandler
     public function webhookTransaction(Request $request)
     {
         if ($request->input('object.status') === 'succeeded') {
-            if (!str_contains($request->input('object.description'), ':')) {
-                throw new InvalidArgumentException("Invalid format: no ':' found");
+            if (empty($request->input('object.description')) || !str_contains($request->input('object.description'), ':')) {
+                logger()->error('Webhook error: invalid description', $request->input('object.description'));
+                return response()->json(['ok' => true]);
             }
 
             [$type, $id] = explode(':', $request->input('object.description'), 2);
