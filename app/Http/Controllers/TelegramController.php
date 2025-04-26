@@ -21,8 +21,7 @@ class TelegramController extends Controller
 
         try {
             $data = $callbackQuery['data'];
-            $orderId = Crypt::decryptString($data);
-
+            $orderId = (int) $data; // Просто приводим к integer
             $order = PosifloraOrder::findOrFail($orderId);
 
             // Генерация ссылки на оплату

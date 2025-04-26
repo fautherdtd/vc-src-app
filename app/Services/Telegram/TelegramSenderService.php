@@ -13,7 +13,7 @@ class TelegramSenderService
         $token = env('TELEGRAM_BOT_TOKEN');
         $chatId = -4785307407;
 
-        $callbackData = Crypt::encryptString($order->id);
+        $callbackData = (string) $order->id;
 
         $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
             'chat_id' => $chatId,
