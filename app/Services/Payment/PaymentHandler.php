@@ -125,7 +125,7 @@ class PaymentHandler
             'phone' => $order['buyer']['phone'],
             'message' => "Заказ #". $id ." оформлен. С уважением, Вальс цветов!",
         ]);
-//        TelegramOrder::dispatch($id);
+        TelegramOrder::dispatch($id);
         StorageIRL::dispatch($id);
         return response()->json();
     }
