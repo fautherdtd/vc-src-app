@@ -63,29 +63,22 @@ class PosifloraService extends PosifloraClient
     }
 
     /**
-     * @param string $id
-     * @param int $amount
+     * @param string $orderId
+     * @return array|null
+     * @throws \Exception
      */
-    public function createPaymentForOrder(string $id, int $amount)
+    public function getOrderById(string $orderId): ?array
     {
-        $client = new PaymentHandler();
-        $result = $client->client->createPayment([
-            'amount' => [
-                'value' => $amount,
-                'currency' => 'RUB',
-            ],
-            'confirmation' => [
-                'type' => 'redirect',
-                'return_url' => route('index')
-            ],
-            'payment_method_data' => [
-                'type' => 'bank_card',
-                'type' => 'sbp'
-            ],
-            'capture' => true,
-            'description' => 'posiflora:'.$id
-        ], uniqid('', true));
+        $endpoint = "orders/{$orderId}";
 
-        return $result->confirmation->confirmation_url;
+        $response = $this->client->getSomeProtectedResource($endpoint);
+
+        if (isset($response['data']['attributes'])) {
+            return $response['data']['attributes'];
+        }
+
+        return null;
     }
+
+
 }

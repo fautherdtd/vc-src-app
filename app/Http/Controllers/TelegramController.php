@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PosifloraOrder;
 use App\Services\Payment\PaymentHandler;
+use App\Services\Posiflora\PosifloraClient;
+use App\Services\Posiflora\PosifloraService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
@@ -23,6 +25,18 @@ class TelegramController extends Controller
             $data = $callbackQuery['data'];
             $orderId = (int) $data; // Просто приводим к integer
             $order = PosifloraOrder::findOrFail($orderId);
+
+            // 1. Получаем актуальные данные заказа из Posiflora
+            $posifloraService = new PosifloraService(new PosifloraClient());
+            $attributes = $posifloraService->getOrderById($order->external_uid);
+
+            if ($attributes) {
+                // 2. Обновляем сумму в нашей базе
+                $order->update([
+                    'amount' => $attributes['totalAmount'],
+                ]);
+            }
+
 
             // Генерация ссылки на оплату
             $paymentUrl = $this->generatePaymentUrl($order);

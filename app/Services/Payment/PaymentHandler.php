@@ -96,6 +96,9 @@ class PaymentHandler
      */
     protected function successForPosiflora(string $id)
     {
+        $posiflora = new PosifloraService(
+            new PosifloraClient()
+        );
         $order = PosifloraOrder::where('external_uid', $id)->first();
         $telegram = new TelegramSenderService();
 
@@ -108,6 +111,7 @@ class PaymentHandler
         ]);
 
         $telegram->updateOrder($order);
+        $posiflora->updateOrderStatus($id, 'assembled');
     }
     protected function successForWebSite(Request $request, $id): \Illuminate\Http\JsonResponse
     {
