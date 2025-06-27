@@ -53,11 +53,7 @@ class YandexFeedYaml extends Command
             $offer->addChild('description', $product->description);
             // Наличие
             $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
-
-            if (!empty($product['Цена'])) {
-                $offer->addChild('price', $product->price);
-            }
-
+            $offer->addChild('price', $product->price);
             $offer->addChild('param', $product->qty)->addAttribute('name', 'Количество');
             $offer->addChild('param', 'грамм')->addAttribute('name', 'Единицы измерения');
 
