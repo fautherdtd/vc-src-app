@@ -73,9 +73,14 @@ class YandexFeedYaml extends Command
 
         // Сохраняем файл
         $xmlString = $yml->asXML();
-        Storage::put('public/storage/yandex/yml_feed.xml', $xmlString);
+        if (!Storage::exists('yandex')) {
+            Storage::makeDirectory('yandex');
+        }
 
-        $this->info('YML-файл успешно сгенерирован: storage/app/public/yml_feed.xml');
+        Storage::put('yandex/yml_feed.xml', $xmlString);
+        $publicUrl = rtrim(env('APP_URL'), '/') . '/storage/yandex/yml_feed.xml';
+        $this->info("✅ YML файл успешно создан!");
+        $this->info("🔗 Прямая ссылка: $publicUrl");
     }
 
 }
