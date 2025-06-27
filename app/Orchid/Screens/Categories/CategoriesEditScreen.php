@@ -91,6 +91,7 @@ class CategoriesEditScreen extends Screen
                         ->title('Наименование'),
 
                     CheckBox::make('category.is_visible')
+                        ->sendTrueOrFalse()
                         ->placeholder('Включить категорию')
                         ->title('Активность'),
                     CheckBox::make('category.is_deactivation')
