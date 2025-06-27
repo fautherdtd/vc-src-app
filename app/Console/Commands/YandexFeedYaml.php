@@ -49,7 +49,7 @@ class YandexFeedYaml extends Command
             $offer->addChild('name', $product->name);
             $offer->addChild('categoryId', $product->category->id);
             $offer->addChild('picture', $this->getUrl($product->attachment('preview')->first()));
-            $offer->addChild('url', 'https://valscvetov.ru/product/' . $products->slug);
+            $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
 
             // CDATA описание
             $desc = $offer->addChild('description');
