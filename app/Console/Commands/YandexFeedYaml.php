@@ -33,7 +33,7 @@ class YandexFeedYaml extends Command
         // Категории
         $categoriesXml = $shop->addChild('categories');
         foreach (Category::all() as $category) {
-            if ($category->is_visible || !$category->is_deactivation) {
+            if ($category->is_visible && !$category->is_deactivation) {
                 $categoryXml = $categoriesXml->addChild('category', $category->name);
                 $categoryXml->addAttribute('id', $category->id);
             }
@@ -45,7 +45,7 @@ class YandexFeedYaml extends Command
         $products = Product::all();
 
         foreach ($products as $product) {
-            if ($product->is_active || !$product->category->is_deactivation) {
+            if ($product->is_active && !$product->category->is_deactivation) {
                 $offer = $offersXml->addChild('offer');
                 $offer->addAttribute('id', $product->id);
 
