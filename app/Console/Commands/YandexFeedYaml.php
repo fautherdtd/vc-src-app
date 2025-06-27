@@ -33,8 +33,10 @@ class YandexFeedYaml extends Command
         // Категории
         $categoriesXml = $shop->addChild('categories');
         foreach (Category::all() as $category) {
-            $categoryXml = $categoriesXml->addChild('category', $category->name);
-            $categoryXml->addAttribute('id', $category->id);
+            if ($category->is_visible || !$category->is_deactivation) {
+                $categoryXml = $categoriesXml->addChild('category', $category->name);
+                $categoryXml->addAttribute('id', $category->id);
+            }
         }
 
         // Офферы (товары)
@@ -43,21 +45,22 @@ class YandexFeedYaml extends Command
         $products = Product::all();
 
         foreach ($products as $product) {
-            $offer = $offersXml->addChild('offer');
-            $offer->addAttribute('id', $product->id);
+            if ($product->is_active || !$product->category->is_deactivation) {
+                $offer = $offersXml->addChild('offer');
+                $offer->addAttribute('id', $product->id);
 
-            $offer->addChild('name', $product->name);
-            $offer->addChild('categoryId', $product->category->id);
-            $offer->addChild('picture', $this->getUrl($product->attachment('preview')->first()));
-            $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
-            $offer->addChild('description', $product->description);
-            $offer->addChild('currencyId', 'RUB');
-            // Наличие
-            $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
-            $offer->addChild('price', $product->price);
-            $offer->addChild('param', $product->qty)->addAttribute('name', 'Количество');
-            $offer->addChild('param', 'грамм')->addAttribute('name', 'Единицы измерения');
-
+                $offer->addChild('name', $product->name);
+                $offer->addChild('categoryId', $product->category->id);
+                $offer->addChild('picture', $this->getUrl($product->attachment('preview')->first()));
+                $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
+                $offer->addChild('description', $product->description);
+                $offer->addChild('currencyId', 'RUB');
+                // Наличие
+                $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
+                $offer->addChild('price', $product->price);
+                $offer->addChild('param', $product->qty)->addAttribute('name', 'Количество');
+                $offer->addChild('param', 'грамм')->addAttribute('name', 'Единицы измерения');
+            }
         }
 
         // Сохраняем файл
@@ -68,8 +71,7 @@ class YandexFeedYaml extends Command
 
         Storage::put('yandex/yml_feed.xml', $xmlString);
         $publicUrl = rtrim(env('APP_URL'), '/') . '/storage/yandex/yml_feed.xml';
-        $this->info("✅ YML файл успешно создан!");
-        $this->info("🔗 Прямая ссылка: $publicUrl");
+        $this->info("YML файл успешно создан! Прямая ссылка: $publicUrl");
     }
 
 }
