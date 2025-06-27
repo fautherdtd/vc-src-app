@@ -50,15 +50,7 @@ class YandexFeedYaml extends Command
             $offer->addChild('categoryId', $product->category->id);
             $offer->addChild('picture', $this->getUrl($product->attachment('preview')->first()));
             $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
-
-            // CDATA описание
-            $desc = $offer->addChild('description');
-            $descDom = dom_import_simplexml($desc);
-            $owner = $descDom->ownerDocument;
-            $descDom->appendChild(
-                $owner->createCDATASection("<p>{$product->description}")
-            );
-
+            $offer->addChild('description', $product->description);
             // Наличие
             $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
 
