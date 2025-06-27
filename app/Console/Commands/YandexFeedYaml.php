@@ -74,7 +74,7 @@ class YandexFeedYaml extends Command
                 $offer->addChild('name', $postcard->name);
                 $offer->addChild('categoryId', $postcard->category->id);
                 $offer->addChild('description', $postcard->description);
-                $offer->addChild('picture', $this->getUrl($postcard->attachment('postcard')->first()));
+                $offer->addChild('picture', $this->imagePostCard($postcard));
                 $offer->addChild('currencyId', 'RUB');
                 // Наличие
                 $offer->addChild('available', $postcard->is_active === 'да' ? 'true' : 'false');
@@ -95,4 +95,13 @@ class YandexFeedYaml extends Command
         $this->info("YML файл успешно создан! Прямая ссылка: $publicUrl");
     }
 
+
+    protected function imagePostCard(Postcards $postcards): string
+    {
+        foreach ($postcards->attachment('postcards')->get() as $value) {
+            return $this->getUrl($value);
+        }
+        return "";
+    }
 }
+
