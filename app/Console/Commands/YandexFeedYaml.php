@@ -51,6 +51,7 @@ class YandexFeedYaml extends Command
             $offer->addChild('picture', $this->getUrl($product->attachment('preview')->first()));
             $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
             $offer->addChild('description', $product->description);
+            $offer->addChild('currencyId', 'RUB');
             // Наличие
             $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
             $offer->addChild('price', $product->price);
