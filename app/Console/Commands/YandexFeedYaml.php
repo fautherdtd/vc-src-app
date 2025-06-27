@@ -45,7 +45,7 @@ class YandexFeedYaml extends Command
         $products = Product::all();
 
         foreach ($products as $product) {
-            if ($product->is_active && !$product->category->is_deactivation) {
+            if ($product->is_active && !$product->category->is_deactivation && $product->category->is_visible) {
                 $offer = $offersXml->addChild('offer');
                 $offer->addAttribute('id', $product->id);
 
