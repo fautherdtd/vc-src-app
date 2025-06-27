@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Controllers\Helpers\Images;
 use App\Models\Category;
+use App\Models\Postcards;
 use App\Models\Product;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -59,6 +60,26 @@ class YandexFeedYaml extends Command
                 $offer->addChild('available', $product->is_active === 'да' ? 'true' : 'false');
                 $offer->addChild('price', $product->price);
                 $offer->addChild('param', $product->qty)->addAttribute('name', 'Количество');
+                $offer->addChild('param', 'грамм')->addAttribute('name', 'Единицы измерения');
+            }
+        }
+
+        $postcards = Postcards::all();
+
+        foreach ($postcards as $postcard) {
+            if ($postcard->is_active) {
+                $offer = $offersXml->addChild('offer');
+                $offer->addAttribute('id', $postcard->id);
+
+                $offer->addChild('name', $postcard->name);
+                $offer->addChild('categoryId', $postcard->category->id);
+                $offer->addChild('description', $postcard->description);
+                $offer->addChild('picture', $this->getUrl($postcard->attachment('preview')->first()));
+                $offer->addChild('currencyId', 'RUB');
+                // Наличие
+                $offer->addChild('available', $postcard->is_active === 'да' ? 'true' : 'false');
+                $offer->addChild('price', $postcard->price);
+                $offer->addChild('param', 1000)->addAttribute('name', 'Количество');
                 $offer->addChild('param', 'грамм')->addAttribute('name', 'Единицы измерения');
             }
         }

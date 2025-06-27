@@ -14,7 +14,8 @@ class Postcards extends Model
         'name',
         'description',
         'price',
-        'category_id'
+        'category_id',
+        'is_active'
     ];
 
     /**
