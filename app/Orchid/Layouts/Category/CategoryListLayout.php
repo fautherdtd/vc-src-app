@@ -40,6 +40,8 @@ class CategoryListLayout extends Table
             TD::make('slug', 'Slug'),
             TD::make('is_visible', 'Включен')
                 ->render(fn (Category $category) => $category->is_visible ? 'Да' : 'Нет'),
+            TD::make('is_deactivation', 'Деактивирован')
+                ->render(fn (Category $category) => $category->is_deactivation ? 'Да' : 'Нет'),
             TD::make('created_at', 'Создан')
                 ->usingComponent(DateTimeSplit::class),
             TD::make(__('Действия'))
