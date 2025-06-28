@@ -27,7 +27,7 @@ class YandexFeedYaml extends Command
         $shop->addChild('company', 'Вальс Цветов');
         $shop->addChild('url', 'https://valscvetov.ru/');
         $shop->addChild('platform', 'website');
-        $shop->addChild('version', '1.0');
+        $shop->addChild('version', rand(1.0, 100.00));
         $shop->addChild('agency', 'Магазин цветов');
         $shop->addChild('email', 'vals.cvetov.derbent@gmail.com');
 
@@ -69,13 +69,14 @@ class YandexFeedYaml extends Command
         foreach ($postcards as $postcard) {
             if ($postcard->is_active) {
                 $offer = $offersXml->addChild('offer');
-                $offer->addAttribute('id', $postcard->id);
+                $offer->addAttribute('postcard-id', $postcard->id);
 
                 $offer->addChild('name', $postcard->name);
                 $offer->addChild('categoryId', $postcard->category->id);
                 $offer->addChild('description', $postcard->description);
                 $offer->addChild('picture', $this->imagePostCard($postcard));
                 $offer->addChild('currencyId', 'RUB');
+                $offer->addChild('url', 'https://valscvetov.ru/product/' . $product->slug);
                 // Наличие
                 $offer->addChild('available', $postcard->is_active === 'да' ? 'true' : 'false');
                 $offer->addChild('price', $postcard->price);
