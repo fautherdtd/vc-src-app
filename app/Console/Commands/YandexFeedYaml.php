@@ -70,7 +70,7 @@ class YandexFeedYaml extends Command
         foreach ($postcards as $postcard) {
             if ($postcard->is_active) {
                 $offer = $offersXml->addChild('offer');
-                $offer->addAttribute('id', $postcard->id + $postcard->name);
+                $offer->addAttribute('id', $postcard->id . $postcard->name);
 
                 $offer->addChild('name', $postcard->name);
                 $offer->addChild('categoryId', $postcard->category->id);
