@@ -66,7 +66,7 @@ class YandexFeedYaml extends Command
 
         $postcards = Postcards::all();
 
-        $ids = 0;
+        $ids = 91837;
         foreach ($postcards as $postcard) {
             if ($postcard->is_active) {
                 $offer = $offersXml->addChild('offer');
