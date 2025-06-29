@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\FetchPosifloraOrders::class,
         \App\Console\Commands\YandexFeedYaml::class,
+        \App\Console\Commands\TwoGisFeedYaml::class,
     ];
     /**
      * Define the application's command schedule.
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('posiflora:orders')->everyMinute();
         $schedule->command('yandex:feed')->everyThirtyMinutes();
+        $schedule->command('2gis:feed')->everyThirtyMinutes();
     }
 
     /**
