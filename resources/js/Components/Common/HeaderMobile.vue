@@ -39,7 +39,7 @@
         </div>
         <div class="header-mobile_logo">
             <Link :href="route('index')">
-                <img src="https://valscvetov.ru/logo_min.svg" width="95" height="95" alt="">
+                <img src="https://valscvetov.ru/logo_min.svg" width="85" height="85" alt="">
             </Link>
         </div>
         <div class="header-mobile_btn">
