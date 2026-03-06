@@ -47,7 +47,7 @@ class PaymentHandler
 
                 'payment_method_data' => [
                     'type' => 'bank_card',
-                    'type' => 'sbp'
+                    // 'type' => 'sbp'
                 ],
                 'capture' => true,
                 'description' => 'website:'.$data['description']
