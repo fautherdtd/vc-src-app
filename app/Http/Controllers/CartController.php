@@ -75,6 +75,7 @@ class CartController extends Controller
                 'description' => $data['order']['number'],
                 'products' => $data['products'],
                 'phone' => $data['order']['buyer']['phone'],
+                'shipping_price' => $data['order']['shipping_price'],
             ]);
             Cart::clear();
             return Inertia::location($result);

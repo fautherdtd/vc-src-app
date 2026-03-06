@@ -51,10 +51,24 @@ class PaymentHandler
             ];
         }
 
+        if (!empty($data['shipping_price']) && (float) $data['shipping_price'] > 0) {
+            $items[] = [
+                'description' => 'Доставка',
+                'amount' => [
+                    'value' => number_format((float) $data['shipping_price'], 2, '.', ''),
+                    'currency' => 'RUB',
+                ],
+                'vat_code' => 1,
+                'quantity' => 1,
+                'payment_subject' => 'service',
+                'payment_mode' => 'full_payment',
+            ];
+        }
+
         $result = $this->client->createPayment(
             [
                 'amount' => [
-                    'value' => $data['amount'],
+                    'value' => number_format((float) $data['amount'], 2, '.', ''),
                     'currency' => 'RUB',
                 ],
                 'confirmation' => [
