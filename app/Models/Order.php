@@ -31,7 +31,8 @@ class Order extends Model
         'payment_method',
         'notes',
         'anonymous',
-        'address_sub'
+        'address_sub',
+        'delivery_time_slot'
     ];
     public $casts = [
         'anonymous' => 'bool',

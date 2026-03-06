@@ -36,13 +36,14 @@ defineProps({
         <meta name="description" :content="description ?? 'Доставка цветов в г. Дербент'">
     </Head>
     <container/>
-    <div class="wrapper">
-        <Header/>
-        <main>
-            <slot />
-        </main>
+    <div class="page">
+        <div class="wrapper">
+            <Header/>
+            <main>
+                <slot />
+            </main>
+        </div>
+        <notifications position="bottom right"/>
+        <Footer/>
     </div>
-    <notifications position="bottom right"/>
-
-    <Footer/>
 </template>
