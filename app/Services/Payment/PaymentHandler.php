@@ -36,6 +36,21 @@ class PaymentHandler
      */
     public function create($data)
     {
+        $items = [];
+        foreach ($data['products'] as $product) {
+            $items[] = [
+                'description' => mb_substr($product['name'], 0, 128),
+                'amount' => [
+                    'value' => number_format($product['price'], 2, '.', ''),
+                    'currency' => 'RUB',
+                ],
+                'vat_code' => 1,
+                'quantity' => $product['quantity'],
+                'payment_subject' => 'commodity',
+                'payment_mode' => 'full_payment',
+            ];
+        }
+
         $result = $this->client->createPayment(
             [
                 'amount' => [
@@ -52,7 +67,13 @@ class PaymentHandler
                     'type' => 'sbp'
                 ],
                 'capture' => true,
-                'description' => 'website:'.$data['description']
+                'description' => 'website:'.$data['description'],
+                'receipt' => [
+                    'customer' => [
+                        'phone' => $data['phone'],
+                    ],
+                    'items' => $items,
+                ],
             ],
             uniqid('', true)
         );

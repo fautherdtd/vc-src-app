@@ -73,6 +73,8 @@ class CartController extends Controller
             $result = $transaction->create([
                 'amount' => $data['order']['total_price'],
                 'description' => $data['order']['number'],
+                'products' => $data['products'],
+                'phone' => $data['order']['buyer']['phone'],
             ]);
             Cart::clear();
             return Inertia::location($result);
