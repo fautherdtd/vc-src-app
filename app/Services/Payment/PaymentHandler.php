@@ -21,10 +21,12 @@ class PaymentHandler
 
     public function __construct()
     {
+            //         '1239131',
+            // 'live_-730SKS2I3zid5Xm7gn69kzy2u1TgHnt60XAJ6XmY_Y'
         $this->client = new Client();
         $this->client->setAuth(
-            '1239131',
-            'live_-730SKS2I3zid5Xm7gn69kzy2u1TgHnt60XAJ6XmY_Y'
+            '261889',
+            'live_dN4MtZ1lsgisJx2VuG0FEqVoLjuQn6tW_o3ZFVqXsCY'
         );
     }
 
@@ -47,7 +49,7 @@ class PaymentHandler
 
                 'payment_method_data' => [
                     'type' => 'bank_card',
-                    // 'type' => 'sbp'
+                    'type' => 'sbp'
                 ],
                 'capture' => true,
                 'description' => 'website:'.$data['description']
