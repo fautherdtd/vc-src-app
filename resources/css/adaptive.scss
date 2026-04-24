@@ -244,28 +244,44 @@
         width: 100%;
         flex-direction: column;
 
+        &_slide {
+            width: 100%;
+        }
+
         &_slide--item {
-            width: 470px;
-            height: 470px;
+            width: 100%;
+            height: 350px;
 
             &-text a {
-                font-size: 34px;
+                font-size: 28px;
             }
             &:after {
-                width: 470px;
-                height: 470px;
+                width: 100%;
+                height: 100%;
             }
         }
 
         &_text {
             width: 100%;
             &--title {
-                font-size: 56px;
+                font-size: 40px;
                 font-weight: 500;
 
                 &-sub {
                     margin-left: 25px;
                 }
+            }
+        }
+    }
+    .popular-items_head {
+        flex-direction: column;
+        align-items: start;
+
+        &--title {
+            margin-bottom: 10px;
+            font-size: 28px;
+            h1 {
+                line-height: 10px;
             }
         }
     }
