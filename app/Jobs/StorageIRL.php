@@ -30,7 +30,7 @@ class StorageIRL implements ShouldQueue
      */
     public function handle(): void
     {
-        $order = Order::where('number', $this->numberID)->first();
+        $order = Order::where('number', $this->numberID)->latest('id')->first();
         foreach ($order->items as $item) {
             if ($item['type'] === 'Product') {
                 DB::table('products')

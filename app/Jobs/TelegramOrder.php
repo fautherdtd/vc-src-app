@@ -34,7 +34,7 @@ class TelegramOrder implements ShouldQueue
      */
     public function handle(): void
     {
-        $order = Order::where('number', $this->numberID)->first();
+        $order = Order::where('number', $this->numberID)->latest('id')->first();
         $message = view('docs.telegram', [
             'order' => $order,
             'date' => Carbon::parse($order->delivery_time)->translatedFormat('j F Y'),

@@ -152,16 +152,16 @@ class PaymentHandler
     }
     protected function successForWebSite(Request $request, $id): \Illuminate\Http\JsonResponse
     {
-        Order::where('number', (int) $id)
-            ->update([
-                'is_payment' => true
-            ]);
+        $order = Order::where('number', (int) $id)
+            ->latest('id')
+            ->first();
+        $order->update([
+            'is_payment' => true
+        ]);
         Transactions::where('uuid', $request->input('object.id'))
             ->update([
                 'payment_method' => $request->input('object.payment_method.type'),
             ]);
-        $order = Order::where('number', (int) $id)
-            ->first();
         (new Smsc())->make([
             'phone' => $order['buyer']['phone'],
             'message' => "Заказ #". $id ." оформлен. С уважением, Вальс цветов!",

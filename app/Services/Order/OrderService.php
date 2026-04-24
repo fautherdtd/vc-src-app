@@ -51,7 +51,7 @@ class OrderService
         $startTime = explode('-', $timeSlot)[0];
         return [
             'order' => [
-                'number' => substr(Carbon::now()->unix(), 0, 3) . random_int(0, 999),
+                'number' => Carbon::now()->unix() . random_int(100, 999),
                 'total_price' =>
                     (int) $request->input('total') === 0 ? Cart::total() : $request->input('total'),
                 'delivery_time' => $request->input('timeDelivery.date') . ' ' . $startTime,
