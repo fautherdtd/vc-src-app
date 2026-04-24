@@ -3,11 +3,16 @@
     top: 0;
     left: 0;
     position: fixed;
-    padding: 5px 25px;
+    padding: 5px 20px;
     box-sizing: border-box;
     display: none;
     justify-content: space-between;
     align-items: center;
+
+    &_logo img {
+        width: 48px;
+        height: 48px;
+    }
     background-image: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%);
     background-position: bottom;
     background-size: 3px 0.6px;
@@ -37,7 +42,7 @@
     display: none;
     flex-direction: column;
     left: 0;
-    top: 82px;
+    top: 60px;
     background-image: linear-gradient(to right, black 33%, rgba(255, 255, 255, 0) 0%);
     background-position: bottom;
     background-size: 5px 0.6px;
@@ -200,7 +205,7 @@
     }
     .wrapper {
         width: 100%;
-        padding: 100px 25px 0 25px;
+        padding: 70px 25px 0 25px;
         box-sizing: border-box;
     }
     .product-detail {
@@ -228,11 +233,12 @@
         gap: 35px 70px;
     }
     .product-item {
-        width: 260px;
+        width: 100%;
     }
     .popular-items_content {
         flex-wrap: wrap;
         gap: 35px 70px;
+        justify-content: flex-start;
     }
     .main-container {
         width: 100%;

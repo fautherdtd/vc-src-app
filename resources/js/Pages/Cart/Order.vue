@@ -27,9 +27,9 @@
                             <div class="order-form_block--child--content--sublink">
                                 <p>
                                     Заказ можно забрать по адресу:
-                                    <a href="https://yandex.ru/profile/-/CDeQv0IX" target="_blank">
+                                    <a href="https://yandex.ru/maps/-/CPG5vTlF" target="_blank">
                                         <ion-icon name="location-outline"></ion-icon>
-                                        г. Дербент, ул. Кобякова, 12
+                                        г. Дербент, ул. Кобякова, 3/5
                                     </a>
                                 </p>
                             </div>
